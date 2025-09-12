@@ -1,0 +1,276 @@
+// Importação principal dos estilos SCSS
+@import './variables';
+@import './mixins';
+@import './base';
+@import './components';
+
+// Estilos específicos para a aplicação Pokémon
+
+// Pokemon type colors helper
+@each $type, $color in $pokemon-types {
+  .pokemon-type--#{$type} {
+    background-color: $color;
+    color: white;
+  }
+}
+
+// Layout específico da aplicação
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: $z-index-sticky;
+  background: white;
+  box-shadow: $shadow-sm;
+}
+
+.app-sidebar {
+  width: 240px;
+  height: calc(100vh - 64px);
+  position: fixed;
+  left: 0;
+  top: 64px;
+  background: white;
+  box-shadow: $shadow-sm;
+  transform: translateX(-100%);
+  transition: transform $transition-normal;
+  z-index: $z-index-fixed;
+  
+  &--open {
+    transform: translateX(0);
+  }
+  
+  @include respond-to(md) {
+    position: relative;
+    transform: translateX(0);
+    top: 0;
+    height: auto;
+  }
+}
+
+.app-main {
+  flex: 1;
+  padding: $spacing-xl;
+  margin-left: 0;
+  transition: margin-left $transition-normal;
+  
+  @include respond-to(md) {
+    margin-left: 240px;
+  }
+}
+
+// Pokemon list specific styles
+.pokemon-list {
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: $spacing-xl;
+    
+    @include respond-to(sm) {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+  }
+  
+  &__empty {
+    text-align: center;
+    padding: $spacing-2xl;
+    color: #64748b;
+  }
+  
+  &__loading {
+    @include flex-center;
+    padding: $spacing-2xl;
+  }
+}
+
+// Login page styles
+.login-page {
+  min-height: 100vh;
+  @include flex-center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: $spacing-lg;
+}
+
+.login-card {
+  background: white;
+  border-radius: $border-radius-xl;
+  box-shadow: $shadow-xl;
+  padding: $spacing-2xl;
+  width: 100%;
+  max-width: 400px;
+  
+  &__header {
+    text-align: center;
+    margin-bottom: $spacing-xl;
+  }
+  
+  &__title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: $spacing-sm;
+  }
+  
+  &__subtitle {
+    color: #64748b;
+  }
+  
+  &__credentials {
+    background: #f8fafc;
+    border-radius: $border-radius-md;
+    padding: $spacing-lg;
+    margin-top: $spacing-lg;
+    font-size: 0.875rem;
+    color: #64748b;
+  }
+}
+
+// Home page styles
+.home-page {
+  &__hero {
+    text-align: center;
+    margin-bottom: $spacing-2xl * 2;
+  }
+  
+  &__title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: $spacing-lg;
+    @include gradient-text(linear-gradient(135deg, $primary-color, $secondary-color));
+  }
+  
+  &__subtitle {
+    font-size: 1.25rem;
+    color: #64748b;
+    margin-bottom: $spacing-xl;
+  }
+  
+  &__features {
+    margin-bottom: $spacing-2xl * 2;
+  }
+  
+  &__cta {
+    text-align: center;
+    background: #f8fafc;
+    border-radius: $border-radius-xl;
+    padding: $spacing-2xl;
+  }
+}
+
+// Feature cards
+.feature-card {
+  background: white;
+  border-radius: $border-radius-xl;
+  padding: $spacing-xl;
+  text-align: center;
+  box-shadow: $shadow-sm;
+  transition: transform $transition-fast;
+  height: 100%;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+  }
+  
+  &__icon {
+    font-size: 3rem;
+    margin-bottom: $spacing-lg;
+  }
+  
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: $spacing-md;
+    color: #1e293b;
+  }
+  
+  &__description {
+    color: #64748b;
+    line-height: 1.6;
+  }
+}
+
+// Pagination styles
+.pagination {
+  @include flex-center;
+  gap: $spacing-sm;
+  margin-top: $spacing-2xl;
+  
+  &__button {
+    @include button-primary;
+    min-width: 40px;
+    height: 40px;
+    padding: 0;
+    @include flex-center;
+    
+    &--active {
+      background-color: $primary-dark;
+    }
+    
+    &:disabled {
+      background-color: #e2e8f0;
+      color: #94a3b8;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// Dark theme overrides
+@media (prefers-color-scheme: dark) {
+  .app-header,
+  .app-sidebar {
+    background: $surface-dark;
+    color: white;
+  }
+  
+  .pokemon-card,
+  .pokemon-filters,
+  .login-card {
+    background: $surface-dark;
+    color: white;
+  }
+  
+  .pokemon-card__title {
+    color: white;
+  }
+  
+  .pokemon-filters__title {
+    color: white;
+  }
+  
+  .login-card__title {
+    color: white;
+  }
+  
+  .feature-card {
+    background: $surface-dark;
+    color: white;
+  }
+  
+  .feature-card__title {
+    color: white;
+  }
+}
+
+// Print styles
+@media print {
+  .app-sidebar,
+  .app-header {
+    display: none;
+  }
+  
+  .app-main {
+    margin-left: 0;
+    padding: 0;
+  }
+  
+  .pokemon-list__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-md;
+  }
+}

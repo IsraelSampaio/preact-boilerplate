@@ -1,0 +1,8 @@
+{
+  "includePaths": [
+    "src/styles"
+  ],
+  "precision": 6,
+  "sourceComments": false,
+  "outputStyle": "expanded"
+}

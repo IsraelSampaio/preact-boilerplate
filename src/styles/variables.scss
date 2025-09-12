@@ -1,0 +1,78 @@
+// Variáveis de cores
+$primary-color: #3b82f6;
+$primary-light: #60a5fa;
+$primary-dark: #1d4ed8;
+
+$secondary-color: #ef4444;
+$secondary-light: #f87171;
+$secondary-dark: #dc2626;
+
+$background-light: #f8fafc;
+$background-dark: #0f172a;
+$surface-light: #ffffff;
+$surface-dark: #1e293b;
+
+// Cores dos tipos de Pokémon
+$pokemon-types: (
+  normal: #A8A878,
+  fire: #F08030,
+  water: #6890F0,
+  electric: #F8D030,
+  grass: #78C850,
+  ice: #98D8D8,
+  fighting: #C03028,
+  poison: #A040A0,
+  ground: #E0C068,
+  flying: #A890F0,
+  psychic: #F85888,
+  bug: #A8B820,
+  rock: #B8A038,
+  ghost: #705898,
+  dragon: #7038F8,
+  dark: #705848,
+  steel: #B8B8D0,
+  fairy: #EE99AC
+);
+
+// Breakpoints responsivos
+$breakpoints: (
+  xs: 0,
+  sm: 600px,
+  md: 900px,
+  lg: 1200px,
+  xl: 1536px
+);
+
+// Espaçamentos
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+$spacing-2xl: 3rem;
+
+// Border radius
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+$border-radius-xl: 16px;
+
+// Shadows
+$shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+$shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+$shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+$shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+// Transições
+$transition-fast: 0.15s ease-in-out;
+$transition-normal: 0.3s ease-in-out;
+$transition-slow: 0.5s ease-in-out;
+
+// Z-index
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;

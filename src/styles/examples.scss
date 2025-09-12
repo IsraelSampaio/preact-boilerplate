@@ -1,0 +1,194 @@
+// Arquivo de exemplos de uso dos estilos SCSS
+// Este arquivo demonstra como usar as variáveis, mixins e classes disponíveis
+
+@import './variables';
+@import './mixins';
+
+// Exemplo 1: Usando variáveis
+.example-1 {
+  color: $primary-color;
+  background-color: $background-light;
+  padding: $spacing-lg;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-sm;
+}
+
+// Exemplo 2: Usando mixins para responsividade
+.example-2 {
+  width: 100%;
+  
+  @include respond-to(sm) {
+    width: 50%;
+  }
+  
+  @include respond-to(md) {
+    width: 33.333%;
+  }
+  
+  @include respond-to(lg) {
+    width: 25%;
+  }
+}
+
+// Exemplo 3: Usando mixins para layout
+.example-3 {
+  @include flex-center;
+  height: 200px;
+  background: linear-gradient(135deg, $primary-color, $secondary-color);
+  border-radius: $border-radius-lg;
+  color: white;
+}
+
+// Exemplo 4: Usando mixins para hover effects
+.example-4 {
+  @include card-hover;
+  background: white;
+  padding: $spacing-xl;
+  border-radius: $border-radius-lg;
+}
+
+// Exemplo 5: Usando cores dos tipos Pokémon
+.pokemon-fire {
+  background-color: map-get($pokemon-types, fire);
+  color: white;
+  padding: $spacing-sm;
+  border-radius: $border-radius-sm;
+}
+
+.pokemon-water {
+  background-color: map-get($pokemon-types, water);
+  color: white;
+  padding: $spacing-sm;
+  border-radius: $border-radius-sm;
+}
+
+// Exemplo 6: Usando animações
+.example-6 {
+  @include fade-in;
+  background: $surface-light;
+  padding: $spacing-lg;
+  border-radius: $border-radius-md;
+}
+
+// Exemplo 7: Usando scrollbar personalizada
+.example-7 {
+  height: 200px;
+  overflow-y: auto;
+  @include custom-scrollbar;
+  padding: $spacing-md;
+  background: $background-light;
+}
+
+// Exemplo 8: Usando glassmorphism
+.example-8 {
+  @include glassmorphism;
+  padding: $spacing-xl;
+  border-radius: $border-radius-lg;
+  backdrop-filter: blur(10px);
+}
+
+// Exemplo 9: Usando gradient text
+.example-9 {
+  @include gradient-text(linear-gradient(135deg, $primary-color, $secondary-color));
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+// Exemplo 10: Componente completo usando SCSS
+.custom-card {
+  background: white;
+  border-radius: $border-radius-lg;
+  padding: $spacing-xl;
+  box-shadow: $shadow-sm;
+  transition: all $transition-normal;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+  }
+  
+  &__header {
+    @include flex-between;
+    margin-bottom: $spacing-lg;
+  }
+  
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $primary-color;
+  }
+  
+  &__content {
+    line-height: 1.6;
+    color: #64748b;
+  }
+  
+  &__actions {
+    @include flex-center;
+    gap: $spacing-sm;
+    margin-top: $spacing-lg;
+  }
+  
+  &--featured {
+    border: 2px solid $primary-color;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(239, 68, 68, 0.05));
+  }
+  
+  @include respond-to(md) {
+    padding: $spacing-2xl;
+  }
+}
+
+// Exemplo 11: Grid responsivo personalizado
+.custom-grid {
+  display: grid;
+  gap: $spacing-lg;
+  grid-template-columns: 1fr;
+  
+  @include respond-to(sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include respond-to(md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @include respond-to(lg) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// Exemplo 12: Botão com múltiplas variantes
+.custom-button {
+  @include button-primary;
+  
+  &--secondary {
+    background: transparent;
+    color: $primary-color;
+    border: 2px solid $primary-color;
+    
+    &:hover {
+      background: $primary-color;
+      color: white;
+    }
+  }
+  
+  &--large {
+    padding: $spacing-lg $spacing-2xl;
+    font-size: 1.125rem;
+  }
+  
+  &--small {
+    padding: $spacing-xs $spacing-sm;
+    font-size: 0.875rem;
+  }
+  
+  &--full-width {
+    width: 100%;
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}

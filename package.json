@@ -1,0 +1,38 @@
+{
+  "name": "pokemon-preact-app",
+  "version": "1.0.0",
+  "description": "Aplicação Pokémon com Preact, Redux Toolkit e Feature Based Architecture",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint . --ext js,jsx --fix"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.1",
+    "@mui/material": "^5.15.1",
+    "@reduxjs/toolkit": "^2.0.1",
+    "preact": "^10.19.3",
+    "preact-router": "^4.1.2",
+    "react-redux": "^9.0.4",
+    "swr": "^2.2.4",
+    "zustand": "^4.4.7"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.8.2",
+    "@testing-library/jest-dom": "^6.1.6",
+    "@testing-library/preact": "^3.2.3",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "jsdom": "^23.0.1",
+    "sass": "^1.69.5",
+    "vite": "^5.0.10",
+    "vitest": "^1.1.0"
+  }
+}
