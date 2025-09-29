@@ -4,53 +4,121 @@ A modern Pokédex application built with Preact, Material-UI, Redux Toolkit, and
 
 ## 🚀 Features
 
-- **Authentication**: Login system with test credentials
-- **Pokémon Listing**: Complete Pokédex view with pagination
-- **Advanced Filters**: Search by name, type, and sorting
-- **Favorites**: System to mark favorite Pokémon
-- **Theming**: Light and dark theme support
-- **Responsive Layout**: Adaptive interface for different devices
-- **Testing**: Unit test coverage with Vitest and Testing Library
+### 🔐 Core Features
+- **Authentication**: Sistema de login com credenciais de teste
+- **Pokémon Listing**: Pokédex completa com paginação e busca
+- **Advanced Filters**: Filtros por nome, tipo e ordenação
+- **Favorites**: Sistema para marcar Pokémon favoritos
+- **Comparison**: Comparação entre diferentes Pokémon
+
+### 🎨 UI/UX
+- **Theming**: Suporte a tema claro e escuro
+- **Responsive Layout**: Interface adaptativa para diferentes dispositivos
+- **Material Design**: Componentes MUI com design consistente
+- **SCSS Modular**: Sistema de estilos organizado e reutilizável
+
+### 🌍 Internacionalização
+- **Multi-language**: Suporte a português e inglês
+- **Language Detection**: Detecção automática do idioma do usuário
+- **Dynamic Translation**: Troca de idioma em tempo real
+
+### 📱 PWA Features
+- **Offline Support**: Funcionalidades básicas disponíveis offline
+- **Installable**: Aplicação instalável como PWA
+- **Service Workers**: Cache inteligente para melhor performance
+- **Push Notifications**: Notificações de atualização
+
+### 🧪 Quality & Testing
+- **Unit Testing**: Cobertura de testes com Vitest
+- **Integration Testing**: Testes de fluxos completos
+- **E2E Testing**: Testes end-to-end automatizados
+- **Code Quality**: ESLint para consistência de código
 
 ## 🛠️ Technologies
 
+### Core Stack
 - **Preact**: Lightweight and fast JavaScript framework
-- **Material-UI (MUI)**: UI component library
+- **Material-UI (MUI)**: UI component library with theming
 - **SCSS/Sass**: CSS preprocessor with variables and mixins
-- **Redux Toolkit**: State management
+- **Redux Toolkit**: State management with feature-based organization
+- **Vite**: Build tool and development server
 - **JavaScript**: Main language with JSDoc for typing
+
+### Architecture & Patterns
+- **Feature-Based Architecture**: Código organizado por funcionalidades de negócio
 - **DTOs**: Data Transfer Objects for API and Redux contracts
-- **Vitest**: Testing framework
+- **Container/Presentation Pattern**: Separação entre lógica e UI
+- **Custom Hooks**: Encapsulamento de lógica de negócio
+
+### PWA & i18n
+- **PWA**: Progressive Web App com Service Workers
+- **i18next**: Sistema completo de internacionalização
+- **Service Workers**: Cache inteligente e funcionalidades offline
+
+### Testing & Quality
+- **Vitest**: Testing framework moderno
 - **Testing Library**: Component testing utilities
+- **ESLint**: Code linting e quality assurance
+
+### External APIs
 - **PokéAPI**: Official Pokémon API
 
 ## 📁 Project Structure
 
 ```
 src/
-├── components/          # Reusable components
-│   ├── layout/         # Header, Sidebar, MainLayout
-│   └── ProtectedRoute.js
-├── dto/               # Data Transfer Objects
-│   ├── api/          # DTOs for external API
-│   ├── redux/        # DTOs for Redux state
-│   ├── validation/   # DTOs for validation
-│   └── index.js      # Factory and utilities
-├── features/           # Feature Based Architecture
-│   ├── auth/          # Authentication feature
-│   └── pokemon/       # Pokémon feature
-├── hooks/             # Custom hooks
-├── services/          # Services and APIs
-├── store/             # Redux store and slices
-├── styles/            # Organized SCSS styles
-│   ├── variables.scss # Color, spacing variables, etc.
-│   ├── mixins.scss    # Reusable mixins
-│   ├── base.scss      # Base styles and reset
-│   ├── components.scss# Component styles
-│   └── index.scss     # Main import file
-├── theme/             # MUI theme configuration
-├── types/             # JSDoc type definitions
-└── utils/             # Utilities
+├── components/               # Componentes globais reutilizáveis
+│   ├── layout/              # Header, Sidebar, MainLayout
+│   │   ├── Header.jsx
+│   │   ├── Sidebar.jsx
+│   │   ├── MainLayout.jsx
+│   │   └── index.js
+│   ├── ProtectedRoute.jsx
+│   ├── LanguageSelector.jsx
+│   └── PWAInstallPrompt.jsx
+├── features/                 # 🏗️ ARQUITETURA BASEADA EM FEATURES
+│   ├── auth/                # 🔐 Feature de Autenticação
+│   │   ├── components/      # Componentes da feature
+│   │   │   ├── containers/
+│   │   │   ├── presentations/
+│   │   │   └── __tests__/
+│   │   ├── dto/             # DTOs específicos da feature
+│   │   │   ├── api/
+│   │   │   ├── redux/
+│   │   │   └── validation/
+│   │   ├── hooks/           # useAuth
+│   │   ├── store/           # authSlice
+│   │   ├── styles/          # SCSS específicos
+│   │   └── index.js         # Barrel exports
+│   ├── pokemon/             # 🎮 Feature Principal dos Pokémon
+│   │   ├── components/      # PokemonCard, PokemonList, etc.
+│   │   ├── dto/             # DTOs da feature
+│   │   ├── hooks/           # usePokemon, useFavorites, useComparison
+│   │   ├── pages/           # HomePage, PokemonListPage, etc.
+│   │   ├── services/        # pokemonApi.js
+│   │   ├── store/           # pokemonSlice, favoritesSlice, comparisonSlice
+│   │   └── styles/          # SCSS específicos
+│   ├── i18n/                # 🌍 Internacionalização
+│   │   ├── hooks/           # useTranslation
+│   │   ├── locales/         # pt-BR.json, en-US.json
+│   │   └── index.js         # Configuração i18next
+│   └── shared/              # 🔧 Recursos Compartilhados
+│       ├── components/      # Componentes reutilizáveis
+│       ├── dto/             # DTOs globais
+│       ├── hooks/           # useAppDispatch, useAppSelector
+│       ├── store/           # uiSlice
+│       ├── styles/          # variables.scss, mixins.scss, base.scss
+│       └── utils/           # serviceWorker.js, etc.
+├── store/                   # ⚙️ Configuração Redux principal
+│   └── index.js
+├── test/                    # Configuração de testes
+│   └── setup.js
+├── theme/                   # Configuração tema MUI
+│   └── theme.js
+├── __tests__/              # Testes de integração e E2E
+│   ├── integration/
+│   └── e2e/
+└── index.js                # 🎯 Barrel exports principal
 ```
 
 ## 🚦 How to Run
@@ -82,13 +150,26 @@ npm run dev
 
 ### Available Scripts
 
-- `npm run dev` - Start development server
+#### Development
+- `npm run dev` - Start development server (Vite)
 - `npm run build` - Generate production build
 - `npm run preview` - Preview production build
-- `npm run test` - Run tests
-- `npm run test:ui` - Run tests with UI
+
+#### Testing
+- `npm run test` - Run tests in watch mode
+- `npm run test:ui` - Run tests with Vitest UI
+- `npm run test:unit` - Run unit tests only
+- `npm run test:integration` - Run integration tests
+- `npm run test:e2e` - Run end-to-end tests
+- `npm run test:coverage` - Run tests with coverage report
+- `npm run test:watch` - Run tests in watch mode
+
+#### Code Quality
 - `npm run lint` - Check linting issues
 - `npm run lint:fix` - Fix linting issues automatically
+
+#### Documentation
+- `npm run docs:serve` - Serve documentation with Docsify
 
 ## 🔐 Test Credentials
 
@@ -181,11 +262,24 @@ The application is fully responsive and works well on:
 
 ## 🔄 State Management
 
-The application state is managed by Redux Toolkit with the following slices:
+O estado da aplicação é gerenciado por **Redux Toolkit** com arquitetura baseada em features:
 
-- **authSlice**: User authentication
-- **pokemonSlice**: Pokémon data and filters
-- **uiSlice**: Interface state (sidebar, theme, loading)
+### Redux Slices
+- **authSlice**: Autenticação do usuário (login, logout, user state)
+- **pokemonSlice**: Dados principais dos Pokémon (lista, filtros, paginação)
+- **favoritesSlice**: Sistema de favoritos dos Pokémon
+- **comparisonSlice**: Comparação entre Pokémon
+- **uiSlice**: Estado da interface (sidebar, tema, loading global)
+
+### Custom Hooks
+- **useAuth**: Encapsula lógica de autenticação
+- **usePokemon**: Gerencia estado e operações dos Pokémon
+- **useFavorites**: Operações de favoritos
+- **useComparison**: Lógica de comparação
+- **useTranslation**: Internacionalização
+
+### Organização
+Cada feature possui seus próprios hooks e slices, mantendo a separação de responsabilidades e facilitando a manutenção.
 
 ## 🌐 API
 
@@ -247,29 +341,68 @@ $breakpoints: (
 <div class="alert alert--success">Success</div>
 ```
 
-## 📚 Documentation
+## 📚 Documentação
 
-For complete project documentation, check the `docs/` folder which contains:
+Para documentação completa do projeto, confira a pasta `docs/` que contém:
 
-### 🏠 [Documentation Index](./docs/index.md)
-- Complete navigation guide
-- Links organized by role
-- Quick topic search
+### 🏠 [Índice da Documentação](./docs/index.md)
+- Guia de navegação completo
+- Links organizados por função
+- Busca rápida de tópicos
 
+### 🏗️ [Arquitetura Geral](./docs/arquitetura-geral.md)
+- Visão geral da arquitetura Feature-Based
+- Stack tecnológica e princípios implementados
 
-### 🎨 [Code Patterns](./docs/patterns/)
-- **[Patterns Overview](./docs/patterns/README.md)** - All patterns with quick examples
-- **[Architectural Patterns](./docs/patterns/architectural-patterns.md)** - Feature-based, Layered, DI patterns
-- **[Code Patterns](./docs/patterns/code-patterns.md)** - Component, Hook, Error handling patterns
+### 🎨 [Padrões de Componentes](./docs/padroes-componentes.md)
+- Container/Presentation Pattern
+- Boas práticas para criação de componentes
 
-### 🤝 [Collaboration](./docs/collaboration/)
-- **[Collaboration Guide](./docs/collaboration/README.md)** - How to collaborate effectively
-- **[Contributing Guidelines](./docs/collaboration/CONTRIBUTING.md)** - Complete contribution guide
+### 🔄 [Gerenciamento de Estado](./docs/gerenciamento-estado.md)
+- Redux Toolkit com custom hooks
+- Organização por features
 
-### 📋 [DTOs](./docs/DTOs.md)
-- Data Transfer Objects
-- API and Redux contracts
-- Factory Pattern
+### 📦 [Padrões de DTOs](./docs/padroes-dto.md)
+- Data Transfer Objects organizados por features
+- Factory Pattern e transformações
+
+### 🔧 [Camada de Serviços](./docs/camada-servicos.md)
+- Services organizados por features
+- Comunicação com APIs
+
+### 🧪 [Estratégias de Teste](./docs/estrategias-teste.md)
+- Configuração e padrões para testes
+- Testes unitários e de integração
+
+### 🔧 Configuração e Ferramentas
+- **[Configuração Vite](./docs/configuracao-vite.md)** - Setup do Vite, aliases e otimizações
+- **[Internacionalização](./docs/internacionalizacao.md)** - Sistema i18n completo
+- **[PWA e Service Workers](./docs/pwa-service-workers.md)** - Progressive Web App
+
+### 🚀 Deploy e Produção
+- **[Deploy e Configurações](./docs/deployment.md)** - Deploy para múltiplas plataformas
+
+## 📱 PWA Features
+
+Esta aplicação é uma **Progressive Web App** completa com:
+
+### ✨ Funcionalidades PWA
+- **📲 Instalável**: Pode ser instalada como app nativo
+- **⚡ Offline**: Funcionalidades básicas disponíveis sem internet
+- **🔄 Service Worker**: Cache inteligente para melhor performance
+- **🔔 Notificações**: Avisos de atualização da aplicação
+- **📊 Manifest**: Configuração completa PWA
+
+### 🌍 Internacionalização
+- **🇧🇷 Português** e **🇺🇸 English** suportados
+- **🔍 Detecção automática** do idioma do usuário
+- **🔄 Troca dinâmica** de idioma em tempo real
+- **💾 Persistência** da preferência do usuário
+
+### 🎨 Theming
+- **🌞 Tema claro** e **🌙 tema escuro**
+- **🎨 Material Design** consistente
+- **📱 Responsivo** em todos os dispositivos
 
 ## 📄 License
 

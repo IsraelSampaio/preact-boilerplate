@@ -1,114 +1,66 @@
-# 📚 Pokémon App Project Documentation
+# 📚 Documentação da Aplicação Pokémon
 
-Welcome to the comprehensive documentation for the Pokémon App! This application is built with Preact, Redux Toolkit, Material-UI, and follows a feature-based architecture.
+Bem-vindo à documentação completa da aplicação Pokémon! Esta aplicação é construída com **Preact**, **Redux Toolkit**, **Material-UI** e segue uma **arquitetura baseada em features**.
 
-## 🎯 Quick Navigation
+## 🎯 Visão Geral do Projeto
 
-### 📖 Main Documentation
-- **[Project Overview](./README.md)** - Main project documentation
-- **[Development Guide](./development.md)** - How to setup and develop
-- **[System Architecture](./architecture.md)** - Architecture overview
-- **[Code Patterns](./patterns/)** - Code and design patterns
+Esta é uma aplicação moderna de Pokédex que demonstra padrões avançados de desenvolvimento frontend.
 
-### 🤝 Collaboration
-- **[Collaboration Guide](./collaboration/)** - How to collaborate effectively
-- **[Contributing Guidelines](./collaboration/CONTRIBUTING.md)** - How to contribute
-- **[Code Review Process](./collaboration/code-review.md)** - Review guidelines
-- **[Development Workflow](./collaboration/development-workflow.md)** - Daily workflow
+## 📖 Documentação Principal
 
-### 🎨 Development
-- **[State Management](./state-management.md)** - Redux Toolkit and patterns
-- **[Styling System](./styling.md)** - Material-UI and SCSS
-- **[Testing Strategy](./testing.md)** - Unit and integration tests
-- **[DTOs](./DTOs.md)** - Data Transfer Objects and validation
+### 🏗️ **[Arquitetura Geral](arquitetura-geral.md)**
+Visão geral da arquitetura Feature-Based, stack tecnológica e princípios implementados.
 
-### 🔧 Resources
-- **[Navigation Guide](./NAVIGATION.md)** - How to navigate the documentation
-- **[Next Steps](../README.md#next-steps)** - Project roadmap
+### 🎨 **[Padrões de Componentes](padroes-componentes.md)**
+Container/Presentation Pattern e boas práticas para criação de componentes.
 
-## 🚀 Quick Links
+### 🔄 **[Gerenciamento de Estado](gerenciamento-estado.md)**
+Redux Toolkit com custom hooks organizados por features.
 
-### For Developers
-- [Environment setup](./development.md#environment-setup)
-- [Code patterns](./patterns/code-patterns.md)
-- [Component creation](./patterns/architectural-patterns.md#component-architecture)
-- [Writing tests](./testing.md#writing-tests)
-- [Contributing guidelines](./collaboration/CONTRIBUTING.md)
+### 📦 **[Padrões de DTOs](padroes-dto.md)**
+Data Transfer Objects organizados por features com Factory Pattern.
 
-### For New Contributors
-- [Getting started](./collaboration/CONTRIBUTING.md#getting-started)
-- [First contribution](./collaboration/CONTRIBUTING.md#create-your-first-contribution)
-- [Development setup](./collaboration/CONTRIBUTING.md#development-setup)
-- [Coding standards](./collaboration/CONTRIBUTING.md#coding-standards)
+### 🔧 **[Camada de Serviços](camada-servicos.md)**
+Services organizados por features para comunicação com APIs.
 
-### For Team Leads
-- [Architecture decisions](./patterns/architectural-patterns.md)
-- [Collaboration processes](./collaboration/code-review.md)
-- [Quality standards](./collaboration/CONTRIBUTING.md#testing-requirements)
-- [Team workflow](./collaboration/development-workflow.md)
+### 🧪 **[Estratégias de Teste](estrategias-teste.md)**
+Configuração e padrões para testes unitários e de integração.
 
-### For Designers
-- [Design system](./styling.md#design-system)
-- [UI components](./styling.md#material-ui-components)
-- [Themes and colors](./styling.md#theme-configuration)
+## 🚀 Quick Start
 
-## 📂 Documentation Structure
+### Para Desenvolvedores
+1. [Arquitetura Geral](arquitetura-geral.md) - Entenda a estrutura
+2. [Padrões de Componentes](padroes-componentes.md) - Crie componentes
+3. [Gerenciamento de Estado](gerenciamento-estado.md) - Gerencie dados
+
+### Para Novos Contribuidores
+1. [Stack Tecnológica](arquitetura-geral.md#stack-tecnológica)
+2. [Padrões de DTOs](padroes-dto.md)
+3. [Camada de Serviços](camada-servicos.md)
+
+## 🛠️ Stack Tecnológica
+
+- **Preact** - Framework JavaScript leve
+- **Redux Toolkit** - Gerenciamento de estado
+- **Material-UI** - Biblioteca de componentes
+- **SCSS** - Pré-processador CSS
+- **Vitest** - Framework de testes
+
+## 📊 Estrutura do Projeto (Feature-Based)
 
 ```
-docs/
-├── index.md                    # This file - main index
-├── DTOs.md                    # Data Transfer Objects
-├── patterns/                  # Code patterns documentation
-│   ├── README.md              # Patterns overview
-│   ├── architectural-patterns.md  # Architecture patterns
-│   └── code-patterns.md       # Code patterns
-└── collaboration/             # Collaboration guidelines
-    ├── README.md              # Collaboration overview
-    └── CONTRIBUTING.md        # Contributing guide
+src/
+├── components/           # Componentes globais reutilizáveis
+├── features/            # Features organizadas por domínio
+│   ├── auth/           # Feature de autenticação
+│   ├── pokemon/        # Feature principal Pokémon
+│   ├── i18n/           # Internacionalização
+│   └── shared/         # Recursos compartilhados
+├── store/               # Configuração principal Redux
+├── theme/               # Configuração tema MUI
+└── index.js            # Barrel exports principal
 ```
-
-## 🎓 Learning Path
-
-### For New Team Members
-1. **Start Here**: [Main README](../README.md)
-2. **Learn Patterns**: [Code Patterns](./patterns/)
-3. **Collaboration**: [Contributing Guide](./collaboration/CONTRIBUTING.md)
-4. **Data Structures**: [DTOs](./DTOs.md)
-
-### For Experienced Developers
-1. **Architecture Deep Dive**: [Architectural Patterns](./patterns/architectural-patterns.md)
-2. **Advanced Patterns**: [Code Patterns](./patterns/code-patterns.md)
-3. **Team Processes**: [Collaboration Guide](./collaboration/)
-4. **Data Transfer Objects**: [DTOs](./DTOs.md)
-
-### For Code Reviewers
-1. **Quality Checklist**: [Contributing Guidelines](./collaboration/CONTRIBUTING.md)
-2. **Pattern Knowledge**: [All Patterns](./patterns/)
-3. **Collaboration Standards**: [Collaboration Guide](./collaboration/)
-
-## ❓ Need Help?
-
-- **New to the project?** Start with [Main README](../README.md)
-- **Architecture questions?** See [Architectural Patterns](./patterns/architectural-patterns.md)
-- **Code issues?** Check [Code Patterns](./patterns/code-patterns.md)
-- **Data structures?** Read [DTOs Guide](./DTOs.md)
-- **Collaboration questions?** Visit [Collaboration Guide](./collaboration/)
-- **Want to contribute?** Follow [Contributing Guidelines](./collaboration/CONTRIBUTING.md)
-
-## 🔍 Search Tips
-
-- Use **Ctrl+F** (or **Cmd+F**) to search within documents
-- Check the **Table of Contents** at the top of each document
-- Use **cross-references** between documents for related topics
-- Look for **code examples** in pattern documentation
-
-## 📊 Documentation Health
-
-- **Coverage**: All major features and patterns documented
-- **Freshness**: Updated with every significant change
-- **Examples**: Real code examples from the project
-- **Cross-links**: Connected documentation for easy navigation
 
 ---
 
-*This documentation is maintained by the development team and updated regularly. For suggestions or corrections, please create an issue or submit a pull request.*
+*Documentação mantida pela equipe de desenvolvimento e atualizada regularmente.*

@@ -12,22 +12,16 @@ import { PokemonListItem, Pokemon } from '@/types.js';
 import { useState } from 'preact/hooks';
 
 /**
- * Component Pthekiin thenList
+ * Component PokemonList
  */
 export const PokemonList = ({
   pokemonList,
   isLoading,
   error,
   onPokemonSelect,
-  onFavorite,
-  favorites = [],
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
-
-  const isFavorite = (pokemonId) => {
-    return favorites.some(fav => fav.id === pokemonId);
-  };
 
   const handlePageChange = (event: React.ChangeEvent, page) => {
     setCurrentPage(page);
@@ -85,16 +79,13 @@ export const PokemonList = ({
         )}
       </Box>
 
-      <div className="pthekiin then-list__grid">
+      <Grid container spacing={3}>
         {paginatedPokemon.map((pokemon) => (
-          <PokemonCard
-            key={pokemon.name}
-            pokemon={pokemon // Type thesertithen necessárithe thequi
-            onFavorite={onFavorite}
-            isFavorite={isFavorite(pokemon.url.split('/').slice(-2, -1)[0])}
-          />
+          <Grid item xs={12} sm={6} md={4} lg={3} key={pokemon.name}>
+            <PokemonCard pokemon={pokemon} />
+          </Grid>
         ))}
-      </div>
+      </Grid>
 
       {totalPages > 1 && (
         <div className="pthegiin thetithen">

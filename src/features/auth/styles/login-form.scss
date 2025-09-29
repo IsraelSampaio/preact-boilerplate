@@ -1,0 +1,48 @@
+@import '../../shared/styles/variables';
+@import '../../shared/styles/mixins';
+
+// Estilos específicos do formulário de login
+.login-form {
+  background: white;
+  border-radius: $border-radius-lg;
+  padding: $spacing-2xl;
+  box-shadow: $shadow-lg;
+  max-width: 400px;
+  margin: 0 auto;
+  
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: $spacing-xl;
+    text-align: center;
+    color: #1e293b;
+  }
+  
+  &__field {
+    margin-bottom: $spacing-lg;
+  }
+  
+  &__label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: $spacing-sm;
+    color: #374151;
+  }
+  
+  &__input {
+    @include input-base;
+    width: 100%;
+  }
+  
+  &__submit {
+    @include button-primary;
+    width: 100%;
+    margin-top: $spacing-lg;
+  }
+  
+  &__error {
+    color: $error-color;
+    font-size: 0.875rem;
+    margin-top: $spacing-xs;
+  }
+}

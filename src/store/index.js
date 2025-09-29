@@ -1,13 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { authSlice } from './slices/authSlice.js';
-import { pokemonSlice } from './slices/pokemonSlice.js';
-import { uiSlice } from './slices/uiSlice.js';
+
+// Importações das features
+import { authSlice } from '../features/auth/store/authSlice.js';
+import { pokemonSlice } from '../features/pokemon/store/pokemonSlice.js';
+import { favoritesSlice } from '../features/pokemon/store/favoritesSlice.js';
+import { comparisonSlice } from '../features/pokemon/store/comparisonSlice.js';
+
+// Importações compartilhadas
+import { uiSlice } from '../features/shared/store/uiSlice.js';
 
 export const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
     pokemon: pokemonSlice.reducer,
     ui: uiSlice.reducer,
+    favorites: favoritesSlice.reducer,
+    comparison: comparisonSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -17,6 +25,5 @@ export const store = configureStore({
     }),
 });
 
-// Expthertther tipthe fther usthe in hooks
-export const useAppDispatch = () => store.dispatch;
-export const useAppSelector = (selector) => selector(store.getState());
+// Tipos para hooks já estão definidos em shared/hooks
+// export { useAppDispatch, useAppSelector } from '../shared/hooks/index.js';

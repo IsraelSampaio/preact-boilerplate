@@ -1,0 +1,247 @@
+{
+  "app": {
+    "name": "Pokémon App",
+    "description": "Complete application to explore the Pokémon world",
+    "loading": "Loading...",
+    "error": "Error",
+    "offline": "You are offline. Limited functionality available.",
+    "online": "Connected! Data synchronized."
+  },
+  "navigation": {
+    "home": "Home",
+    "pokemon": "Pokémon",
+    "favorites": "Favorites",
+    "comparison": "Comparison",
+    "settings": "Settings",
+    "about": "About"
+  },
+  "actions": {
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "clear": "Clear",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "refresh": "Refresh",
+    "share": "Share",
+    "install": "Install",
+    "close": "Close"
+  },
+  "home": {
+    "title": "Welcome to Pokémon App! 🎮",
+    "subtitle": "Hello, {{name}}! Explore the Pokémon world with our modern application.",
+    "features": {
+      "explore": {
+        "title": "Explore Pokémon",
+        "description": "Discover detailed information about each Pokémon in the Pokédx"
+      },
+      "filter": {
+        "title": "Advanced Filters",
+        "description": "Find Pokémon by type, name and other characteristics"
+      },
+      "favorites": {
+        "title": "Favorites",
+        "description": "Save your favorite Pokémon for quick access"
+      },
+      "interface": {
+        "title": "Modern Interface",
+        "description": "Enjoy a modern and responsive visual experience"
+      }
+    },
+    "cta": {
+      "title": "Ready to start?",
+      "description": "Navigate to the Pokémon section and begin your Pokédex journey!",
+      "button": "Explore Pokémon"
+    }
+  },
+  "pokemon": {
+    "list": {
+      "title": "Pokédx",
+      "subtitle": "Explore all available Pokémon and find your favorites",
+      "found": "{{count}} Pokémon found",
+      "found_one": "{{count}} Pokémon found",
+      "notFound": "No Pokémon found",
+      "notFoundDescription": "Try adjusting the search filters",
+      "loading": "Loading Pokémon..."
+    },
+    "details": {
+      "title": "Pokémon Details",
+      "height": "Height",
+      "weight": "Weight",
+      "baseExperience": "Base Experience",
+      "abilities": "Abilities",
+      "hiddenAbility": "Hidden Ability",
+      "stats": "Stats",
+      "sprites": "Sprites",
+      "types": "Types",
+      "tabs": {
+        "stats": "Stats",
+        "abilities": "Abilities",
+        "sprites": "Sprites"
+      },
+      "sprites_types": {
+        "front_default": "Front Default",
+        "back_default": "Back Default",
+        "front_shiny": "Front Shiny",
+        "back_shiny": "Back Shiny"
+      }
+    },
+    "stats": {
+      "hp": "HP",
+      "attack": "Attack",
+      "defense": "Defense",
+      "special-attack": "Special Attack",
+      "special-defense": "Special Defense",
+      "speed": "Speed"
+    },
+    "search": {
+      "placeholder": "Search Pokémon by name...",
+      "noResults": "No results found for \"{{query}}\""
+    },
+    "filters": {
+      "type": "Type",
+      "sortBy": "Sort by",
+      "sortOrder": "Order",
+      "all": "All",
+      "asc": "Ascending",
+      "desc": "Descending",
+      "name": "Name",
+      "id": "Number",
+      "height": "Height",
+      "weight": "Weight"
+    }
+  },
+  "favorites": {
+    "title": "My Favorite Pokémon",
+    "subtitle": "You have {{count}} favorite Pokémon.",
+    "subtitle_zero": "You don't have any favorite Pokémon yet.",
+    "empty": {
+      "title": "🤔 No favorites yet",
+      "description": "Explore the Pokédex and add your favorite Pokémon by clicking the heart icon!",
+      "button": "Explore Pokémon"
+    },
+    "actions": {
+      "add": "Add to favorites",
+      "remove": "Remove from favorites",
+      "clear": "Clear all",
+      "clearConfirm": "Clear all favorites?",
+      "clearDescription": "This action will remove all {{count}} Pokémon from your favorites. This action cannot be undone.",
+      "clearButton": "Yes, clear all"
+    },
+    "search": {
+      "placeholder": "Search in favorites...",
+      "noResults": "No favorites found with the applied filters."
+    }
+  },
+  "comparison": {
+    "title": "Pokémon Comparison",
+    "subtitle": "Pokémon Comparison ({{count}})",
+    "empty": {
+      "title": "🔍 No Pokémon to compare",
+      "description": "Add Pokémon to comparison by clicking the comparison icon on detail pages.",
+      "button": "Explore Pokémon"
+    },
+    "summary": {
+      "title": "📊 Comparison Summary",
+      "averageHeight": "Average Height",
+      "averageWeight": "Average Weight",
+      "averageBaseExp": "Average Base Exp",
+      "mostCommonType": "Most Common Type",
+      "highestStat": "Highest Stat",
+      "lowestStat": "Lowest Stat"
+    },
+    "table": {
+      "title": "📋 Detailed Comparison",
+      "attribute": "Attribute"
+    },
+    "actions": {
+      "add": "Add to comparison",
+      "remove": "Remove from comparison",
+      "view": "View comparison ({{count}})",
+      "clear": "Clear all",
+      "clearConfirm": "Clear entire comparison?",
+      "clearDescription": "This action will remove all {{count}} Pokémon from the comparison. This action cannot be undone.",
+      "clearButton": "Yes, clear all",
+      "maxReached": "Maximum of {{max}} Pokémon can be compared simultaneously",
+      "alreadyAdded": "This Pokémon is already in the comparison list"
+    }
+  },
+  "pwa": {
+    "install": {
+      "title": "Install Pokémon App",
+      "description": "Install our application for an even better experience!",
+      "benefits": {
+        "title": "Installation benefits:",
+        "homeScreen": "Quick access directly from home screen",
+        "nativeLike": "Native experience, without browser",
+        "offline": "Works even without internet"
+      },
+      "storage": "The application will take approximately 5-10 MB of space on your device.",
+      "actions": {
+        "install": "Install",
+        "later": "Not now"
+      }
+    },
+    "update": {
+      "title": "Update Available!",
+      "description": "A new version of the application is available.",
+      "actions": {
+        "update": "Update",
+        "later": "Later"
+      }
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "language": {
+      "title": "Language",
+      "description": "Choose the application language"
+    },
+    "theme": {
+      "title": "Theme",
+      "description": "Choose between light or dark theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "cache": {
+      "title": "Cache",
+      "description": "Manage cached data",
+      "size": "Cache size: {{size}}",
+      "clear": "Clear cache",
+      "clearDescription": "This will remove all saved offline data"
+    }
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "network": "Connection error. Check your internet.",
+    "notFound": "Page not found",
+    "pokemonNotFound": "Pokémon not found",
+    "loadingPokemon": "Error loading Pokémon",
+    "loadingDetails": "Error loading Pokémon details"
+  },
+  "units": {
+    "meters": "m",
+    "kilograms": "kg",
+    "experience": "exp"
+  },
+  "common": {
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK",
+    "or": "or",
+    "and": "and",
+    "of": "of",
+    "in": "in",
+    "at": "at",
+    "by": "by",
+    "to": "to",
+    "from": "from"
+  }
+}

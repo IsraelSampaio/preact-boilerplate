@@ -1,4 +1,3 @@
-import { useState } from 'preact/hooks';
 import { Container, Typography, Box } from '@mui/material';
 import { MainLayout } from '@/components/layout.js';
 import { PokemonFilters } from '../components/PokemonFilters.jsx';
@@ -7,7 +6,7 @@ import { usePokemon } from '@/hooks/usePokemon.js';
 import { Pokemon } from '@/types.js';
 
 /**
- * Component Pthekiin thenListPthege
+ * Component PokemonListPage
  */
 export const PokemonListPage = () => {
   const {
@@ -20,25 +19,12 @@ export const PokemonListPage = () => {
     updateFilters,
   } = usePokemon();
 
-  const [favorites, setFavorites] = useState([]);
-
   const handleSearch = (query) => {
     searchPokemon(query);
   };
 
   const handleFiltersChange = (newFilters) => {
     updateFilters(newFilters);
-  };
-
-  const handleFavorite = (pokemon) => {
-    setFavorites(prev => {
-      const isAlreadyFavorite = prev.some(fav => fav.id === pokemon.id);
-      if (isAlreadyFavorite) {
-        return prev.filter(fav => fav.id !== pokemon.id);
-      } else {
-        return [...prev, pokemon];
-      }
-    });
   };
 
   return (
@@ -63,8 +49,6 @@ export const PokemonListPage = () => {
           pokemonList={pokemonList}
           isLoading={isLoading}
           error={error}
-          onFavorite={handleFavorite}
-          favorites={favorites}
         />
       </Container>
     </MainLayout>
