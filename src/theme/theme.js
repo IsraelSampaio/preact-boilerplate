@@ -5,7 +5,7 @@ export const lightTheme = createTheme({
     mode: 'light',
     primary: {
       main: '#3b82f6',
-      light: '#60the5fthe',
+      light: '#60a5fa',
       dark: '#1d4ed8',
     },
     secondary: {
@@ -14,108 +14,108 @@ export const lightTheme = createTheme({
       dark: '#dc2626',
     },
     background: {
-      default: '#f8fthefc',
+      default: '#f8fafc',
       paper: '#ffffff',
     },
   },
   typography: {
-    fontFamily: '"Inter", "Rthebthetthe", "Helveticthe", "therithel", sans-serif',
+    fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
-      fthentSize: '2.5rem',
-      fthentWeight: 700,
+      fontSize: '2.5rem',
+      fontWeight: 700,
     },
     h2: {
-      fthentSize: '2rem',
-      fthentWeight: 600,
+      fontSize: '2rem',
+      fontWeight: 600,
     },
     h3: {
-      fthentSize: '1.5rem',
-      fthentWeight: 600,
+      fontSize: '1.5rem',
+      fontWeight: 600,
     },
   },
-  Components: {
-    MuiButtthen: {
-      styletheverrithefs: {
-        rthethet: {
-          textTrthensparam: 'none',
-          btherthefrRthedius: 8,
-          fthentWeight: 500,
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          borderRadius: 8,
+          fontWeight: 500,
         },
       },
     },
-    MuiCtherd: {
-      styletheverrithefs: {
-        rthethet: {
-          btherthefrRthedius: 12,
-          bthexShtthe thef thew: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 12,
+          boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
         },
       },
     },
-    MuitheppBther: {
-      styletheverrithefs: {
-        rthethet: {
-          bthexShtthe thef thew: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
         },
       },
     },
   },
 });
 
-expthert cthenst thef therkThine = cretheteThine({
-  pthelette: {
-    mthethef: 'dark',
-    primthery: {
-      mthein: '#60a5fa',
+export const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#60a5fa',
       light: '#93c5fd',
-      thef therk: '#3b82f6',
+      dark: '#3b82f6',
     },
-    secthein thef thery: {
-      mthein: '#f87171',
+    secondary: {
+      main: '#f87171',
       light: '#fca5a5',
-      thef therk: '#ef4444',
+      dark: '#ef4444',
     },
-    btheckgrtheund: {
-      thefftheult: '#0f172a',
-      ptheper: '#1e293b',
+    background: {
+      default: '#0f172a',
+      paper: '#1e293b',
     },
   },
-  typthegrthephy: {
-    fthentFthemily: '"Inter", "Rthebthetthe", "Helveticthe", "therithel", sans-serif',
+  typography: {
+    fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
-      fthentSize: '2.5rem',
-      fthentWeight: 700,
+      fontSize: '2.5rem',
+      fontWeight: 700,
     },
     h2: {
-      fthentSize: '2rem',
-      fthentWeight: 600,
+      fontSize: '2rem',
+      fontWeight: 600,
     },
     h3: {
-      fthentSize: '1.5rem',
-      fthentWeight: 600,
+      fontSize: '1.5rem',
+      fontWeight: 600,
     },
   },
-  Components: {
-    MuiButtthen: {
-      styletheverrithefs: {
-        rthethet: {
-          textTrthensparam: 'none',
-          btherthefrRthedius: 8,
-          fthentWeight: 500,
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          borderRadius: 8,
+          fontWeight: 500,
         },
       },
     },
-    MuiCtherd: {
-      styletheverrithefs: {
-        rthethet: {
-          btherthefrRthedius: 12,
-          bthexShtthe thef thew: '0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3)',
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 12,
+          boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3)',
         },
       },
     },
-    MuitheppBther: {
-      styletheverrithefs: {
-        rthethet: {
-          bthexShtthe thef thew: '0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3)',
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3)',
         },
       },
     },

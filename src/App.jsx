@@ -3,7 +3,6 @@ import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { Provider } from 'react-redux';
 import { store } from '@/store/index.js';
-import { ProtectedRoute } from '@/components/ProtectedRoute.jsx';
 import { lightTheme, darkTheme } from '@/theme/theme.js';
 import { useAppSelector } from '@/features/shared/hooks/useAppDispatch.js';
 import { PWAInstallPrompt } from '@/components/PWAInstallPrompt.jsx';
@@ -18,27 +17,13 @@ const AppContent = () => {
       <CssBaseline />
       <PWAInstallPrompt />
       <Router>
-        <ProtectedRoute path="/">
-          <HomePage />
-        </ProtectedRoute>
-        <ProtectedRoute path="/pokemon">
-          <PokemonListPage />
-        </ProtectedRoute>
-        <ProtectedRoute path="/pokemon/:id">
-          <PokemonDetailsPage />
-        </ProtectedRoute>
-        <ProtectedRoute path="/favorites">
-          <FavoritesPage />
-        </ProtectedRoute>
-        <ProtectedRoute path="/comparison">
-          <ComparisonPage />
-        </ProtectedRoute>
-        <ProtectedRoute path="/settings">
-          <SettingsPage />
-        </ProtectedRoute>
-        <ProtectedRoute path="/about">
-          <div>Sobre - Em desenvolvimento</div>
-        </ProtectedRoute>
+        <HomePage path="/" />
+        <PokemonListPage path="/pokemon" />
+        <PokemonDetailsPage path="/pokemon/:id" />
+        <FavoritesPage path="/favorites" />
+        <ComparisonPage path="/comparison" />
+        <SettingsPage path="/settings" />
+        <div path="/about">Sobre - Em desenvolvimento</div>
       </Router>
     </ThemeProvider>
   );

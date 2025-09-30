@@ -1,7 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/preact';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { Provider } from 'react-redux';
-import { Router } from 'preact-router';
 import { store } from '@/store/index.js';
 import { App } from '@/App.jsx';
 

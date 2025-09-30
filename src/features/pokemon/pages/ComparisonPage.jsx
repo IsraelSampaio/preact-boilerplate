@@ -35,8 +35,8 @@ import {
   BarChart,
 } from '@mui/icons-material';
 import { route } from 'preact-router';
-import { MainLayout } from '@/components/layout.js';
-import { useComparison } from '@/hooks/useComparison.js';
+import { MainLayout } from '@/components/layout/index.js';
+import { useComparison } from '../hooks/useComparison.js';
 
 /**
  * Componente ComparisonPage
@@ -153,7 +153,7 @@ export const ComparisonPage = () => {
               <Card>
                 <Box sx={{ position: 'relative' }}>
                   <Avatar
-                    src={pokemon.sprites.front_default}
+                    src={pokemon.sprites?.front_default || '/placeholder-pokemon.png'}
                     alt={pokemon.name}
                     sx={{ width: 100, height: 100, margin: '16px auto', display: 'block' }}
                   />
@@ -270,7 +270,7 @@ export const ComparisonPage = () => {
                     <TableCell key={pokemon.id} align="center">
                       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <Avatar
-                          src={pokemon.sprites.front_default}
+                          src={pokemon.sprites?.front_default || '/placeholder-pokemon.png'}
                           alt={pokemon.name}
                           sx={{ width: 40, height: 40, mb: 1 }}
                         />

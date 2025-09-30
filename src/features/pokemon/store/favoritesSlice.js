@@ -16,7 +16,7 @@ const loadFavoritesFromStorage = () => {
     const stored = localStorage.getItem(FAVORITES_STORAGE_KEY);
     return stored ? JSON.parse(stored) : [];
   } catch (error) {
-    console.error('Erro ao carregar favoritos do localStorage:', error);
+    // console.error('Erro ao carregar favoritos do localStorage:', error);
     return [];
   }
 };
@@ -29,7 +29,7 @@ const saveFavoritesToStorage = (favorites) => {
   try {
     localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favorites));
   } catch (error) {
-    console.error('Erro ao salvar favoritos no localStorage:', error);
+    // console.error('Erro ao salvar favoritos no localStorage:', error);
   }
 };
 

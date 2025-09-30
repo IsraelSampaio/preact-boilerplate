@@ -6,7 +6,6 @@ import {
   clearFavorites,
   selectFavorites,
   selectFavoritesCount,
-  selectIsFavorite,
   selectFavoritesLoading,
   selectFavoritesError,
   syncFavoritesFromStorage,

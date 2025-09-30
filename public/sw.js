@@ -16,7 +16,7 @@ const STATIC_ASSETS = [
 ];
 
 // URLs da API para cache dinâmico
-const API_URLS = [
+const _API_URLS = [
   'https://pokeapi.co/api/v2/pokemon',
   'https://pokeapi.co/api/v2/type',
 ];
@@ -106,7 +106,7 @@ self.addEventListener('activate', (event) => {
 // Interceptar requisições
 self.addEventListener('fetch', (event) => {
   const { request } = event;
-  const url = new URL(request.url);
+  const _url = new URL(request.url);
   
   // Ignorar requisições não-GET
   if (request.method !== 'GET') {
@@ -123,7 +123,7 @@ self.addEventListener('fetch', (event) => {
 
 // Determinar estratégia baseada na URL
 function getStrategy(url) {
-  for (const [name, config] of Object.entries(RESOURCE_CONFIG)) {
+  for (const [_name, config] of Object.entries(RESOURCE_CONFIG)) {
     if (config.pattern.test(url)) {
       return config;
     }

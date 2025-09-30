@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import preact from '@preact/preset-vite'
 import { resolve } from 'path'
 
@@ -22,6 +22,8 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.js'],
+    include: ['src/**/*.test.{js,jsx}'],
+    exclude: ['src/__tests__/**/*', 'node_modules/**', 'dist/**'],
   },
   optimizeDeps: {
     include: ['@mui/material', '@mui/icons-material', '@emotion/react', '@emotion/styled']

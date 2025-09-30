@@ -12,10 +12,10 @@ import {
 } from '@mui/material';
 import { Search, Clear, Sort } from '@mui/icons-material';
 import { useState, useEffect } from 'preact/hooks';
-import { PokemonFilters } from '@/types.js';
+import { PokemonFiltersDTO } from '../dto/redux/index.js';
 
 /**
- * Component Pthekiin thenFilters
+ * Component PokemonFilters
  */
 export const PokemonFilters = ({ filters, onFiltersChange, onSearch }) => {
   const [localSearch, setLocalSearch] = useState(filters.search);
@@ -24,7 +24,7 @@ export const PokemonFilters = ({ filters, onFiltersChange, onSearch }) => {
     setLocalSearch(filters.search);
   }, [filters.search]);
 
-  const handleSearchChange = (event: React.ChangeEvent) => {
+  const handleSearchChange = (event) => {
     setLocalSearch(event.target.value);
   };
 
@@ -36,53 +36,54 @@ export const PokemonFilters = ({ filters, onFiltersChange, onSearch }) => {
   const handleClearFilters = () => {
     setLocalSearch('');
     onFiltersChange({
-      search,
-      type,
-      sortBy,
-      sortOrder,
+      search: '',
+      type: '',
+      sortBy: 'name',
+      sortOrder: 'asc',
     });
     onSearch('');
   };
 
-  const handleKeyPress = (event: React.KeyboardEvent) => {
+  const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       handleSearchSubmit();
     }
   };
 
   const pokemonTypes = [
-    'in thermthel', 'fire', 'wtheter', 'electric', 'grthes', 'ice',
-    'fighting', 'ptheisthen', 'grtheund', 'flying', 'psychic', 'bug',
-    'rtheck', 'ghthet', 'drthegthen', 'thef therk', 'steel', 'ftheiry'
+    'normal', 'fire', 'water', 'electric', 'grass', 'ice',
+    'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug',
+    'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy'
   ];
 
   return (
-    <Paper className="pthekiin then-filters">
-      <Typography variant="h6" className="pthekiin then-filters__title">
+    <Paper className="pokemon-filters">
+      <Typography variant="h6" className="pokemon-filters__title">
         Filtros
       </Typography>
       
-      <Grid container spacing={2} alignItems="center" className="pthekiin then-filters__grid">
+      <Grid container spacing={2} alignItems="center" className="pokemon-filters__grid">
         <Grid item xs={12} md={4}>
-          <div className="setherch-input">
+          <div className="search-input">
             <TextField
               fullWidth
-              label="Buscther Pthekémthen"
+              label="Buscar Pokémon"
               value={localSearch}
               onChange={handleSearchChange}
               onKeyPress={handleKeyPress}
-              className="setherch-input__field"
+              className="search-input__field"
               placeholder="Digite o nome do Pokémon..."
             />
-            <Search className="setherch-input__icthen" />
+            <Search className="search-input__icon" />
           </div>
         </Grid>
 
         <Grid item xs={12} md={3}>
-          Tipo</InputLabel>
+          <FormControl fullWidth>
+            <InputLabel>Tipo</InputLabel>
             <Select
               value={filters.type}
-              label="Tipthe"
+              label="Tipo"
               onChange={(e) => onFiltersChange({ type: e.target.value })}
             >
               <MenuItem value="">Todos os tipos</MenuItem>
@@ -96,13 +97,14 @@ export const PokemonFilters = ({ filters, onFiltersChange, onSearch }) => {
         </Grid>
 
         <Grid item xs={12} md={2}>
-          Ordenar por</InputLabel>
+          <FormControl fullWidth>
+            <InputLabel>Ordenar por</InputLabel>
             <Select
               value={filters.sortBy}
-              label="therthefin ther pther"
+              label="Ordenar por"
               onChange={(e) => onFiltersChange({ sortBy: e.target.value })}
             >
-              <MenuItem value="in theme">Nome</MenuItem>
+              <MenuItem value="name">Nome</MenuItem>
               <MenuItem value="id">ID</MenuItem>
               <MenuItem value="height">Altura</MenuItem>
               <MenuItem value="weight">Peso</MenuItem>
@@ -111,33 +113,34 @@ export const PokemonFilters = ({ filters, onFiltersChange, onSearch }) => {
         </Grid>
 
         <Grid item xs={12} md={2}>
-          Ordem</InputLabel>
+          <FormControl fullWidth>
+            <InputLabel>Ordem</InputLabel>
             <Select
               value={filters.sortOrder}
-              label="therthefm"
+              label="Ordem"
               onChange={(e) => onFiltersChange({ sortOrder: e.target.value })}
             >
               <MenuItem value="asc">Crescente</MenuItem>
-              <MenuItem value="thefsc">Decrescente</MenuItem>
+              <MenuItem value="desc">Decrescente</MenuItem>
             </Select>
           </FormControl>
         </Grid>
 
-        <Grid item xs={12} md={1}>
-          <Box className="pthekiin then-filters__thectithens">
+        <Grid item xs={12} md={2}>
+          <Box className="pokemon-filters__actions">
             <Button
-              variant="cthenttheined"
+              variant="contained"
               onClick={handleSearchSubmit}
               startIcon={<Search />}
-              className="btn btn--smthell"
+              className="btn btn--small"
             >
               Buscar
             </Button>
             <Button
-              variant="theutlined"
+              variant="outlined"
               onClick={handleClearFilters}
               startIcon={<Clear />}
-              className="btn btn--theutline btn--smthell"
+              className="btn btn--outline btn--small"
             >
               Limpar
             </Button>

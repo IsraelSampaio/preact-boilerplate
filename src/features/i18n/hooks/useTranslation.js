@@ -1,5 +1,4 @@
 import { useTranslation as useI18nTranslation } from 'react-i18next';
-import { changeLanguage, getCurrentLanguage, getAvailableLanguages, getLanguageInfo } from '@/i18n/index.js';
 
 /**
  * Hook personalizado para tradução
@@ -41,7 +40,14 @@ export const useTranslation = (namespace = 'translation') => {
    */
   const setLanguage = async (language) => {
     try {
-      await changeLanguage(language);
+      // Verificar se o idioma é suportado
+      const supportedLanguages = i18n.options.supportedLngs || ['pt-BR', 'en-US'];
+      if (!supportedLanguages.includes(language)) {
+        console.warn(`Language ${language} is not supported. Using fallback: pt-BR`);
+        language = 'pt-BR';
+      }
+      
+      await i18n.changeLanguage(language);
       
       // Salvar preferência no localStorage
       localStorage.setItem('pokemon-app-language', language);
@@ -63,8 +69,13 @@ export const useTranslation = (namespace = 'translation') => {
    * @returns {object} Informações do idioma
    */
   const currentLanguageInfo = () => {
-    const current = getCurrentLanguage();
-    return getLanguageInfo(current);
+    const current = i18n?.language || 'pt-BR';
+    return {
+      code: current,
+      name: current === 'pt-BR' ? 'Português (Brasil)' : 'English (US)',
+      nativeName: current === 'pt-BR' ? 'Português' : 'English',
+      flag: current === 'pt-BR' ? '🇧🇷' : '🇺🇸'
+    };
   };
 
   /**
@@ -72,9 +83,14 @@ export const useTranslation = (namespace = 'translation') => {
    * @returns {Array} Lista de idiomas disponíveis
    */
   const availableLanguages = () => {
-    return getAvailableLanguages().map(lng => ({
+    // Fallback para idiomas padrão se i18n não estiver inicializado
+    const languages = i18n?.languages || ['pt-BR', 'en-US'];
+    
+    return languages.map(lng => ({
       code: lng,
-      ...getLanguageInfo(lng),
+      name: lng === 'pt-BR' ? 'Português (Brasil)' : 'English (US)',
+      nativeName: lng === 'pt-BR' ? 'Português' : 'English',
+      flag: lng === 'pt-BR' ? '🇧🇷' : '🇺🇸'
     }));
   };
 
@@ -91,7 +107,7 @@ export const useTranslation = (namespace = 'translation') => {
    * @returns {string} Código do idioma atual
    */
   const currentLanguage = () => {
-    return getCurrentLanguage();
+    return i18n.language;
   };
 
   /**

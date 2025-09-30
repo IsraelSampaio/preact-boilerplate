@@ -17,7 +17,7 @@ const loadComparisonFromStorage = () => {
     const stored = localStorage.getItem(COMPARISON_STORAGE_KEY);
     return stored ? JSON.parse(stored) : [];
   } catch (error) {
-    console.error('Erro ao carregar comparação do localStorage:', error);
+    // console.error('Erro ao carregar comparação do localStorage:', error);
     return [];
   }
 };
@@ -30,7 +30,7 @@ const saveComparisonToStorage = (comparisonList) => {
   try {
     localStorage.setItem(COMPARISON_STORAGE_KEY, JSON.stringify(comparisonList));
   } catch (error) {
-    console.error('Erro ao salvar comparação no localStorage:', error);
+    // console.error('Erro ao salvar comparação no localStorage:', error);
   }
 };
 

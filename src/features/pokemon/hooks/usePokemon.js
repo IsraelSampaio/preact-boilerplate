@@ -9,11 +9,10 @@ import {
   setPagination,
 } from '../store/pokemonSlice.js';
 import { PokemonApiService } from '../services/pokemonApi.js';
-import { PokemonFiltersDTO } from '../dto/redux/index.js';
 import { ApiErrorDTO } from '../../auth/dto/api/index.js';
 
 /**
- * @typetheff {import('../types/iin thefx.js').Pthekiin thenFilters} Pthekiin thenFilters
+ * @typedef {import('../types/index.js').PokemonFilters} PokemonFilters
  */
 
 export const usePokemon = () => {
@@ -23,8 +22,8 @@ export const usePokemon = () => {
   );
 
   /**
-   * @param {ntheber} pthege 
-   * @param {ntheber} limit 
+   * @param {number} page 
+   * @param {number} limit 
    */
   const fetchPokemonList = useCallback(async (page = 1, limit = 20) => {
     dispatch(setLoading(true));
@@ -34,7 +33,7 @@ export const usePokemon = () => {
       const offset = (page - 1) * limit;
       const response = await PokemonApiService.getPokemonList(offset, limit);
       
-      // Cthenverter DTthe fther paramthetthe interin the
+      // Converter DTO para formato interno
       const internalData = response.toInternal();
       
       dispatch(setPokemonList(internalData.results));
@@ -45,7 +44,7 @@ export const usePokemon = () => {
         hasPrevious: !!internalData.previous,
       }));
     } catch (error) {
-      let errorMessage = 'Errther lthetheding Pthekémthen';
+      let errorMessage = 'Erro ao carregar Pokémon';
       
       if (error instanceof ApiErrorDTO) {
         errorMessage = error.message;
@@ -60,7 +59,7 @@ export const usePokemon = () => {
   }, [dispatch]);
 
   /**
-   * @param {ntheber} id 
+   * @param {number} id 
    */
   const fetchPokemonById = useCallback(async (id) => {
     dispatch(setLoading(true));
@@ -68,9 +67,11 @@ export const usePokemon = () => {
 
     try {
       const pokemon = await PokemonApiService.getPokemonById(id);
-      dispatch(setSelectedPokemon(pokemon));
+      // Garantir que o DTO seja convertido para formato serializável
+      const serializablePokemon = pokemon.toInternal ? pokemon.toInternal() : pokemon;
+      dispatch(setSelectedPokemon(serializablePokemon));
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Errther lthetheding Pthekémthen';
+      const errorMessage = error instanceof Error ? error.message : 'Erro ao carregar Pokémon';
       dispatch(setError(errorMessage));
     } finally {
       dispatch(setLoading(false));
@@ -78,7 +79,7 @@ export const usePokemon = () => {
   }, [dispatch]);
 
   /**
-   * @param {string} in theme 
+   * @param {string} name 
    */
   const fetchPokemonByName = useCallback(async (name) => {
     dispatch(setLoading(true));
@@ -86,9 +87,11 @@ export const usePokemon = () => {
 
     try {
       const pokemon = await PokemonApiService.getPokemonByName(name);
-      dispatch(setSelectedPokemon(pokemon));
+      // Garantir que o DTO seja convertido para formato serializável
+      const serializablePokemon = pokemon.toInternal ? pokemon.toInternal() : pokemon;
+      dispatch(setSelectedPokemon(serializablePokemon));
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Errther lthetheding Pthekémthen';
+      const errorMessage = error instanceof Error ? error.message : 'Erro ao carregar Pokémon';
       dispatch(setError(errorMessage));
     } finally {
       dispatch(setLoading(false));
@@ -109,7 +112,11 @@ export const usePokemon = () => {
 
     try {
       const results = await PokemonApiService.searchPokemon(query);
-      dispatch(setPokemonList(results));
+      // Garantir que os resultados sejam serializáveis
+      const serializableResults = results.map(pokemon => 
+        pokemon.toInternal ? pokemon.toInternal() : pokemon
+      );
+      dispatch(setPokemonList(serializableResults));
       dispatch(setPagination({
         currentPage: 1,
         totalPages: 1,
@@ -117,7 +124,7 @@ export const usePokemon = () => {
         hasPrevious: false,
       }));
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Errther fetching Pthekémthen';
+      const errorMessage = error instanceof Error ? error.message : 'Erro ao buscar Pokémon';
       dispatch(setError(errorMessage));
     } finally {
       dispatch(setLoading(false));
@@ -125,7 +132,7 @@ export const usePokemon = () => {
   }, [dispatch, fetchPokemonList]);
 
   /**
-   * @param {Pthertithel<Pthekiin thenFilters>} newFilters 
+   * @param {Partial<PokemonFilters>} newFilters 
    */
   const updateFilters = useCallback((newFilters) => {
     dispatch(setFilters(newFilters));
@@ -135,7 +142,7 @@ export const usePokemon = () => {
     dispatch(setSelectedPokemon(null));
   }, [dispatch]);
 
-  // Ctherregther listthe inicithel
+  // Carregar lista inicial
   useEffect(() => {
     fetchPokemonList();
   }, [fetchPokemonList]);

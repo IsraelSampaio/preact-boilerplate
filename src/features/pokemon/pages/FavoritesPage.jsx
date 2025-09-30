@@ -24,9 +24,9 @@ import {
   Delete,
   Sort,
 } from '@mui/icons-material';
-import { MainLayout } from '@/components/layout.js';
+import { MainLayout } from '@/components/layout/index.js';
 import { PokemonCard } from '../components/PokemonCard.jsx';
-import { useFavorites } from '@/hooks/useFavorites.js';
+import { useFavorites } from '../hooks/useFavorites.js';
 
 /**
  * Componente FavoritesPage

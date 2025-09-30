@@ -9,7 +9,6 @@ import {
   syncComparisonFromStorage,
   selectComparisonList,
   selectComparisonCount,
-  selectIsInComparison,
   selectIsComparing,
   selectComparisonError,
   selectCanAddToComparison,

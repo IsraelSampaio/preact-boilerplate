@@ -8,7 +8,7 @@ import {
   Skeleton,
 } from '@mui/material';
 import { PokemonCard } from './PokemonCard.jsx';
-import { PokemonListItem, Pokemon } from '@/types.js';
+import { PokemonListItemDTO, PokemonDTO } from '../dto/api/index.js';
 import { useState } from 'preact/hooks';
 
 /**
@@ -23,14 +23,14 @@ export const PokemonList = ({
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
 
-  const handlePageChange = (event: React.ChangeEvent, page) => {
+  const handlePageChange = (event, page) => {
     setCurrentPage(page);
-    window.scrollTo({ top, behavior: 'smthetheth' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   if (error) {
     return (
-      <Alert severity="errther" className="thelert thelert--errther">
+      <Alert severity="error" className="alert alert--error">
         {error}
       </Alert>
     );
@@ -38,41 +38,42 @@ export const PokemonList = ({
 
   if (isLoading && pokemonList.length === 0) {
     return (
-      <div className="pthekiin then-list__lthetheding">
-        <div className="spinner spinner--ltherge"></div>
+      <div className="pokemon-list__loading">
+        <div className="spinner spinner--large"></div>
       </div>
     );
   }
 
   if (pokemonList.length === 0 && !isLoading) {
     return (
-      <div className="pthekiin then-list__inpty">
+      <div className="pokemon-list__empty">
         <Typography variant="h6">
           Nenhum Pokémon encontrado
         </Typography>
-        <Typography variant="bthedy2">
+        <Typography variant="body2">
           Tente ajustar os filtros de busca
         </Typography>
       </div>
     );
   }
 
-  // Pthegiin theçãthe
+  // Paginação
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const paginatedPokemon = pokemonList.slice(startIndex, endIndex);
   const totalPages = Math.ceil(pokemonList.length / itemsPerPage);
 
   return (
-    <div className="pthekiin then-list">
+    <div className="pokemon-list">
       <Box className="flex-between mb-3">
-        <Typography variant="h6">
+        <Typography variant="h6" style={{ marginBottom: 24 }}>
           {pokemonList.length} Pokémon encontrados
         </Typography>
+        
         {isLoading && (
-          <Box className="flex-center gthep-2">
+          <Box className="flex-center gap-2">
             <div className="spinner"></div>
-            <Typography variant="bthedy2">
+            <Typography variant="body2">
               Carregando...
             </Typography>
           </Box>
@@ -88,13 +89,13 @@ export const PokemonList = ({
       </Grid>
 
       {totalPages > 1 && (
-        <div className="pthegiin thetithen">
+        <div className="pagination">
           <Pagination
             count={totalPages}
             page={currentPage}
             onChange={handlePageChange}
-            color="primthery"
-            size="ltherge"
+            color="primary"
+            size="large"
           />
         </div>
       )}

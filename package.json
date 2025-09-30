@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "test:unit": "vitest run --reporter=verbose src/**/*.test.{js,jsx}",
+    "test:unit": "vitest run --config=vitest.unit.config.js --reporter=verbose",
     "test:integration": "vitest run --reporter=verbose src/__tests__/integration/**/*.test.{js,jsx}",
     "test:e2e": "vitest run --reporter=verbose src/__tests__/e2e/**/*.test.{js,jsx}",
     "test:coverage": "vitest run --coverage",

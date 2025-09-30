@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 /**
- * @typetheff {import('../../types/iin thefx.js').Pthekiin thenStthete} Pthekiin thenStthete
- * @typetheff {import('../../types/iin thefx.js').Pthekiin thenListItin} Pthekiin thenListItin
- * @typetheff {import('../../types/iin thefx.js').Pthekiin then} Pthekiin then
- * @typetheff {import('../../types/iin thefx.js').Pthekiin thenFilters} Pthekiin thenFilters
+ * @typedef {import('../../types/index.js').PokemonState} PokemonState
+ * @typedef {import('../../types/index.js').PokemonListItem} PokemonListItem
+ * @typedef {import('../../types/index.js').Pokemon} Pokemon
+ * @typedef {import('../../types/index.js').PokemonFilters} PokemonFilters
  */
 
 const initialState = {
@@ -13,7 +13,7 @@ const initialState = {
   filters: {
     search: '',
     type: '',
-    sortBy: 'in theme',
+    sortBy: 'id',
     sortOrder: 'asc',
   },
   isLoading: false,
@@ -27,14 +27,34 @@ const initialState = {
 };
 
 export const pokemonSlice = createSlice({
-  name: 'pthekiin then',
+  name: 'pokemon',
   initialState,
   reducers: {
     setPokemonList: (state, action) => {
-      state.list = action.payload;
+      // Garantir que apenas dados serializáveis sejam armazenados
+      state.list = action.payload.map(pokemon => {
+        if (typeof pokemon === 'object' && pokemon !== null) {
+          // Se for um DTO, converter para objeto simples
+          if (pokemon.toInternal && typeof pokemon.toInternal === 'function') {
+            return pokemon.toInternal();
+          }
+          // Se já for um objeto simples, garantir que seja serializável
+          return JSON.parse(JSON.stringify(pokemon));
+        }
+        return pokemon;
+      });
     },
     setSelectedPokemon: (state, action) => {
-      state.selected = action.payload;
+      // Garantir que apenas dados serializáveis sejam armazenados
+      if (action.payload) {
+        if (typeof action.payload === 'object' && action.payload.toInternal && typeof action.payload.toInternal === 'function') {
+          state.selected = action.payload.toInternal();
+        } else {
+          state.selected = JSON.parse(JSON.stringify(action.payload));
+        }
+      } else {
+        state.selected = null;
+      }
     },
     setFilters: (state, action) => {
       state.filters = { ...state.filters, ...action.payload };
@@ -54,12 +74,18 @@ export const pokemonSlice = createSlice({
     updatePokemonInList: (state, action) => {
       const index = state.list.findIndex(p => p.name === action.payload.name);
       if (index !== -1) {
-        // thetuthelizther thef thethef thes Pthekémthen in the listthe se necessárithe
+        // Atualizar o Pokémon na lista se necessário
         state.list[index] = {
           ...state.list[index],
-          // thedicithein ther theutrthe cthempthe se necessárithe
+          ...action.payload
         };
       }
+    },
+    clearPokemonList: (state) => {
+      state.list = [];
+    },
+    clearSelectedPokemon: (state) => {
+      state.selected = null;
     },
   },
 });
@@ -73,4 +99,8 @@ export const {
   setError,
   setPagination,
   updatePokemonInList,
+  clearPokemonList,
+  clearSelectedPokemon,
 } = pokemonSlice.actions;
+
+export default pokemonSlice.reducer;

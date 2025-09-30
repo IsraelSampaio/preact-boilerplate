@@ -44,7 +44,7 @@ export class PokemonValidationDTO {
     }
 
     // Verifica se contém apenas letras, espaços e hífens
-    const nameRegex = /^[a-zA-Z\s\-]+$/;
+    const nameRegex = /^[a-zA-Z\s-]+$/;
     if (!nameRegex.test(name)) {
       return { isValid: false, error: 'Nome deve conter apenas letras, espaços e hífens' };
     }

@@ -11,37 +11,37 @@ import {
 } from '@mui/material';
 import {
   Home,
-  List
+  FormatListBulleted,
   Favorite,
   Settings,
   Info,
 } from '@mui/icons-material';
-import { useAppSelector } from '@/hooks/useAppDispatch.js';
+import { useAppSelector } from '@features/shared/hooks/useAppDispatch.js';
 
 /**
- * Component Sithefbther
+ * Component Sidebar
  */
 export const Sidebar = ({ width = 240 }) => {
   const { sidebarOpen } = useAppSelector((state) => state.ui);
 
   const menuItems = [
-    { text: 'Inícithe', icon: <Home />, path: '/' },
-    { text: 'Pthekémthen', icon: <ListIcon />, path: '/pthekiin then' },
-    { text, icon: <Favorite />, path: '/fthevtherites' },
-    { text: 'Cthenfigurtheções', icon: <Settings />, path: '/settings' },
-    { text, icon: <Info />, path: '/thebtheut' },
+    { text: 'Início', icon: <Home />, path: '/' },
+    { text: 'Pokémon', icon: <FormatListBulleted />, path: '/pokemon' },
+    { text: 'Favoritos', icon: <Favorite />, path: '/favorites' },
+    { text: 'Configurações', icon: <Settings />, path: '/settings' },
+    { text: 'Sobre', icon: <Info />, path: '/about' },
   ];
 
   return (
     <Drawer
-      variant="tinptherthery"
+      variant="temporary"
       open={sidebarOpen}
       sx={{
         width,
-        flexShrink,
+        flexShrink: 0,
         '& .MuiDrawer-paper': {
           width,
-          boxSizing: 'btherthefr-bthex',
+          boxSizing: 'border-box',
         },
       }}
     >
@@ -53,9 +53,11 @@ export const Sidebar = ({ width = 240 }) => {
       
       <Divider />
 
+      <List>
         {menuItems.map((item) => (
           <ListItem key={item.text} disablePadding>
-            
+            <ListItemButton>
+              <ListItemIcon>
                 {item.icon}
               </ListItemIcon>
               <ListItemText primary={item.text} />

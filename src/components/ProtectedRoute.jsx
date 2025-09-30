@@ -1,35 +1,22 @@
-import { useEffect } from 'preact/hooks';
-import { useAuth } from '@/hooks/useAuth.js';
-import { LoginForm } from '@/features/auth/index.js';
+import { useAuth } from '@features/auth/hooks/useAuth.js';
 
 /**
- * Component to protect routes that require authentication
- * @param {Object} props
- * @param {import('preact').ComponentChildren} props.children - Child components to be rendered
+ * Component ProtectedRoute
+ * Protege rotas que requerem autenticação
  */
-export const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, isLoading } = useAuth();
+export const ProtectedRoute = ({ children, _path }) => {
+  const { isAuthenticated } = useAuth();
 
-  useEffect(() => {
-    // Here you could add additional authentication verification logic
-  }, [isAuthenticated]);
-
-  if (isLoading) {
+  // Por enquanto, assume que sempre está autenticado para desenvolvimento
+  // Em produção, verificaria a autenticação real
+  if (!isAuthenticated) {
     return (
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        height: '100vh' 
-      }}>
-        <div>Loading...</div>
+      <div style={{ padding: '20px', textAlign: 'center' }}>
+        <h2>Acesso Restrito</h2>
+        <p>Você precisa fazer login para acessar esta página.</p>
       </div>
     );
   }
 
-  if (!isAuthenticated) {
-    return <LoginForm />;
-  }
-
-  return <>{children}</>;
+  return children;
 };

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'preact/hooks';
+import { useState, useEffect, useCallback } from 'preact/hooks';
 import { route } from 'preact-router';
 import {
   Container,
@@ -25,12 +25,12 @@ import {
   Compare,
   Share,
 } from '@mui/icons-material';
-import { MainLayout } from '@/components/layout.js';
-import { PokemonApiService } from '@/services/pokemonApi.js';
-import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch.js';
-import { useFavorites } from '@/hooks/useFavorites.js';
-import { useComparison } from '@/hooks/useComparison.js';
-import { setSelectedPokemon, setLoading, setError } from '@/store/slices/pokemonSlice.js';
+import { MainLayout } from '@/components/layout/index.js';
+import { PokemonApiService } from '../services/pokemonApi.js';
+import { useAppDispatch, useAppSelector } from '@features/shared/hooks/useAppDispatch.js';
+import { useFavorites } from '../hooks/useFavorites.js';
+import { useComparison } from '../hooks/useComparison.js';
+import { setSelectedPokemon, setLoading, setError } from '../store/pokemonSlice.js';
 
 /**
  * Componente PokemonDetailsPage
@@ -48,13 +48,7 @@ export const PokemonDetailsPage = ({ id }) => {
   } = useComparison();
   const [activeTab, setActiveTab] = useState(0);
 
-  useEffect(() => {
-    if (id) {
-      loadPokemonDetails(id);
-    }
-  }, [id]);
-
-  const loadPokemonDetails = async (pokemonId) => {
+  const loadPokemonDetails = useCallback(async (pokemonId) => {
     try {
       dispatch(setLoading(true));
       dispatch(setError(null));
@@ -65,7 +59,13 @@ export const PokemonDetailsPage = ({ id }) => {
     } finally {
       dispatch(setLoading(false));
     }
-  };
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (id) {
+      loadPokemonDetails(id);
+    }
+  }, [id, loadPokemonDetails]);
 
   const handleBack = () => {
     route('/pokemon');
@@ -239,7 +239,7 @@ export const PokemonDetailsPage = ({ id }) => {
           <Grid item xs={12} md={4}>
             <Card sx={{ textAlign: 'center', p: 2 }}>
               <Avatar
-                src={pokemon.sprites.front_default}
+                src={pokemon.sprites?.front_default || '/placeholder-pokemon.png'}
                 alt={pokemon.name}
                 sx={{ width: 200, height: 200, margin: '0 auto', mb: 2 }}
               />
@@ -353,7 +353,7 @@ export const PokemonDetailsPage = ({ id }) => {
                   Sprites
                 </Typography>
                 <Grid container spacing={2}>
-                  {pokemon.sprites.front_default && (
+                  {pokemon.sprites?.front_default && (
                     <Grid item xs={6} sm={3}>
                       <Card>
                         <CardContent sx={{ textAlign: 'center' }}>
@@ -369,7 +369,7 @@ export const PokemonDetailsPage = ({ id }) => {
                       </Card>
                     </Grid>
                   )}
-                  {pokemon.sprites.back_default && (
+                  {pokemon.sprites?.back_default && (
                     <Grid item xs={6} sm={3}>
                       <Card>
                         <CardContent sx={{ textAlign: 'center' }}>
@@ -385,7 +385,7 @@ export const PokemonDetailsPage = ({ id }) => {
                       </Card>
                     </Grid>
                   )}
-                  {pokemon.sprites.front_shiny && (
+                  {pokemon.sprites?.front_shiny && (
                     <Grid item xs={6} sm={3}>
                       <Card>
                         <CardContent sx={{ textAlign: 'center' }}>
@@ -401,7 +401,7 @@ export const PokemonDetailsPage = ({ id }) => {
                       </Card>
                     </Grid>
                   )}
-                  {pokemon.sprites.back_shiny && (
+                  {pokemon.sprites?.back_shiny && (
                     <Grid item xs={6} sm={3}>
                       <Card>
                         <CardContent sx={{ textAlign: 'center' }}>

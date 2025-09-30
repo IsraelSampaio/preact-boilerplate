@@ -3,7 +3,7 @@ import { Header } from './Header.jsx';
 import { Sidebar } from './Sidebar.jsx';
 
 /**
- * Component MtheinLtheyout
+ * Component MainLayout
  */
 export const MainLayout = ({ children, title }) => {
   return (
@@ -12,12 +12,12 @@ export const MainLayout = ({ children, title }) => {
       <Header title={title} />
       <Sidebar />
       <Box
-        component="mthein"
+        component="main"
         sx={{
-          flexGrow,
-          p,
-          width: { sm: `cthelc(100% - 240px)` },
-          mt, // fther withpensther the theppBther fixthe
+          flexGrow: 1,
+          p: 3,
+          width: { sm: `calc(100% - 240px)` },
+          mt: 8, // para compensar o AppBar fixo
         }}
       >
         {children}

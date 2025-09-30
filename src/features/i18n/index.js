@@ -1,8 +1,8 @@
+// Inicializar i18n
+import './i18n.js';
+
 // Hooks
 export { useTranslation } from './hooks/useTranslation.js';
-
-// Services de internacionalização
-export * from './index.js';
 
 // Configurações
 export * from './locales/en-US.json';

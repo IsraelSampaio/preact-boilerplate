@@ -13,7 +13,7 @@ import {
   Tooltip,
 } from '@mui/material';
 import { Language, Check } from '@mui/icons-material';
-import { useTranslation } from '@/hooks/useTranslation.js';
+import { useTranslation } from '@features/i18n/hooks/useTranslation.js';
 
 /**
  * Componente LanguageSelector
@@ -49,9 +49,9 @@ export const LanguageSelector = ({ variant = 'select', size = 'medium' }) => {
       }
       
       // Feedback visual de sucesso
-      console.log(`Language changed to: ${newLanguage}`);
+      // console.log(`Language changed to: ${newLanguage}`);
     } catch (error) {
-      console.error('Failed to change language:', error);
+      // console.error('Failed to change language:', error);
     } finally {
       setIsChanging(false);
     }
@@ -169,28 +169,65 @@ export const LanguageSelector = ({ variant = 'select', size = 'medium' }) => {
   // Renderização compacta (apenas flag e nome)
   if (variant === 'compact') {
     return (
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 1,
-          cursor: 'pointer',
-          p: 1,
-          borderRadius: 1,
-          '&:hover': {
-            bgcolor: 'action.hover',
-          },
-        }}
-        onClick={handleMenuOpen}
-      >
-        <Typography component="span" sx={{ fontSize: '1.2em' }}>
-          {current.flag}
-        </Typography>
-        <Typography variant="body2">
-          {current.name}
-        </Typography>
-        <Language fontSize="small" color="action" />
-      </Box>
+      <>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
+            cursor: 'pointer',
+            p: 1,
+            borderRadius: 1,
+            '&:hover': {
+              bgcolor: 'action.hover',
+            },
+          }}
+          onClick={handleMenuOpen}
+        >
+          <Typography component="span" sx={{ fontSize: '1.2em' }}>
+            {current.flag}
+          </Typography>
+          <Typography variant="body2">
+            {current.name}
+          </Typography>
+          <Language fontSize="small" color="action" />
+        </Box>
+        
+        <Menu
+          anchorEl={anchorEl}
+          open={isMenuOpen}
+          onClose={handleMenuClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+        >
+          {languages.map((language) => (
+            <MenuItem 
+              key={language.code}
+              onClick={() => handleLanguageChange(language.code)}
+              selected={language.code === currentLanguage()}
+            >
+              <ListItemIcon>
+                <Typography component="span" sx={{ fontSize: '1.2em' }}>
+                  {language.flag}
+                </Typography>
+              </ListItemIcon>
+              <ListItemText 
+                primary={language.name}
+                secondary={language.nativeName}
+              />
+              {language.code === currentLanguage() && (
+                <Check color="primary" fontSize="small" sx={{ ml: 1 }} />
+              )}
+            </MenuItem>
+          ))}
+        </Menu>
+      </>
     );
   }
 

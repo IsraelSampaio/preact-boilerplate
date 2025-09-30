@@ -1,8 +1,9 @@
 // Arquivo de exemplos de uso dos estilos SCSS
 // Este arquivo demonstra como usar as variáveis, mixins e classes disponíveis
 
-@import './variables';
-@import './mixins';
+@use 'sass:map';
+@use './variables' as *;
+@use './mixins' as *;
 
 // Exemplo 1: Usando variáveis
 .example-1 {
@@ -49,14 +50,14 @@
 
 // Exemplo 5: Usando cores dos tipos Pokémon
 .pokemon-fire {
-  background-color: map-get($pokemon-types, fire);
+  background-color: map.get($pokemon-types, fire);
   color: white;
   padding: $spacing-sm;
   border-radius: $border-radius-sm;
 }
 
 .pokemon-water {
-  background-color: map-get($pokemon-types, water);
+  background-color: map.get($pokemon-types, water);
   color: white;
   padding: $spacing-sm;
   border-radius: $border-radius-sm;

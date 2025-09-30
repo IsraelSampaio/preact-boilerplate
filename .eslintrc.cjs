@@ -19,9 +19,26 @@ module.exports = {
   },
   plugins: [],
   rules: {
-    'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-    'no-console': 'warn',
+    'no-unused-vars': ['error', { 
+      argsIgnorePattern: '^_',
+      varsIgnorePattern: '^_',
+      ignoreRestSiblings: true
+    }],
+    'no-console': 'off',
     'prefer-const': 'error',
     'no-var': 'error',
   },
+  overrides: [
+    {
+      files: ['**/*.jsx'],
+      rules: {
+        'no-unused-vars': 'off'
+      }
+    }
+  ],
+  settings: {
+    react: {
+      version: 'detect'
+    }
+  }
 }

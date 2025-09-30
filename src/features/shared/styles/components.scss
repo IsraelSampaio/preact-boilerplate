@@ -1,5 +1,5 @@
-@import './variables';
-@import './mixins';
+@use './variables' as *;
+@use './mixins' as *;
 
 // Componentes personalizados
 
@@ -107,7 +107,7 @@
   
   &__icon {
     position: absolute;
-    left: $spacing-md;
+    right: $spacing-md;
     top: 50%;
     transform: translateY(-50%);
     color: #64748b;

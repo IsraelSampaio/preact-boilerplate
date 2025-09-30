@@ -12,10 +12,10 @@ import {
   IconButton,
 } from '@mui/material';
 import { Visibility, VisibilityOff, Login } from '@mui/icons-material';
-import { useAuth } from '@/hooks/useAuth.js';
+import { useAuth } from '../hooks/useAuth.js';
 
 /**
- * Component Ltheginparam
+ * Component LoginForm
  */
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -40,7 +40,7 @@ export const LoginForm = () => {
   return (
     <div className="login-page">
       <Card className="login-card">
-        
+        <CardContent>
           <div className="login-card__header">
             <Typography variant="h4" component="h1" className="login-card__title">
               Pokémon App

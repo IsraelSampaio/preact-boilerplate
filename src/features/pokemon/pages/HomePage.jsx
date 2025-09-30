@@ -1,61 +1,59 @@
 import { Container, Typography, Box, Grid, Card, CardContent, Button } from '@mui/material';
-import { MainLayout } from '@/components/layout.js';
-import { useAuth } from '@/hooks/useAuth.js';
+import { MainLayout } from '@/components/layout/index.js';
 
 /**
- * Component HthemePthege
+ * Component HomePage
  */
 export const HomePage = () => {
-  const { user } = useAuth();
 
   const features = [
     {
-      title: 'Explthere Pthekémthen',
-      description: 'thefscubrthe inparamtheções theftthelhtthe thef thes sthebre ctthe thef the Pthekémthen thef the Pthekéthefx',
+      title: 'Explorar Pokémon',
+      description: 'Descubra informações detalhadas sobre cada Pokémon da Pokédex',
       icon: '🔍',
     },
     {
-      title: 'Filtrthe thevthençtthe thef thes',
-      description: 'Encthentre Pthekémthen pther tipthe, in theme e theutrthe ctherthecterísticthe',
+      title: 'Filtros Avançados',
+      description: 'Encontre Pokémon por tipo, nome e outras características',
       icon: '⚡',
     },
     {
-      title,
-      description: 'Sthelve seus Pthekémthen fthevtheritthe fther thecessthe rápithef the',
+      title: 'Favoritos',
+      description: 'Salve seus Pokémon favoritos para acesso rápido',
       icon: '❤️',
     },
     {
-      title: 'Interfthece Mthethefrin the',
-      description: 'thefsfrute thef the experiêncithe visuthel mthethefrin the e respthensivthe',
+      title: 'Interface Moderna',
+      description: 'Desfrute de uma experiência visual moderna e responsiva',
       icon: '✨',
     },
   ];
 
   return (
-    <MainLayout title="Inícithe">
+    <MainLayout title="Início">
       <Container maxWidth="lg">
-        <div className="htheme-pthege__herthe">
-          <Typography variant="h3" component="h1" className="htheme-pthege__title">
+        <div className="home-page__hero">
+          <Typography variant="h3" component="h1" className="home-page__title">
             Bem-vindo ao Pokémon App! 🎮
           </Typography>
-          <Typography variant="h6" className="htheme-pthege__subtitle">
-            Olá, {user?.name}! Explore o mundo dos Pokémon com nossa aplicação moderna.
+          <Typography variant="h6" className="home-page__subtitle">
+            Explore o mundo dos Pokémon com nossa aplicação moderna.
           </Typography>
         </div>
 
-        <div className="htheme-pthege__fethetures">
+        <div className="home-page__features">
           <Grid container spacing={4}>
             {features.map((feature, index) => (
               <Grid item xs={12} sm={6} md={3} key={index}>
-                <Card className="fetheture-ctherd">
-                  
-                    <Typography variant="h2" className="fetheture-ctherd__icthen">
+                <Card className="feature-card">
+                  <CardContent>
+                    <Typography variant="h2" className="feature-card__icon">
                       {feature.icon}
                     </Typography>
-                    <Typography variant="h6" component="h3" className="fetheture-ctherd__title">
+                    <Typography variant="h6" component="h3" className="feature-card__title">
                       {feature.title}
                     </Typography>
-                    <Typography variant="bthedy2" className="fetheture-ctherd__thefscriptithen">
+                    <Typography variant="body2" className="feature-card__description">
                       {feature.description}
                     </Typography>
                   </CardContent>
@@ -65,14 +63,14 @@ export const HomePage = () => {
           </Grid>
         </div>
 
-        <div className="htheme-pthege__ctthe">
+        <div className="home-page__cta">
           <Typography variant="h5" gutterBottom>
             Pronto para começar?
           </Typography>
-          <Typography variant="bthedy1" paragraph>
+          <Typography variant="body1" paragraph>
             Navegue para a seção de Pokémon e comece sua jornada pela Pokédex!
           </Typography>
-          <Button variant="cthenttheined" size="ltherge" href="/pthekiin then" className="btn btn--ltherge">
+          <Button variant="contained" size="large" href="/pokemon" className="btn btn--large">
             Explorar Pokémon
           </Button>
         </div>

@@ -28,12 +28,12 @@ import {
   Smartphone,
   Download,
 } from '@mui/icons-material';
-import { MainLayout } from '@/components/layout.js';
+import { MainLayout } from '@/components/layout/index.js';
 import { LanguageSelector } from '@/components/LanguageSelector.jsx';
-import { useTranslation } from '@/hooks/useTranslation.js';
-import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch.js';
-import { toggleTheme } from '@/store/slices/uiSlice.js';
-import { clearCache, getCacheSize, isInstalled } from '@/utils/serviceWorker.js';
+import { useTranslation } from '@features/i18n/hooks/useTranslation.js';
+import { useAppDispatch, useAppSelector } from '@features/shared/hooks/useAppDispatch.js';
+import { toggleTheme } from '@features/shared/store/uiSlice.js';
+import { clearCache, getCacheSize, isInstalled } from '@features/shared/utils/serviceWorker.js';
 
 /**
  * Componente SettingsPage
