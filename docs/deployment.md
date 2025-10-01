@@ -38,21 +38,21 @@ dist/
 // vite.config.js - Configurações de produção
 export default defineConfig({
   build: {
-    target: 'esnext',
-    minify: 'esbuild',
-    sourcemap: false,           // Desabilitado em produção
+    target: "esnext",
+    minify: "esbuild",
+    sourcemap: false, // Desabilitado em produção
     cssCodeSplit: true,
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['preact', 'preact-router'],
-          mui: ['@mui/material', '@mui/icons-material', '@emotion/react'],
-          redux: ['@reduxjs/toolkit', 'react-redux'],
-          utils: ['i18next', 'react-i18next']
-        }
-      }
-    }
-  }
+          vendor: ["preact", "preact-router"],
+          mui: ["@mui/material", "@mui/icons-material", "@emotion/react"],
+          redux: ["@reduxjs/toolkit", "react-redux"],
+          utils: ["i18next", "react-i18next"],
+        },
+      },
+    },
+  },
 });
 ```
 
@@ -162,41 +162,41 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Run tests
-      run: npm run test:coverage
-      
-    - name: Build
-      run: npm run build
-      env:
-        VITE_BASE_URL: /boilerplate-preact/
-        
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/main'
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm run test:coverage
+
+      - name: Build
+        run: npm run build
+        env:
+          VITE_BASE_URL: /boilerplate-preact/
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
 ```
 
 #### **Configuração Base URL**
@@ -204,7 +204,7 @@ jobs:
 ```javascript
 // vite.config.js
 export default defineConfig({
-  base: process.env.NODE_ENV === 'production' ? '/boilerplate-preact/' : '/',
+  base: process.env.NODE_ENV === "production" ? "/boilerplate-preact/" : "/",
   // resto da configuração
 });
 ```
@@ -255,33 +255,33 @@ events {
 http {
     include       /etc/nginx/mime.types;
     default_type  application/octet-stream;
-    
+
     gzip on;
     gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
-    
+
     server {
         listen 80;
         server_name localhost;
         root /usr/share/nginx/html;
         index index.html;
-        
+
         # Handle client-side routing
         location / {
             try_files $uri $uri/ /index.html;
         }
-        
+
         # Cache static assets
         location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)$ {
             expires 1y;
             add_header Cache-Control "public, immutable";
         }
-        
+
         # Service Worker - no cache
         location /sw.js {
             expires off;
             add_header Cache-Control "public, max-age=0, must-revalidate";
         }
-        
+
         # Security headers
         add_header X-Frame-Options "DENY" always;
         add_header X-Content-Type-Options "nosniff" always;
@@ -332,9 +332,9 @@ VITE_ENABLE_ANALYTICS=false
 ```javascript
 // src/config/environment.js
 export const config = {
-  apiUrl: import.meta.env.VITE_API_URL || 'https://pokeapi.co/api/v2',
-  appTitle: import.meta.env.VITE_APP_TITLE || 'Pokédex',
-  enableAnalytics: import.meta.env.VITE_ENABLE_ANALYTICS === 'true',
+  apiUrl: import.meta.env.VITE_API_URL || "https://pokeapi.co/api/v2",
+  appTitle: import.meta.env.VITE_APP_TITLE || "Pokédex",
+  enableAnalytics: import.meta.env.VITE_ENABLE_ANALYTICS === "true",
   isDevelopment: import.meta.env.DEV,
   isProduction: import.meta.env.PROD,
 };
@@ -347,10 +347,12 @@ export const config = {
 ```javascript
 // src/utils/performance.js
 export const trackPageLoad = () => {
-  if ('performance' in window) {
-    const loadTime = window.performance.timing.loadEventEnd - window.performance.timing.navigationStart;
-    console.log('Page load time:', loadTime);
-    
+  if ("performance" in window) {
+    const loadTime =
+      window.performance.timing.loadEventEnd -
+      window.performance.timing.navigationStart;
+    console.log("Page load time:", loadTime);
+
     // Enviar para analytics
     if (config.enableAnalytics) {
       // gtag('event', 'page_load_time', { value: loadTime });
@@ -361,8 +363,10 @@ export const trackPageLoad = () => {
 // Web Vitals
 export const trackWebVitals = async () => {
   if (config.enableAnalytics) {
-    const { getCLS, getFID, getFCP, getLCP, getTTFB } = await import('web-vitals');
-    
+    const { getCLS, getFID, getFCP, getLCP, getTTFB } = await import(
+      "web-vitals"
+    );
+
     getCLS(console.log);
     getFID(console.log);
     getFCP(console.log);
@@ -377,18 +381,18 @@ export const trackWebVitals = async () => {
 ```javascript
 // src/utils/errorTracking.js
 export const initErrorTracking = () => {
-  window.addEventListener('error', (event) => {
-    console.error('Global error:', event.error);
-    
+  window.addEventListener("error", (event) => {
+    console.error("Global error:", event.error);
+
     // Enviar para serviço de error tracking
     if (config.enableAnalytics) {
       // Sentry, LogRocket, etc.
     }
   });
 
-  window.addEventListener('unhandledrejection', (event) => {
-    console.error('Unhandled promise rejection:', event.reason);
-    
+  window.addEventListener("unhandledrejection", (event) => {
+    console.error("Unhandled promise rejection:", event.reason);
+
     if (config.enableAnalytics) {
       // Enviar erro
     }
@@ -402,14 +406,17 @@ export const initErrorTracking = () => {
 
 ```html
 <!-- index.html -->
-<meta http-equiv="Content-Security-Policy" content="
+<meta
+  http-equiv="Content-Security-Policy"
+  content="
   default-src 'self';
   script-src 'self' 'unsafe-inline';
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   img-src 'self' data: https:;
   font-src 'self' https://fonts.gstatic.com;
   connect-src 'self' https://pokeapi.co;
-">
+"
+/>
 ```
 
 ### 2. **Cabeçalhos de Segurança**
@@ -417,11 +424,11 @@ export const initErrorTracking = () => {
 ```javascript
 // Configuração do servidor
 const securityHeaders = {
-  'X-Frame-Options': 'DENY',
-  'X-Content-Type-Options': 'nosniff',
-  'X-XSS-Protection': '1; mode=block',
-  'Referrer-Policy': 'strict-origin-when-cross-origin',
-  'Permissions-Policy': 'geolocation=(), microphone=(), camera=()',
+  "X-Frame-Options": "DENY",
+  "X-Content-Type-Options": "nosniff",
+  "X-XSS-Protection": "1; mode=block",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "Permissions-Policy": "geolocation=(), microphone=(), camera=()",
 };
 ```
 
@@ -451,10 +458,12 @@ export default defineConfig({
 
 ```javascript
 // src/App.jsx - Componentes lazy
-import { lazy, Suspense } from 'preact/compat';
+import { lazy, Suspense } from "preact/compat";
 
-const HomePage = lazy(() => import('@/features/pokemon/pages/HomePage.jsx'));
-const PokemonListPage = lazy(() => import('@/features/pokemon/pages/PokemonListPage.jsx'));
+const HomePage = lazy(() => import("@/features/pokemon/pages/HomePage.jsx"));
+const PokemonListPage = lazy(
+  () => import("@/features/pokemon/pages/PokemonListPage.jsx"),
+);
 
 export const App = () => (
   <Suspense fallback={<div>Loading...</div>}>
@@ -470,9 +479,9 @@ export const App = () => (
 
 ```html
 <!-- index.html -->
-<link rel="dns-prefetch" href="//pokeapi.co">
-<link rel="preconnect" href="https://pokeapi.co">
-<link rel="prefetch" href="/icons/icon-192x192.png">
+<link rel="dns-prefetch" href="//pokeapi.co" />
+<link rel="preconnect" href="https://pokeapi.co" />
+<link rel="prefetch" href="/icons/icon-192x192.png" />
 ```
 
 ## 🚀 CI/CD Pipeline
@@ -485,83 +494,84 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Lint
-      run: npm run lint
-      
-    - name: Test
-      run: npm run test:coverage
-      
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm run test:coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
 
   build:
     needs: test
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Build
-      run: npm run build
-      env:
-        VITE_API_URL: ${{ secrets.VITE_API_URL }}
-        
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: dist
-        path: dist/
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist/
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    
+
     steps:
-    - name: Download artifacts
-      uses: actions/download-artifact@v3
-      with:
-        name: dist
-        path: dist/
-        
-    - name: Deploy to production
-      run: |
-        # Deploy logic aqui
-        echo "Deploying to production..."
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist/
+
+      - name: Deploy to production
+        run: |
+          # Deploy logic aqui
+          echo "Deploying to production..."
 ```
 
 ## ✅ Checklist de Deploy
 
 ### 1. **Pré-Deploy**
+
 - [ ] Todos os testes passando
 - [ ] Lint sem erros
 - [ ] Build funcionando
@@ -570,6 +580,7 @@ jobs:
 - [ ] PWA instalável
 
 ### 2. **Configuração de Servidor**
+
 - [ ] Redirecionamentos SPA configurados
 - [ ] Cabeçalhos de segurança
 - [ ] Cache de assets estáticos
@@ -577,6 +588,7 @@ jobs:
 - [ ] HTTPS configurado
 
 ### 3. **Pós-Deploy**
+
 - [ ] Aplicação carregando corretamente
 - [ ] PWA funcionando
 - [ ] Service Worker ativo
@@ -588,6 +600,7 @@ jobs:
 ### 1. **Problemas Comuns**
 
 #### **Build Falha**
+
 ```bash
 # Limpar cache e node_modules
 rm -rf node_modules dist
@@ -596,17 +609,19 @@ npm run build
 ```
 
 #### **Rotas 404 em Produção**
+
 ```nginx
 # Configurar fallback para SPA
 try_files $uri $uri/ /index.html;
 ```
 
 #### **Service Worker Não Atualiza**
+
 ```javascript
 // Forçar atualização do SW
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations().then(registrations => {
-    registrations.forEach(registration => registration.update());
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    registrations.forEach((registration) => registration.update());
   });
 }
 ```
@@ -616,19 +631,18 @@ if ('serviceWorker' in navigator) {
 ```javascript
 // Habilitar logs apenas em desenvolvimento
 if (import.meta.env.DEV) {
-  console.log('Debug info');
+  console.log("Debug info");
 }
 
 // Source maps para debug em produção (quando necessário)
 // vite.config.js
 export default defineConfig({
   build: {
-    sourcemap: process.env.ENABLE_SOURCEMAP === 'true'
-  }
+    sourcemap: process.env.ENABLE_SOURCEMAP === "true",
+  },
 });
 ```
 
 ---
 
-*Esta documentação deve ser atualizada sempre que houver mudanças nas configurações de deploy ou infraestrutura.*
-
+_Esta documentação deve ser atualizada sempre que houver mudanças nas configurações de deploy ou infraestrutura._

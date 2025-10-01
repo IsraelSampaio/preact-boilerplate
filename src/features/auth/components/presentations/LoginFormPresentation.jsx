@@ -9,8 +9,8 @@ import {
   CircularProgress,
   InputAdornment,
   IconButton,
-} from '@mui/material';
-import { Visibility, VisibilityOff, Login } from '@mui/icons-material';
+} from "@mui/material";
+import { Visibility, VisibilityOff, Login } from "@mui/icons-material";
 
 /**
  * Componente de apresentação do formulário de login (apenas UI)
@@ -31,7 +31,11 @@ export const LoginFormPresentation = ({
       <Card className="login-card">
         <CardContent>
           <div className="login-card__header">
-            <Typography variant="h4" component="h1" className="login-card__title">
+            <Typography
+              variant="h4"
+              component="h1"
+              className="login-card__title"
+            >
               Pokémon App
             </Typography>
             <Typography variant="body2" className="login-card__subtitle">
@@ -58,11 +62,11 @@ export const LoginFormPresentation = ({
               autoComplete="email"
               autoFocus
             />
-            
+
             <TextField
               fullWidth
               label="Senha"
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               value={password}
               onChange={onPasswordChange}
               margin="normal"
@@ -95,13 +99,15 @@ export const LoginFormPresentation = ({
               className="btn btn--large btn--full-width"
               sx={{ mt: 2, mb: 2 }}
             >
-              {isLoading ? 'Entrando...' : 'Entrar'}
+              {isLoading ? "Entrando..." : "Entrar"}
             </Button>
 
             <Box className="login-card__credentials">
               <Typography variant="caption">
-                <strong>Credenciais de teste:</strong><br />
-                Email: admin@pokemon.com<br />
+                <strong>Credenciais de teste:</strong>
+                <br />
+                Email: admin@pokemon.com
+                <br />
                 Senha: admin123
               </Typography>
             </Box>

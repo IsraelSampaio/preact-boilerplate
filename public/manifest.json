@@ -71,7 +71,7 @@
     {
       "src": "/screenshots/screenshot-2.png",
       "sizes": "720x540",
-      "type": "image/png", 
+      "type": "image/png",
       "platform": "wide",
       "label": "Detalhes do Pokémon"
     }

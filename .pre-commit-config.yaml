@@ -1,0 +1,35 @@
+repos:
+  # Gitleaks - Detecção de segredos e credenciais
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.25.0
+    hooks:
+      - id: gitleaks
+        args: ["--config=.gitleaks.toml"]
+        exclude: ^package-lock\.json$
+
+  # ESLint - Linting para JavaScript/JSX
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.56.0
+    hooks:
+      - id: eslint
+        files: \.(js|jsx)$
+        types: [file]
+        additional_dependencies:
+          - eslint@^8.56.0
+          - eslint-plugin-react-hooks@^4.6.0
+        args: ["--fix", "--max-warnings=0"]
+
+  # Verificação de arquivos grandes
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-added-large-files
+        args: ["--maxkb=1000"]
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-json
+      - id: check-merge-conflict
+      - id: mixed-line-ending
+        args: ["--fix=lf"]

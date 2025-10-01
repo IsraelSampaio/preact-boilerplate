@@ -1,43 +1,53 @@
-import { Container, Typography, Box, Grid, Card, CardContent, Button } from '@mui/material';
-import { MainLayout } from '@/components/layout/index.js';
+import {
+  Container,
+  Typography,
+  Box,
+  Grid,
+  Card,
+  CardContent,
+  Button,
+} from "@mui/material";
+import { MainLayout } from "@/components/layout/index.js";
+import { useTranslation } from "@features/i18n/hooks/useTranslation.js";
 
 /**
  * Component HomePage
  */
 export const HomePage = () => {
+  const { t } = useTranslation();
 
   const features = [
     {
-      title: 'Explorar Pokémon',
-      description: 'Descubra informações detalhadas sobre cada Pokémon da Pokédex',
-      icon: '🔍',
+      title: t("home.features.explore.title"),
+      description: t("home.features.explore.description"),
+      icon: "🔍",
     },
     {
-      title: 'Filtros Avançados',
-      description: 'Encontre Pokémon por tipo, nome e outras características',
-      icon: '⚡',
+      title: t("home.features.filter.title"),
+      description: t("home.features.filter.description"),
+      icon: "⚡",
     },
     {
-      title: 'Favoritos',
-      description: 'Salve seus Pokémon favoritos para acesso rápido',
-      icon: '❤️',
+      title: t("home.features.favorites.title"),
+      description: t("home.features.favorites.description"),
+      icon: "❤️",
     },
     {
-      title: 'Interface Moderna',
-      description: 'Desfrute de uma experiência visual moderna e responsiva',
-      icon: '✨',
+      title: t("home.features.interface.title"),
+      description: t("home.features.interface.description"),
+      icon: "✨",
     },
   ];
 
   return (
-    <MainLayout title="Início">
+    <MainLayout title={t("navigation.home")}>
       <Container maxWidth="lg">
         <div className="home-page__hero">
           <Typography variant="h3" component="h1" className="home-page__title">
-            Bem-vindo ao Pokémon App! 🎮
+            {t("home.title")}
           </Typography>
           <Typography variant="h6" className="home-page__subtitle">
-            Explore o mundo dos Pokémon com nossa aplicação moderna.
+            {t("home.subtitle", { name: "Treinador" })}
           </Typography>
         </div>
 
@@ -50,10 +60,17 @@ export const HomePage = () => {
                     <Typography variant="h2" className="feature-card__icon">
                       {feature.icon}
                     </Typography>
-                    <Typography variant="h6" component="h3" className="feature-card__title">
+                    <Typography
+                      variant="h6"
+                      component="h3"
+                      className="feature-card__title"
+                    >
                       {feature.title}
                     </Typography>
-                    <Typography variant="body2" className="feature-card__description">
+                    <Typography
+                      variant="body2"
+                      className="feature-card__description"
+                    >
                       {feature.description}
                     </Typography>
                   </CardContent>
@@ -65,13 +82,18 @@ export const HomePage = () => {
 
         <div className="home-page__cta">
           <Typography variant="h5" gutterBottom>
-            Pronto para começar?
+            {t("home.cta.title")}
           </Typography>
           <Typography variant="body1" paragraph>
-            Navegue para a seção de Pokémon e comece sua jornada pela Pokédex!
+            {t("home.cta.description")}
           </Typography>
-          <Button variant="contained" size="large" href="/pokemon" className="btn btn--large">
-            Explorar Pokémon
+          <Button
+            variant="contained"
+            size="large"
+            href="/pokemon"
+            className="btn btn--large"
+          >
+            {t("home.cta.button")}
           </Button>
         </div>
       </Container>

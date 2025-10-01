@@ -3,50 +3,56 @@
  */
 
 const isProduction = import.meta.env.PROD;
-const SW_URL = '/sw.js';
+const SW_URL = "/sw.js";
 
 /**
  * Registra o Service Worker
  * @returns {Promise<ServiceWorkerRegistration|null>}
  */
 export const registerServiceWorker = async () => {
-  if (!('serviceWorker' in navigator)) {
-    console.warn('Service Workers não são suportados neste navegador');
+  if (!("serviceWorker" in navigator)) {
+    console.warn("Service Workers não são suportados neste navegador");
     return null;
   }
 
   if (!isProduction) {
-    console.log('Service Worker desabilitado em desenvolvimento');
+    console.log("Service Worker desabilitado em desenvolvimento");
     return null;
   }
 
   try {
-    console.log('Registrando Service Worker...');
+    console.log("Registrando Service Worker...");
     const registration = await navigator.serviceWorker.register(SW_URL, {
-      scope: '/',
+      scope: "/",
     });
 
-    console.log('Service Worker registrado com sucesso:', registration);
+    console.log("Service Worker registrado com sucesso:", registration);
 
     // Verificar atualizações
-    registration.addEventListener('updatefound', () => {
+    registration.addEventListener("updatefound", () => {
       const newWorker = registration.installing;
-      console.log('Nova versão do Service Worker encontrada');
+      console.log("Nova versão do Service Worker encontrada");
 
-      newWorker?.addEventListener('statechange', () => {
-        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-          console.log('Nova versão do Service Worker instalada');
+      newWorker?.addEventListener("statechange", () => {
+        if (
+          newWorker.state === "installed" &&
+          navigator.serviceWorker.controller
+        ) {
+          console.log("Nova versão do Service Worker instalada");
           showUpdateNotification();
         }
       });
     });
 
     // Escutar mensagens do Service Worker
-    navigator.serviceWorker.addEventListener('message', handleServiceWorkerMessage);
+    navigator.serviceWorker.addEventListener(
+      "message",
+      handleServiceWorkerMessage,
+    );
 
     return registration;
   } catch (error) {
-    console.error('Erro ao registrar Service Worker:', error);
+    console.error("Erro ao registrar Service Worker:", error);
     return null;
   }
 };
@@ -56,7 +62,7 @@ export const registerServiceWorker = async () => {
  * @returns {Promise<boolean>}
  */
 export const unregisterServiceWorker = async () => {
-  if (!('serviceWorker' in navigator)) {
+  if (!("serviceWorker" in navigator)) {
     return false;
   }
 
@@ -64,12 +70,12 @@ export const unregisterServiceWorker = async () => {
     const registration = await navigator.serviceWorker.getRegistration();
     if (registration) {
       const result = await registration.unregister();
-      console.log('Service Worker removido:', result);
+      console.log("Service Worker removido:", result);
       return result;
     }
     return false;
   } catch (error) {
-    console.error('Erro ao remover Service Worker:', error);
+    console.error("Erro ao remover Service Worker:", error);
     return false;
   }
 };
@@ -79,7 +85,7 @@ export const unregisterServiceWorker = async () => {
  * @returns {Promise<boolean>}
  */
 export const checkForUpdates = async () => {
-  if (!('serviceWorker' in navigator)) {
+  if (!("serviceWorker" in navigator)) {
     return false;
   }
 
@@ -87,12 +93,12 @@ export const checkForUpdates = async () => {
     const registration = await navigator.serviceWorker.getRegistration();
     if (registration) {
       await registration.update();
-      console.log('Verificação de atualização do Service Worker concluída');
+      console.log("Verificação de atualização do Service Worker concluída");
       return true;
     }
     return false;
   } catch (error) {
-    console.error('Erro ao verificar atualizações do Service Worker:', error);
+    console.error("Erro ao verificar atualizações do Service Worker:", error);
     return false;
   }
 };
@@ -102,21 +108,20 @@ export const checkForUpdates = async () => {
  * @returns {Promise<number>}
  */
 export const getCacheSize = async () => {
-  if (!('serviceWorker' in navigator) || !navigator.serviceWorker.controller) {
+  if (!("serviceWorker" in navigator) || !navigator.serviceWorker.controller) {
     return 0;
   }
 
   return new Promise((resolve) => {
     const messageChannel = new MessageChannel();
-    
+
     messageChannel.port1.onmessage = (event) => {
       resolve(event.data.cacheSize || 0);
     };
 
-    navigator.serviceWorker.controller.postMessage(
-      { type: 'GET_CACHE_SIZE' },
-      [messageChannel.port2]
-    );
+    navigator.serviceWorker.controller.postMessage({ type: "GET_CACHE_SIZE" }, [
+      messageChannel.port2,
+    ]);
   });
 };
 
@@ -125,12 +130,12 @@ export const getCacheSize = async () => {
  * @returns {Promise<void>}
  */
 export const clearCache = async () => {
-  if (!('serviceWorker' in navigator) || !navigator.serviceWorker.controller) {
+  if (!("serviceWorker" in navigator) || !navigator.serviceWorker.controller) {
     return;
   }
 
-  navigator.serviceWorker.controller.postMessage({ type: 'CLEAR_CACHE' });
-  console.log('Solicitação de limpeza de cache enviada');
+  navigator.serviceWorker.controller.postMessage({ type: "CLEAR_CACHE" });
+  console.log("Solicitação de limpeza de cache enviada");
 };
 
 /**
@@ -146,9 +151,11 @@ export const isOffline = () => {
  * @returns {boolean}
  */
 export const isInstalled = () => {
-  return window.matchMedia('(display-mode: standalone)').matches ||
-         window.navigator.standalone ||
-         document.referrer.includes('android-app://');
+  return (
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone ||
+    document.referrer.includes("android-app://")
+  );
 };
 
 /**
@@ -158,21 +165,21 @@ export const isInstalled = () => {
  */
 export const showInstallPrompt = async (installPromptEvent) => {
   if (!installPromptEvent) {
-    console.warn('Evento de instalação não disponível');
+    console.warn("Evento de instalação não disponível");
     return false;
   }
 
   try {
     // Mostrar prompt de instalação
     installPromptEvent.prompt();
-    
+
     // Aguardar escolha do usuário
     const { outcome } = await installPromptEvent.userChoice;
-    
-    console.log('Resultado da instalação:', outcome);
-    return outcome === 'accepted';
+
+    console.log("Resultado da instalação:", outcome);
+    return outcome === "accepted";
   } catch (error) {
-    console.error('Erro ao mostrar prompt de instalação:', error);
+    console.error("Erro ao mostrar prompt de instalação:", error);
     return false;
   }
 };
@@ -183,15 +190,15 @@ export const showInstallPrompt = async (installPromptEvent) => {
  */
 const handleServiceWorkerMessage = (event) => {
   const { data } = event;
-  
+
   switch (data?.type) {
-    case 'SW_UPDATED':
-      console.log('Service Worker atualizado:', data.message);
+    case "SW_UPDATED":
+      console.log("Service Worker atualizado:", data.message);
       showUpdateNotification();
       break;
-      
+
     default:
-      console.log('Mensagem do Service Worker:', data);
+      console.log("Mensagem do Service Worker:", data);
   }
 };
 
@@ -200,7 +207,7 @@ const handleServiceWorkerMessage = (event) => {
  */
 const showUpdateNotification = () => {
   // Criar notificação personalizada ou usar toast
-  const notification = document.createElement('div');
+  const notification = document.createElement("div");
   notification.innerHTML = `
     <div style="
       position: fixed;
@@ -243,9 +250,9 @@ const showUpdateNotification = () => {
       </button>
     </div>
   `;
-  
+
   document.body.appendChild(notification);
-  
+
   // Remover automaticamente após 10 segundos
   setTimeout(() => {
     if (notification.parentElement) {
@@ -258,13 +265,13 @@ const showUpdateNotification = () => {
  * Configurar listeners para eventos de conexão
  */
 export const setupConnectivityListeners = () => {
-  window.addEventListener('online', () => {
-    console.log('Aplicação online');
+  window.addEventListener("online", () => {
+    console.log("Aplicação online");
     showConnectivityStatus(true);
   });
 
-  window.addEventListener('offline', () => {
-    console.log('Aplicação offline');
+  window.addEventListener("offline", () => {
+    console.log("Aplicação offline");
     showConnectivityStatus(false);
   });
 };
@@ -274,14 +281,14 @@ export const setupConnectivityListeners = () => {
  * @param {boolean} isOnline Se está online
  */
 const showConnectivityStatus = (isOnline) => {
-  const message = isOnline 
-    ? 'Conectado! Dados sincronizados.' 
-    : 'Offline. Funcionalidade limitada.';
-    
-  const color = isOnline ? '#4caf50' : '#ff9800';
-  
+  const message = isOnline
+    ? "Conectado! Dados sincronizados."
+    : "Offline. Funcionalidade limitada.";
+
+  const color = isOnline ? "#4caf50" : "#ff9800";
+
   // Criar toast de status
-  const toast = document.createElement('div');
+  const toast = document.createElement("div");
   toast.innerHTML = `
     <div style="
       position: fixed;
@@ -299,9 +306,9 @@ const showConnectivityStatus = (isOnline) => {
       ${message}
     </div>
   `;
-  
+
   document.body.appendChild(toast);
-  
+
   // Remover após 3 segundos
   setTimeout(() => {
     if (toast.parentElement) {
@@ -317,20 +324,20 @@ const showConnectivityStatus = (isOnline) => {
 export const initializePWA = async () => {
   // Registrar Service Worker
   await registerServiceWorker();
-  
+
   // Configurar listeners de conectividade
   setupConnectivityListeners();
-  
+
   // Verificar por atualizações periodicamente (a cada 30 minutos)
   if (isProduction) {
     setInterval(checkForUpdates, 30 * 60 * 1000);
   }
-  
-  console.log('PWA inicializado com sucesso');
+
+  console.log("PWA inicializado com sucesso");
 };
 
 // Auto-inicializar se não for importado como módulo
-if (typeof window !== 'undefined' && !window.__PWA_INITIALIZED__) {
+if (typeof window !== "undefined" && !window.__PWA_INITIALIZED__) {
   window.__PWA_INITIALIZED__ = true;
-  document.addEventListener('DOMContentLoaded', initializePWA);
+  document.addEventListener("DOMContentLoaded", initializePWA);
 }

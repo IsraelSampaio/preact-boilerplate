@@ -34,16 +34,19 @@ src/
 ### 2. **Categorias de Componentes**
 
 #### **Layout Components** (`src/components/layout/`)
+
 - **Propósito**: Estrutura e organização da interface
 - **Responsabilidade**: Layout, navegação, estrutura de páginas
 - **Reutilização**: Alta - usados em toda aplicação
 
 #### **Feature Components** (`src/features/*/components/`)
+
 - **Propósito**: Funcionalidades específicas de cada feature
 - **Responsabilidade**: Lógica de negócio específica
 - **Reutilização**: Média - dentro da feature
 
 #### **Page Components** (`src/features/*/pages/`)
+
 - **Propósito**: Páginas completas da aplicação
 - **Responsabilidade**: Orquestração de components e layout
 - **Reutilização**: Baixa - específicas por rota
@@ -53,9 +56,9 @@ src/
 ### 1. **Estrutura Padrão de Componente**
 
 ```jsx
-import { useState } from 'preact/hooks';
-import { Box, Typography } from '@mui/material';
-import { useCustomHook } from '@/hooks/useCustomHook.js';
+import { useState } from "preact/hooks";
+import { Box, Typography } from "@mui/material";
+import { useCustomHook } from "@/hooks/useCustomHook.js";
 
 /**
  * Component Description
@@ -65,20 +68,20 @@ import { useCustomHook } from '@/hooks/useCustomHook.js';
  */
 export const ComponentName = ({ title, onAction, children }) => {
   // 1. Hooks (estado local)
-  const [localState, setLocalState] = useState('');
-  
+  const [localState, setLocalState] = useState("");
+
   // 2. Custom hooks (lógica de negócio)
   const { data, loading, error } = useCustomHook();
-  
+
   // 3. Event handlers
   const handleClick = (event) => {
     onAction?.(event);
   };
-  
+
   // 4. Render condicional (se necessário)
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
-  
+
   // 5. JSX principal
   return (
     <Box sx={{ p: 2 }}>
@@ -93,20 +96,20 @@ export const ComponentName = ({ title, onAction, children }) => {
 
 ```jsx
 // ✅ Bom: Props tipadas e com defaults
-export const PokemonCard = ({ 
-  pokemon, 
-  onFavorite = () => {}, 
+export const PokemonCard = ({
+  pokemon,
+  onFavorite = () => {},
   isFavorite = false,
-  size = 'medium' 
+  size = "medium",
 }) => {
   // Implementation
 };
 
 // ✅ Bom: Props de configuração agrupadas
-export const PokemonList = ({ 
-  pokemonList = [], 
+export const PokemonList = ({
+  pokemonList = [],
   config = { showFilters: true, enablePagination: true },
-  callbacks = { onFavorite: null, onSelect: null }
+  callbacks = { onFavorite: null, onSelect: null },
 }) => {
   // Implementation
 };
@@ -117,29 +120,17 @@ export const PokemonList = ({
 ```jsx
 // ✅ Padrão: Composition com children
 export const Card = ({ children, ...props }) => (
-  <MuiCard {...props}>
-    {children}
-  </MuiCard>
+  <MuiCard {...props}>{children}</MuiCard>
 );
 
 // ✅ Padrão: Compound Components
 Card.Header = ({ children }) => (
-  <CardContent sx={{ pb: 0 }}>
-    {children}
-  </CardContent>
+  <CardContent sx={{ pb: 0 }}>{children}</CardContent>
 );
 
-Card.Body = ({ children }) => (
-  <CardContent>
-    {children}
-  </CardContent>
-);
+Card.Body = ({ children }) => <CardContent>{children}</CardContent>;
 
-Card.Actions = ({ children }) => (
-  <CardActions>
-    {children}
-  </CardActions>
-);
+Card.Actions = ({ children }) => <CardActions>{children}</CardActions>;
 
 // Uso:
 <Card>
@@ -152,7 +143,7 @@ Card.Actions = ({ children }) => (
   <Card.Actions>
     <Button>Ação</Button>
   </Card.Actions>
-</Card>
+</Card>;
 ```
 
 ## 🎨 Integração com Material-UI
@@ -160,11 +151,11 @@ Card.Actions = ({ children }) => (
 ### 1. **Uso do Sistema de Tema**
 
 ```jsx
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from "@mui/material/styles";
 
 export const ThemedComponent = () => {
   const theme = useTheme();
-  
+
   return (
     <Box
       sx={{
@@ -186,8 +177,8 @@ export const ThemedComponent = () => {
 export const ResponsiveComponent = () => (
   <Box
     sx={{
-      display: 'flex',
-      flexDirection: { xs: 'column', md: 'row' },
+      display: "flex",
+      flexDirection: { xs: "column", md: "row" },
       gap: { xs: 1, md: 2 },
       padding: { xs: 1, sm: 2, md: 3 },
     }}
@@ -202,14 +193,14 @@ export const ResponsiveComponent = () => (
 
 ```jsx
 // ✅ Padrão: Usar sx prop para estilos customizados
-export const CustomButton = ({ variant = 'contained', ...props }) => (
+export const CustomButton = ({ variant = "contained", ...props }) => (
   <Button
     variant={variant}
     sx={{
-      textTransform: 'none',
+      textTransform: "none",
       borderRadius: 2,
-      '&:hover': {
-        transform: 'scale(1.05)',
+      "&:hover": {
+        transform: "scale(1.05)",
       },
     }}
     {...props}
@@ -224,26 +215,23 @@ export const CustomButton = ({ variant = 'contained', ...props }) => (
 ```jsx
 export const ComponentWithState = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
-  
+
   const handleInputChange = (field) => (event) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: event.target.value
+      [field]: event.target.value,
     }));
   };
-  
+
   return (
     <form>
-      <input 
-        value={formData.email}
-        onChange={handleInputChange('email')}
-      />
-      <input 
+      <input value={formData.email} onChange={handleInputChange("email")} />
+      <input
         value={formData.password}
-        onChange={handleInputChange('password')}
+        onChange={handleInputChange("password")}
       />
     </form>
   );
@@ -257,32 +245,32 @@ export const ComponentWithState = () => {
 export const useFormValidation = (initialValues, validationRules) => {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
-  
+
   const validate = () => {
     const newErrors = {};
-    Object.keys(validationRules).forEach(field => {
+    Object.keys(validationRules).forEach((field) => {
       const rule = validationRules[field];
       if (rule.required && !values[field]) {
-        newErrors[field] = 'Campo obrigatório';
+        newErrors[field] = "Campo obrigatório";
       }
     });
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-  
+
   return { values, setValues, errors, validate };
 };
 
 // Uso no componente
 export const FormComponent = () => {
   const { values, setValues, errors, validate } = useFormValidation(
-    { email: '', password: '' },
-    { 
+    { email: "", password: "" },
+    {
       email: { required: true },
-      password: { required: true }
-    }
+      password: { required: true },
+    },
   );
-  
+
   // Rest of component
 };
 ```
@@ -297,17 +285,15 @@ export const InteractiveComponent = ({ onAction, item }) => {
   const handleClick = () => {
     onAction?.(item.id, item);
   };
-  
+
   // ✅ Padrão: Event object quando necessário
   const handleInputChange = (event) => {
     onAction?.(event.target.value, event);
   };
-  
+
   return (
     <div>
-      <button onClick={handleClick}>
-        Action
-      </button>
+      <button onClick={handleClick}>Action</button>
       <input onChange={handleInputChange} />
     </div>
   );
@@ -317,37 +303,29 @@ export const InteractiveComponent = ({ onAction, item }) => {
 ### 2. **Conditional Rendering Pattern**
 
 ```jsx
-export const ConditionalComponent = ({ 
-  isLoading, 
-  error, 
-  data, 
-  emptyMessage = 'Nenhum dado encontrado' 
+export const ConditionalComponent = ({
+  isLoading,
+  error,
+  data,
+  emptyMessage = "Nenhum dado encontrado",
 }) => {
   // ✅ Padrão: Early returns para casos especiais
   if (isLoading) {
     return <CircularProgress />;
   }
-  
+
   if (error) {
-    return (
-      <Alert severity="error">
-        {error}
-      </Alert>
-    );
+    return <Alert severity="error">{error}</Alert>;
   }
-  
+
   if (!data?.length) {
-    return (
-      <Typography color="text.secondary">
-        {emptyMessage}
-      </Typography>
-    );
+    return <Typography color="text.secondary">{emptyMessage}</Typography>;
   }
-  
+
   // Render principal
   return (
     <div>
-      {data.map(item => (
+      {data.map((item) => (
         <ItemComponent key={item.id} item={item} />
       ))}
     </div>
@@ -358,11 +336,13 @@ export const ConditionalComponent = ({
 ## 📋 Lista de Componentes Implementados
 
 ### Layout Components
+
 - **`MainLayout`**: Layout principal com header e sidebar
 - **`Header`**: Barra superior com navegação e ações
 - **`Sidebar`**: Menu lateral com navegação
 
 ### Pokemon Feature
+
 - **`PokemonCard`**: Card individual do Pokémon
 - **`PokemonList`**: Lista de Pokémon com paginação
 - **`PokemonFilters`**: Filtros de busca e ordenação
@@ -370,27 +350,32 @@ export const ConditionalComponent = ({
 - **`PokemonListPage`**: Página principal da Pokédex
 
 ### Auth Feature
+
 - **`LoginForm`**: Formulário de login
 - **`ProtectedRoute`**: HOC para proteção de rotas
 
 ## ✅ Boas Práticas
 
 ### 1. **Nomeação**
+
 - Use PascalCase para componentes
 - Use camelCase para props e funções
 - Use nomes descritivos e específicos
 
 ### 2. **Performance**
+
 - Use `memo` quando apropriado
 - Evite criar objetos/funções inline no render
 - Use `useCallback` para funções passadas como props
 
 ### 3. **Acessibilidade**
+
 - Sempre inclua `alt` em imagens
 - Use `aria-label` quando necessário
 - Mantenha ordem lógica de foco
 
 ### 4. **Testabilidade**
+
 - Use `data-testid` para elementos testáveis
 - Mantenha lógica fora do JSX
 - Props bem definidas facilitam mocking
@@ -398,43 +383,51 @@ export const ConditionalComponent = ({
 ## 🚫 Anti-Padrões Evitados
 
 ### ❌ Não fazer:
+
 ```jsx
 // Lógica complexa no JSX
 return (
   <div>
-    {items.filter(item => item.active)
-          .map(item => item.name.toUpperCase())
-          .sort()
-          .map(name => <div key={name}>{name}</div>)}
+    {items
+      .filter((item) => item.active)
+      .map((item) => item.name.toUpperCase())
+      .sort()
+      .map((name) => (
+        <div key={name}>{name}</div>
+      ))}
   </div>
 );
 
 // Props drilling excessivo
-<ComponentA prop1={data.prop1} prop2={data.prop2} prop3={data.prop3} />
+<ComponentA prop1={data.prop1} prop2={data.prop2} prop3={data.prop3} />;
 
 // Estado desnecessário no Redux
 const [localCount, setLocalCount] = useState(0); // Deveria ser local mesmo
 ```
 
 ### ✅ Fazer:
+
 ```jsx
 // Lógica extraída
-const processedItems = useMemo(() => 
-  items.filter(item => item.active)
-       .map(item => item.name.toUpperCase())
-       .sort(),
-[items]);
+const processedItems = useMemo(
+  () =>
+    items
+      .filter((item) => item.active)
+      .map((item) => item.name.toUpperCase())
+      .sort(),
+  [items],
+);
 
 return (
   <div>
-    {processedItems.map(name => (
+    {processedItems.map((name) => (
       <div key={name}>{name}</div>
     ))}
   </div>
 );
 
 // Props agrupadas
-<ComponentA data={data} />
+<ComponentA data={data} />;
 
 // Estado local apropriado
 const [localCount, setLocalCount] = useState(0);

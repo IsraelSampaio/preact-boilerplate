@@ -199,6 +199,7 @@
   },
   "settings": {
     "title": "Settings",
+    "description": "Customize your application experience",
     "language": {
       "title": "Language",
       "description": "Choose the application language"
@@ -215,8 +216,18 @@
       "description": "Manage cached data",
       "size": "Cache size: {{size}}",
       "clear": "Clear cache",
-      "clearDescription": "This will remove all saved offline data"
-    }
+      "clearDescription": "This will remove all saved offline data",
+      "currentSize": "Current cache size: {{size}}"
+    },
+    "appInfo": {
+      "title": "App Information",
+      "installationStatus": "Installation Status",
+      "version": "Version",
+      "features": "Available Features",
+      "installed": "Installed",
+      "browser": "Browser"
+    },
+    "autoSave": "Settings are automatically saved and synchronized between devices."
   },
   "errors": {
     "generic": "Something went wrong. Please try again.",
@@ -243,5 +254,70 @@
     "by": "by",
     "to": "to",
     "from": "from"
+  },
+  "filters": {
+    "title": "Filters",
+    "search": {
+      "label": "Search Pokémon",
+      "placeholder": "Type Pokémon name...",
+      "button": "Search"
+    },
+    "type": {
+      "label": "Type",
+      "all": "All types"
+    },
+    "sort": {
+      "label": "Sort by",
+      "order": "Order",
+      "name": "Name",
+      "id": "ID",
+      "height": "Height",
+      "weight": "Weight",
+      "asc": "Ascending",
+      "desc": "Descending"
+    },
+    "actions": {
+      "clear": "Clear"
+    },
+    "conflict": "⚠️ When searching by text, type filter is ignored (search has priority)"
+  },
+  "list": {
+    "notFound": "No Pokémon found",
+    "notFoundDescription": "Try adjusting the search filters",
+    "found": "{{count}} Pokémon found",
+    "loading": "Loading..."
+  },
+  "details": {
+    "loading": "Loading...",
+    "loadingDetails": "Loading Pokémon details...",
+    "error": "Error",
+    "errorLoading": "Error loading Pokémon",
+    "notFound": "Pokémon not found",
+    "backToList": "Back to list",
+    "favorite": {
+      "add": "Add to favorites",
+      "remove": "Remove from favorites"
+    },
+    "share": "Share",
+    "tabs": {
+      "stats": "Stats",
+      "abilities": "Abilities",
+      "images": "Images"
+    },
+    "stats": {
+      "title": "Base Stats",
+      "baseExperience": "Base Experience"
+    },
+    "abilities": {
+      "title": "Abilities",
+      "hidden": "Hidden Ability"
+    },
+    "sprites": {
+      "title": "Sprites",
+      "frontDefault": "Front Default",
+      "backDefault": "Back Default",
+      "frontShiny": "Front Shiny",
+      "backShiny": "Back Shiny"
+    }
   }
 }

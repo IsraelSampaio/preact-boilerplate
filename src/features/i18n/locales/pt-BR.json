@@ -199,6 +199,7 @@
   },
   "settings": {
     "title": "Configurações",
+    "description": "Personalize sua experiência na aplicação",
     "language": {
       "title": "Idioma",
       "description": "Escolha o idioma da aplicação"
@@ -215,8 +216,18 @@
       "description": "Gerenciar dados em cache",
       "size": "Tamanho do cache: {{size}}",
       "clear": "Limpar cache",
-      "clearDescription": "Isso removerá todos os dados salvos offline"
-    }
+      "clearDescription": "Isso removerá todos os dados salvos offline",
+      "currentSize": "Tamanho atual do cache: {{size}}"
+    },
+    "appInfo": {
+      "title": "Informações do App",
+      "installationStatus": "Status de Instalação",
+      "version": "Versão",
+      "features": "Funcionalidades Disponíveis",
+      "installed": "Instalado",
+      "browser": "Navegador"
+    },
+    "autoSave": "As configurações são salvas automaticamente e sincronizadas entre dispositivos."
   },
   "errors": {
     "generic": "Algo deu errado. Tente novamente.",
@@ -243,5 +254,70 @@
     "by": "por",
     "to": "para",
     "from": "de"
+  },
+  "filters": {
+    "title": "Filtros",
+    "search": {
+      "label": "Buscar Pokémon",
+      "placeholder": "Digite o nome do Pokémon...",
+      "button": "Buscar"
+    },
+    "type": {
+      "label": "Tipo",
+      "all": "Todos os tipos"
+    },
+    "sort": {
+      "label": "Ordenar por",
+      "order": "Ordem",
+      "name": "Nome",
+      "id": "ID",
+      "height": "Altura",
+      "weight": "Peso",
+      "asc": "Crescente",
+      "desc": "Decrescente"
+    },
+    "actions": {
+      "clear": "Limpar"
+    },
+    "conflict": "⚠️ Quando há busca por texto, o filtro por tipo é ignorado (busca tem prioridade)"
+  },
+  "list": {
+    "notFound": "Nenhum Pokémon encontrado",
+    "notFoundDescription": "Tente ajustar os filtros de busca",
+    "found": "{{count}} Pokémon encontrados",
+    "loading": "Carregando..."
+  },
+  "details": {
+    "loading": "Carregando...",
+    "loadingDetails": "Carregando detalhes do Pokémon...",
+    "error": "Erro",
+    "errorLoading": "Erro ao carregar Pokémon",
+    "notFound": "Pokémon não encontrado",
+    "backToList": "Voltar à lista",
+    "favorite": {
+      "add": "Adicionar aos favoritos",
+      "remove": "Remover dos favoritos"
+    },
+    "share": "Compartilhar",
+    "tabs": {
+      "stats": "Estatísticas",
+      "abilities": "Habilidades",
+      "images": "Imagens"
+    },
+    "stats": {
+      "title": "Estatísticas Base",
+      "baseExperience": "Experiência Base"
+    },
+    "abilities": {
+      "title": "Habilidades",
+      "hidden": "Habilidade Oculta"
+    },
+    "sprites": {
+      "title": "Sprites",
+      "frontDefault": "Frente Padrão",
+      "backDefault": "Costas Padrão",
+      "frontShiny": "Frente Shiny",
+      "backShiny": "Costas Shiny"
+    }
   }
 }

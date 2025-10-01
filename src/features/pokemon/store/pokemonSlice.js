@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 /**
  * @typedef {import('../../types/index.js').PokemonState} PokemonState
@@ -11,10 +11,10 @@ const initialState = {
   list: [],
   selected: null,
   filters: {
-    search: '',
-    type: '',
-    sortBy: 'id',
-    sortOrder: 'asc',
+    search: "",
+    type: "",
+    sortBy: "id",
+    sortOrder: "asc",
   },
   isLoading: false,
   error: null,
@@ -27,27 +27,27 @@ const initialState = {
 };
 
 export const pokemonSlice = createSlice({
-  name: 'pokemon',
+  name: "pokemon",
   initialState,
   reducers: {
     setPokemonList: (state, action) => {
-      // Garantir que apenas dados serializáveis sejam armazenados
-      state.list = action.payload.map(pokemon => {
-        if (typeof pokemon === 'object' && pokemon !== null) {
-          // Se for um DTO, converter para objeto simples
-          if (pokemon.toInternal && typeof pokemon.toInternal === 'function') {
+      state.list = action.payload.map((pokemon) => {
+        if (typeof pokemon === "object" && pokemon !== null) {
+          if (pokemon.toInternal && typeof pokemon.toInternal === "function") {
             return pokemon.toInternal();
           }
-          // Se já for um objeto simples, garantir que seja serializável
           return JSON.parse(JSON.stringify(pokemon));
         }
         return pokemon;
       });
     },
     setSelectedPokemon: (state, action) => {
-      // Garantir que apenas dados serializáveis sejam armazenados
       if (action.payload) {
-        if (typeof action.payload === 'object' && action.payload.toInternal && typeof action.payload.toInternal === 'function') {
+        if (
+          typeof action.payload === "object" &&
+          action.payload.toInternal &&
+          typeof action.payload.toInternal === "function"
+        ) {
           state.selected = action.payload.toInternal();
         } else {
           state.selected = JSON.parse(JSON.stringify(action.payload));
@@ -72,12 +72,11 @@ export const pokemonSlice = createSlice({
       state.pagination = action.payload;
     },
     updatePokemonInList: (state, action) => {
-      const index = state.list.findIndex(p => p.name === action.payload.name);
+      const index = state.list.findIndex((p) => p.name === action.payload.name);
       if (index !== -1) {
-        // Atualizar o Pokémon na lista se necessário
         state.list[index] = {
           ...state.list[index],
-          ...action.payload
+          ...action.payload,
         };
       }
     },

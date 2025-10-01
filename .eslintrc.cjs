@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
-  env: { 
-    browser: true, 
+  env: {
+    browser: true,
     es2020: true,
     node: true
   },
@@ -19,7 +19,7 @@ module.exports = {
   },
   plugins: [],
   rules: {
-    'no-unused-vars': ['error', { 
+    'no-unused-vars': ['error', {
       argsIgnorePattern: '^_',
       varsIgnorePattern: '^_',
       ignoreRestSiblings: true

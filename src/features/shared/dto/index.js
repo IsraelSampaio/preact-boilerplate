@@ -4,10 +4,10 @@
  */
 
 // Redux DTOs
-export * from './redux/index.js';
+export * from "./redux/index.js";
 
 // Validation DTOs
-export * from './validation/index.js';
+export * from "./validation/index.js";
 
 // Factory e utils
-export * from './factory/index.js';
+export * from "./factory/index.js";

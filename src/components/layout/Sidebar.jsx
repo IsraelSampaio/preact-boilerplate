@@ -8,28 +8,34 @@ import {
   Divider,
   Box,
   Typography,
-} from '@mui/material';
+} from "@mui/material";
 import {
   Home,
   FormatListBulleted,
   Favorite,
   Settings,
   Info,
-} from '@mui/icons-material';
-import { useAppSelector } from '@features/shared/hooks/useAppDispatch.js';
+} from "@mui/icons-material";
+import { useAppSelector } from "@features/shared/hooks/useAppDispatch.js";
+import { useTranslation } from "@features/i18n/hooks/useTranslation.js";
 
 /**
  * Component Sidebar
  */
 export const Sidebar = ({ width = 240 }) => {
   const { sidebarOpen } = useAppSelector((state) => state.ui);
+  const { t } = useTranslation();
 
   const menuItems = [
-    { text: 'Início', icon: <Home />, path: '/' },
-    { text: 'Pokémon', icon: <FormatListBulleted />, path: '/pokemon' },
-    { text: 'Favoritos', icon: <Favorite />, path: '/favorites' },
-    { text: 'Configurações', icon: <Settings />, path: '/settings' },
-    { text: 'Sobre', icon: <Info />, path: '/about' },
+    { text: t("navigation.home"), icon: <Home />, path: "/" },
+    {
+      text: t("navigation.pokemon"),
+      icon: <FormatListBulleted />,
+      path: "/pokemon",
+    },
+    { text: t("navigation.favorites"), icon: <Favorite />, path: "/favorites" },
+    { text: t("navigation.settings"), icon: <Settings />, path: "/settings" },
+    { text: t("navigation.about"), icon: <Info />, path: "/about" },
   ];
 
   return (
@@ -39,9 +45,9 @@ export const Sidebar = ({ width = 240 }) => {
       sx={{
         width,
         flexShrink: 0,
-        '& .MuiDrawer-paper': {
+        "& .MuiDrawer-paper": {
           width,
-          boxSizing: 'border-box',
+          boxSizing: "border-box",
         },
       }}
     >
@@ -50,16 +56,14 @@ export const Sidebar = ({ width = 240 }) => {
           Menu
         </Typography>
       </Box>
-      
+
       <Divider />
 
       <List>
         {menuItems.map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton>
-              <ListItemIcon>
-                {item.icon}
-              </ListItemIcon>
+              <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItemButton>
           </ListItem>

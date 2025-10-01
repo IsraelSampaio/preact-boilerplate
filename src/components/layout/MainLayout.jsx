@@ -1,13 +1,13 @@
-import { Box, CssBaseline } from '@mui/material';
-import { Header } from './Header.jsx';
-import { Sidebar } from './Sidebar.jsx';
+import { Box, CssBaseline } from "@mui/material";
+import { Header } from "./Header.jsx";
+import { Sidebar } from "./Sidebar.jsx";
 
 /**
  * Component MainLayout
  */
 export const MainLayout = ({ children, title }) => {
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <Header title={title} />
       <Sidebar />

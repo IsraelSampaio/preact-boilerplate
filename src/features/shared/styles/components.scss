@@ -1,5 +1,5 @@
-@use './variables' as *;
-@use './mixins' as *;
+@use "./variables" as *;
+@use "./mixins" as *;
 
 // Componentes personalizados
 
@@ -9,44 +9,46 @@
   border-radius: $border-radius-lg;
   box-shadow: $shadow-sm;
   overflow: hidden;
-  transition: transform $transition-fast, box-shadow $transition-fast;
-  
+  transition:
+    transform $transition-fast,
+    box-shadow $transition-fast;
+
   &:hover {
     transform: translateY(-4px);
     box-shadow: $shadow-lg;
   }
-  
+
   &__image {
     width: 100%;
     height: 200px;
     object-fit: contain;
     padding: $spacing-lg;
   }
-  
+
   &__content {
     padding: $spacing-lg;
   }
-  
+
   &__title {
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: $spacing-sm;
     color: #1e293b;
   }
-  
+
   &__subtitle {
     font-size: 0.875rem;
     color: #64748b;
     margin-bottom: $spacing-md;
   }
-  
+
   &__types {
     display: flex;
     gap: $spacing-sm;
     margin-bottom: $spacing-lg;
     flex-wrap: wrap;
   }
-  
+
   &__type {
     padding: $spacing-xs $spacing-sm;
     border-radius: $border-radius-sm;
@@ -55,7 +57,7 @@
     color: white;
     text-transform: capitalize;
   }
-  
+
   &__stats {
     display: flex;
     justify-content: space-between;
@@ -71,24 +73,24 @@
   padding: $spacing-xl;
   margin-bottom: $spacing-xl;
   box-shadow: $shadow-sm;
-  
+
   &__title {
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: $spacing-lg;
     color: #1e293b;
   }
-  
+
   &__grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: $spacing-lg;
-    
+
     @include respond-to(md) {
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
   }
-  
+
   &__actions {
     display: flex;
     gap: $spacing-sm;
@@ -99,12 +101,12 @@
 // Search input
 .search-input {
   position: relative;
-  
+
   &__field {
     @include input-base;
     padding-left: 2.5rem;
   }
-  
+
   &__icon {
     position: absolute;
     right: $spacing-md;
@@ -118,39 +120,39 @@
 // Button variants
 .btn {
   @include button-primary;
-  
+
   &--secondary {
     background-color: transparent;
     color: $primary-color;
     border: 2px solid $primary-color;
-    
+
     &:hover {
       background-color: $primary-color;
       color: white;
     }
   }
-  
+
   &--outline {
     background-color: transparent;
     color: #64748b;
     border: 2px solid #e2e8f0;
-    
+
     &:hover {
       border-color: $primary-color;
       color: $primary-color;
     }
   }
-  
+
   &--small {
     padding: $spacing-xs $spacing-sm;
     font-size: 0.875rem;
   }
-  
+
   &--large {
     padding: $spacing-md $spacing-xl;
     font-size: 1.125rem;
   }
-  
+
   &--full-width {
     width: 100%;
   }
@@ -165,7 +167,7 @@
   border-top: 2px solid $primary-color;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  
+
   &--large {
     width: 40px;
     height: 40px;
@@ -178,25 +180,25 @@
   padding: $spacing-md $spacing-lg;
   border-radius: $border-radius-md;
   margin-bottom: $spacing-lg;
-  
+
   &--success {
     background-color: #f0fdf4;
     color: #166534;
     border: 1px solid #bbf7d0;
   }
-  
+
   &--error {
     background-color: #fef2f2;
     color: #991b1b;
     border: 1px solid #fecaca;
   }
-  
+
   &--warning {
     background-color: #fffbeb;
     color: #92400e;
     border: 1px solid #fed7aa;
   }
-  
+
   &--info {
     background-color: #eff6ff;
     color: #1e40af;
@@ -214,22 +216,22 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  
+
   &--primary {
     background-color: $primary-color;
     color: white;
   }
-  
+
   &--secondary {
     background-color: #f1f5f9;
     color: #475569;
   }
-  
+
   &--success {
     background-color: #dcfce7;
     color: #166534;
   }
-  
+
   &--danger {
     background-color: #fef2f2;
     color: #991b1b;
@@ -252,27 +254,51 @@
 .grid {
   display: grid;
   gap: $spacing-lg;
-  
-  &--2 { grid-template-columns: repeat(2, 1fr); }
-  &--3 { grid-template-columns: repeat(3, 1fr); }
-  &--4 { grid-template-columns: repeat(4, 1fr); }
-  &--auto { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
-  
+
+  &--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  &--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  &--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  &--auto {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
   @include respond-to(sm) {
-    &--sm-1 { grid-template-columns: 1fr; }
-    &--sm-2 { grid-template-columns: repeat(2, 1fr); }
+    &--sm-1 {
+      grid-template-columns: 1fr;
+    }
+    &--sm-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
-  
+
   @include respond-to(md) {
-    &--md-2 { grid-template-columns: repeat(2, 1fr); }
-    &--md-3 { grid-template-columns: repeat(3, 1fr); }
-    &--md-4 { grid-template-columns: repeat(4, 1fr); }
+    &--md-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    &--md-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    &--md-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
-  
+
   @include respond-to(lg) {
-    &--lg-3 { grid-template-columns: repeat(3, 1fr); }
-    &--lg-4 { grid-template-columns: repeat(4, 1fr); }
-    &--lg-5 { grid-template-columns: repeat(5, 1fr); }
+    &--lg-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    &--lg-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    &--lg-5 {
+      grid-template-columns: repeat(5, 1fr);
+    }
   }
 }
 
@@ -281,11 +307,11 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 $spacing-md;
-  
+
   @include respond-to(sm) {
     padding: 0 $spacing-lg;
   }
-  
+
   @include respond-to(lg) {
     padding: 0 $spacing-xl;
   }
@@ -294,11 +320,11 @@
 // Section spacing
 .section {
   padding: $spacing-2xl 0;
-  
+
   &--small {
     padding: $spacing-xl 0;
   }
-  
+
   &--large {
     padding: $spacing-2xl * 2 0;
   }

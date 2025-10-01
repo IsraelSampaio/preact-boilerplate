@@ -9,17 +9,17 @@
 export class PokemonValidationDTO {
   /**
    * Valida ID do Pokémon
-   * @param {number|string} id 
+   * @param {number|string} id
    * @returns {Object} { isValid: boolean, error?: string }
    */
   static validateId(id) {
     if (!id) {
-      return { isValid: false, error: 'ID é obrigatório' };
+      return { isValid: false, error: "ID é obrigatório" };
     }
 
     const numId = Number(id);
     if (isNaN(numId) || numId <= 0) {
-      return { isValid: false, error: 'ID deve ser um número positivo' };
+      return { isValid: false, error: "ID deve ser um número positivo" };
     }
 
     return { isValid: true };
@@ -27,26 +27,29 @@ export class PokemonValidationDTO {
 
   /**
    * Valida nome do Pokémon
-   * @param {string} name 
+   * @param {string} name
    * @returns {Object} { isValid: boolean, error?: string }
    */
   static validateName(name) {
     if (!name) {
-      return { isValid: false, error: 'Nome é obrigatório' };
+      return { isValid: false, error: "Nome é obrigatório" };
     }
 
     if (name.length < 2) {
-      return { isValid: false, error: 'Nome deve ter pelo menos 2 caracteres' };
+      return { isValid: false, error: "Nome deve ter pelo menos 2 caracteres" };
     }
 
     if (name.length > 50) {
-      return { isValid: false, error: 'Nome deve ter no máximo 50 caracteres' };
+      return { isValid: false, error: "Nome deve ter no máximo 50 caracteres" };
     }
 
     // Verifica se contém apenas letras, espaços e hífens
     const nameRegex = /^[a-zA-Z\s-]+$/;
     if (!nameRegex.test(name)) {
-      return { isValid: false, error: 'Nome deve conter apenas letras, espaços e hífens' };
+      return {
+        isValid: false,
+        error: "Nome deve conter apenas letras, espaços e hífens",
+      };
     }
 
     return { isValid: true };
@@ -54,22 +57,40 @@ export class PokemonValidationDTO {
 
   /**
    * Valida tipo do Pokémon
-   * @param {string} type 
+   * @param {string} type
    * @returns {Object} { isValid: boolean, error?: string }
    */
   static validateType(type) {
     const validTypes = [
-      'normal', 'fire', 'water', 'electric', 'grass', 'ice',
-      'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug',
-      'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy'
+      "normal",
+      "fire",
+      "water",
+      "electric",
+      "grass",
+      "ice",
+      "fighting",
+      "poison",
+      "ground",
+      "flying",
+      "psychic",
+      "bug",
+      "rock",
+      "ghost",
+      "dragon",
+      "dark",
+      "steel",
+      "fairy",
     ];
 
     if (!type) {
-      return { isValid: false, error: 'Tipo é obrigatório' };
+      return { isValid: false, error: "Tipo é obrigatório" };
     }
 
     if (!validTypes.includes(type.toLowerCase())) {
-      return { isValid: false, error: `Tipo deve ser um dos seguintes: ${validTypes.join(', ')}` };
+      return {
+        isValid: false,
+        error: `Tipo deve ser um dos seguintes: ${validTypes.join(", ")}`,
+      };
     }
 
     return { isValid: true };
@@ -77,7 +98,7 @@ export class PokemonValidationDTO {
 
   /**
    * Valida dados de filtros
-   * @param {Object} filters 
+   * @param {Object} filters
    * @returns {Object} { isValid: boolean, errors: Object }
    */
   static validateFilters(filters) {
@@ -86,7 +107,7 @@ export class PokemonValidationDTO {
 
     // Validar busca
     if (filters.search && filters.search.length > 100) {
-      errors.search = 'Busca deve ter no máximo 100 caracteres';
+      errors.search = "Busca deve ter no máximo 100 caracteres";
       isValid = false;
     }
 
@@ -100,15 +121,19 @@ export class PokemonValidationDTO {
     }
 
     // Validar ordenação
-    const validSortBy = ['name', 'id', 'height', 'weight'];
+    const validSortBy = ["name", "id", "height", "weight"];
     if (filters.sortBy && !validSortBy.includes(filters.sortBy)) {
-      errors.sortBy = `Ordenação deve ser um dos seguintes: ${validSortBy.join(', ')}`;
+      errors.sortBy = `Ordenação deve ser um dos seguintes: ${validSortBy.join(
+        ", ",
+      )}`;
       isValid = false;
     }
 
-    const validSortOrder = ['asc', 'desc'];
+    const validSortOrder = ["asc", "desc"];
     if (filters.sortOrder && !validSortOrder.includes(filters.sortOrder)) {
-      errors.sortOrder = `Ordem deve ser um dos seguintes: ${validSortOrder.join(', ')}`;
+      errors.sortOrder = `Ordem deve ser um dos seguintes: ${validSortOrder.join(
+        ", ",
+      )}`;
       isValid = false;
     }
 
@@ -117,7 +142,7 @@ export class PokemonValidationDTO {
 
   /**
    * Valida dados completos do Pokémon
-   * @param {Object} pokemonData 
+   * @param {Object} pokemonData
    * @returns {Object} { isValid: boolean, errors: Object }
    */
   static validatePokemon(pokemonData) {
@@ -142,7 +167,7 @@ export class PokemonValidationDTO {
     if (pokemonData.height !== undefined) {
       const height = Number(pokemonData.height);
       if (isNaN(height) || height < 0 || height > 1000) {
-        errors.height = 'Altura deve ser um número entre 0 e 1000';
+        errors.height = "Altura deve ser um número entre 0 e 1000";
         isValid = false;
       }
     }
@@ -151,7 +176,7 @@ export class PokemonValidationDTO {
     if (pokemonData.weight !== undefined) {
       const weight = Number(pokemonData.weight);
       if (isNaN(weight) || weight < 0 || weight > 10000) {
-        errors.weight = 'Peso deve ser um número entre 0 e 10000';
+        errors.weight = "Peso deve ser um número entre 0 e 10000";
         isValid = false;
       }
     }
@@ -177,17 +202,17 @@ export class PokemonValidationDTO {
 export class PaginationValidationDTO {
   /**
    * Valida página atual
-   * @param {number|string} page 
+   * @param {number|string} page
    * @returns {Object} { isValid: boolean, error?: string }
    */
   static validatePage(page) {
     if (!page) {
-      return { isValid: false, error: 'Página é obrigatória' };
+      return { isValid: false, error: "Página é obrigatória" };
     }
 
     const numPage = Number(page);
     if (isNaN(numPage) || numPage < 1) {
-      return { isValid: false, error: 'Página deve ser um número maior que 0' };
+      return { isValid: false, error: "Página deve ser um número maior que 0" };
     }
 
     return { isValid: true };
@@ -195,17 +220,20 @@ export class PaginationValidationDTO {
 
   /**
    * Valida itens por página
-   * @param {number|string} limit 
+   * @param {number|string} limit
    * @returns {Object} { isValid: boolean, error?: string }
    */
   static validateLimit(limit) {
     if (!limit) {
-      return { isValid: false, error: 'Limite é obrigatório' };
+      return { isValid: false, error: "Limite é obrigatório" };
     }
 
     const numLimit = Number(limit);
     if (isNaN(numLimit) || numLimit < 1 || numLimit > 100) {
-      return { isValid: false, error: 'Limite deve ser um número entre 1 e 100' };
+      return {
+        isValid: false,
+        error: "Limite deve ser um número entre 1 e 100",
+      };
     }
 
     return { isValid: true };
@@ -213,7 +241,7 @@ export class PaginationValidationDTO {
 
   /**
    * Valida dados de paginação
-   * @param {Object} paginationData 
+   * @param {Object} paginationData
    * @returns {Object} { isValid: boolean, errors: Object }
    */
   static validatePagination(paginationData) {

@@ -1,5 +1,5 @@
-@use '../../shared/styles/variables' as *;
-@use '../../shared/styles/mixins' as *;
+@use "../../shared/styles/variables" as *;
+@use "../../shared/styles/mixins" as *;
 
 // Estilos específicos do Pokemon Card
 .pokemon-card {
@@ -7,44 +7,46 @@
   border-radius: $border-radius-lg;
   box-shadow: $shadow-sm;
   overflow: hidden;
-  transition: transform $transition-fast, box-shadow $transition-fast;
-  
+  transition:
+    transform $transition-fast,
+    box-shadow $transition-fast;
+
   &:hover {
     transform: translateY(-4px);
     box-shadow: $shadow-lg;
   }
-  
+
   &__image {
     width: 100%;
     height: 200px;
     object-fit: contain;
     padding: $spacing-lg;
   }
-  
+
   &__content {
     padding: $spacing-lg;
   }
-  
+
   &__title {
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: $spacing-sm;
     color: #1e293b;
   }
-  
+
   &__subtitle {
     font-size: 0.875rem;
     color: #64748b;
     margin-bottom: $spacing-md;
   }
-  
+
   &__types {
     display: flex;
     gap: $spacing-sm;
     margin-bottom: $spacing-lg;
     flex-wrap: wrap;
   }
-  
+
   &__type {
     padding: $spacing-xs $spacing-sm;
     border-radius: $border-radius-sm;
@@ -53,7 +55,7 @@
     color: white;
     text-transform: capitalize;
   }
-  
+
   &__stats {
     display: flex;
     justify-content: space-between;

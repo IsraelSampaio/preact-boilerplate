@@ -8,9 +8,9 @@
  */
 export class ApiErrorDTO {
   constructor(error) {
-    this.message = error.message || 'Erro desconhecido';
+    this.message = error.message || "Erro desconhecido";
     this.status = error.status || 500;
-    this.code = error.code || 'UNKNOWN_ERROR';
+    this.code = error.code || "UNKNOWN_ERROR";
     this.timestamp = new Date().toISOString();
   }
 
@@ -19,7 +19,7 @@ export class ApiErrorDTO {
       message: this.message,
       status: this.status,
       code: this.code,
-      timestamp: this.timestamp
+      timestamp: this.timestamp,
     };
   }
 }
@@ -29,8 +29,8 @@ export class ApiErrorDTO {
  */
 export class LoginResponseDTO {
   constructor(data) {
-    this.token = data.token || '';
-    this.refreshToken = data.refreshToken || '';
+    this.token = data.token || "";
+    this.refreshToken = data.refreshToken || "";
     this.user = data.user || null;
     this.expiresIn = data.expiresIn || 3600;
   }
@@ -40,7 +40,7 @@ export class LoginResponseDTO {
       token: this.token,
       refreshToken: this.refreshToken,
       user: this.user,
-      expiresIn: this.expiresIn
+      expiresIn: this.expiresIn,
     };
   }
 }
@@ -50,8 +50,8 @@ export class LoginResponseDTO {
  */
 export class LoginRequestDTO {
   constructor(data) {
-    this.email = data.email || '';
-    this.password = data.password || '';
+    this.email = data.email || "";
+    this.password = data.password || ""; // gitleaks:allow
     this.rememberMe = data.rememberMe || false;
   }
 
@@ -59,7 +59,7 @@ export class LoginRequestDTO {
     return {
       email: this.email,
       password: this.password,
-      remember_me: this.rememberMe
+      remember_me: this.rememberMe,
     };
   }
 }

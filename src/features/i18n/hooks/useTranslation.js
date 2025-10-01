@@ -1,10 +1,10 @@
-import { useTranslation as useI18nTranslation } from 'react-i18next';
+import { useTranslation as useI18nTranslation } from "react-i18next";
 
 /**
  * Hook personalizado para tradução
  * Extensão do useTranslation do react-i18next com funcionalidades adicionais
  */
-export const useTranslation = (namespace = 'translation') => {
+export const useTranslation = (namespace = "translation") => {
   const { t, i18n, ready } = useI18nTranslation(namespace);
 
   /**
@@ -20,12 +20,12 @@ export const useTranslation = (namespace = 'translation') => {
 
     try {
       const translated = t(key, options);
-      
+
       // Se a tradução é igual à chave, pode ser que não exista
       if (translated === key && !options.defaultValue) {
         console.warn(`Translation missing for key: ${key}`);
       }
-      
+
       return translated;
     } catch (error) {
       console.error(`Translation error for key "${key}":`, error);
@@ -41,25 +41,32 @@ export const useTranslation = (namespace = 'translation') => {
   const setLanguage = async (language) => {
     try {
       // Verificar se o idioma é suportado
-      const supportedLanguages = i18n.options.supportedLngs || ['pt-BR', 'en-US'];
+      const supportedLanguages = i18n.options.supportedLngs || [
+        "pt-BR",
+        "en-US",
+      ];
       if (!supportedLanguages.includes(language)) {
-        console.warn(`Language ${language} is not supported. Using fallback: pt-BR`);
-        language = 'pt-BR';
+        console.warn(
+          `Language ${language} is not supported. Using fallback: pt-BR`,
+        );
+        language = "pt-BR";
       }
-      
+
       await i18n.changeLanguage(language);
-      
+
       // Salvar preferência no localStorage
-      localStorage.setItem('pokemon-app-language', language);
-      
+      localStorage.setItem("pokemon-app-language", language);
+
       // Disparar evento customizado para outros componentes
-      window.dispatchEvent(new CustomEvent('languageChanged', { 
-        detail: { language } 
-      }));
-      
+      window.dispatchEvent(
+        new CustomEvent("languageChanged", {
+          detail: { language },
+        }),
+      );
+
       return true;
     } catch (error) {
-      console.error('Error changing language:', error);
+      console.error("Error changing language:", error);
       return false;
     }
   };
@@ -69,12 +76,12 @@ export const useTranslation = (namespace = 'translation') => {
    * @returns {object} Informações do idioma
    */
   const currentLanguageInfo = () => {
-    const current = i18n?.language || 'pt-BR';
+    const current = i18n?.language || "pt-BR";
     return {
       code: current,
-      name: current === 'pt-BR' ? 'Português (Brasil)' : 'English (US)',
-      nativeName: current === 'pt-BR' ? 'Português' : 'English',
-      flag: current === 'pt-BR' ? '🇧🇷' : '🇺🇸'
+      name: current === "pt-BR" ? "Português (Brasil)" : "English",
+      nativeName: current === "pt-BR" ? "Português" : "English",
+      flag: current === "pt-BR" ? "🇧🇷" : "🇺🇸",
     };
   };
 
@@ -83,14 +90,14 @@ export const useTranslation = (namespace = 'translation') => {
    * @returns {Array} Lista de idiomas disponíveis
    */
   const availableLanguages = () => {
-    // Fallback para idiomas padrão se i18n não estiver inicializado
-    const languages = i18n?.languages || ['pt-BR', 'en-US'];
-    
-    return languages.map(lng => ({
+    // Lista fixa de idiomas únicos para evitar duplicatas
+    const supportedLanguages = ["pt-BR", "en"];
+
+    return supportedLanguages.map((lng) => ({
       code: lng,
-      name: lng === 'pt-BR' ? 'Português (Brasil)' : 'English (US)',
-      nativeName: lng === 'pt-BR' ? 'Português' : 'English',
-      flag: lng === 'pt-BR' ? '🇧🇷' : '🇺🇸'
+      name: lng === "pt-BR" ? "Português (Brasil)" : "English",
+      nativeName: lng === "pt-BR" ? "Português" : "English",
+      flag: lng === "pt-BR" ? "🇧🇷" : "🇺🇸",
     }));
   };
 
@@ -119,7 +126,7 @@ export const useTranslation = (namespace = 'translation') => {
    */
   const translateCount = (key, count, options = {}) => {
     const pluralKey = count === 1 ? key : `${key}_other`;
-    
+
     return translate(pluralKey, {
       count,
       ...options,
@@ -135,11 +142,11 @@ export const useTranslation = (namespace = 'translation') => {
    */
   const translateDate = (key, date, options = {}) => {
     const formatter = new Intl.DateTimeFormat(currentLanguage(), {
-      dateStyle: 'medium',
-      timeStyle: 'short',
+      dateStyle: "medium",
+      timeStyle: "short",
       ...options,
     });
-    
+
     return translate(key, {
       date: formatter.format(date),
     });
@@ -154,7 +161,7 @@ export const useTranslation = (namespace = 'translation') => {
    */
   const translateNumber = (key, number, options = {}) => {
     const formatter = new Intl.NumberFormat(currentLanguage(), options);
-    
+
     return translate(key, {
       number: formatter.format(number),
     });
@@ -167,7 +174,7 @@ export const useTranslation = (namespace = 'translation') => {
    * @returns {Array<string>} Array de traduções
    */
   const translateMultiple = (keys, options = {}) => {
-    return keys.map(key => translate(key, options));
+    return keys.map((key) => translate(key, options));
   };
 
   /**
@@ -185,24 +192,24 @@ export const useTranslation = (namespace = 'translation') => {
    * @returns {string} Tradução raw
    */
   const getRawTranslation = (key) => {
-    return i18n.getResource(currentLanguage(), 'translation', key);
+    return i18n.getResource(currentLanguage(), "translation", key);
   };
 
   return {
     // Função principal de tradução (alias para melhor DX)
     t: translate,
     translate,
-    
+
     // Gerenciamento de idioma
     setLanguage,
     currentLanguage,
     currentLanguageInfo,
     availableLanguages,
-    
+
     // Estado
     isLoading,
     ready,
-    
+
     // Funções utilitárias
     translateCount,
     translateDate,
@@ -210,7 +217,7 @@ export const useTranslation = (namespace = 'translation') => {
     translateMultiple,
     hasTranslation,
     getRawTranslation,
-    
+
     // Instância do i18n (para casos avançados)
     i18n,
   };

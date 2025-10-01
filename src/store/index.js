@@ -1,13 +1,13 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from "@reduxjs/toolkit";
 
 // Importações das features
-import { authSlice } from '../features/auth/store/authSlice.js';
-import { pokemonSlice } from '../features/pokemon/store/pokemonSlice.js';
-import { favoritesSlice } from '../features/pokemon/store/favoritesSlice.js';
-import { comparisonSlice } from '../features/pokemon/store/comparisonSlice.js';
+import { authSlice } from "../features/auth/store/authSlice.js";
+import { pokemonSlice } from "../features/pokemon/store/pokemonSlice.js";
+import { favoritesSlice } from "../features/pokemon/store/favoritesSlice.js";
+import { comparisonSlice } from "../features/pokemon/store/comparisonSlice.js";
 
 // Importações compartilhadas
-import { uiSlice } from '../features/shared/store/uiSlice.js';
+import { uiSlice } from "../features/shared/store/uiSlice.js";
 
 export const store = configureStore({
   reducer: {
@@ -20,7 +20,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ['persist/PERSIST'],
+        ignoredActions: ["persist/PERSIST"],
       },
     }),
 });

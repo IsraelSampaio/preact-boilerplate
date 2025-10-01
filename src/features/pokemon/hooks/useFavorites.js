@@ -1,4 +1,7 @@
-import { useAppDispatch, useAppSelector } from '../../shared/hooks/useAppDispatch.js';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../shared/hooks/useAppDispatch.js";
 import {
   addToFavorites,
   removeFromFavorites,
@@ -9,7 +12,7 @@ import {
   selectFavoritesLoading,
   selectFavoritesError,
   syncFavoritesFromStorage,
-} from '../store/favoritesSlice.js';
+} from "../store/favoritesSlice.js";
 
 /**
  * Hook personalizado para gerenciar favoritos
@@ -17,7 +20,7 @@ import {
  */
 export const useFavorites = () => {
   const dispatch = useAppDispatch();
-  
+
   const favorites = useAppSelector(selectFavorites);
   const favoritesCount = useAppSelector(selectFavoritesCount);
   const isLoading = useAppSelector(selectFavoritesLoading);
@@ -60,7 +63,7 @@ export const useFavorites = () => {
    * @returns {boolean} True se for favorito
    */
   const isFavorite = (pokemonId) => {
-    return favorites.some(fav => fav.id === pokemonId);
+    return favorites.some((fav) => fav.id === pokemonId);
   };
 
   /**
@@ -86,9 +89,9 @@ export const useFavorites = () => {
    */
   const searchFavorites = (query) => {
     if (!query) return favorites;
-    
-    return favorites.filter(pokemon =>
-      pokemon.name.toLowerCase().includes(query.toLowerCase())
+
+    return favorites.filter((pokemon) =>
+      pokemon.name.toLowerCase().includes(query.toLowerCase()),
     );
   };
 
@@ -98,34 +101,34 @@ export const useFavorites = () => {
    * @param {string} order Ordem ('asc' ou 'desc')
    * @returns {Array} Lista ordenada de favoritos
    */
-  const sortFavorites = (sortBy = 'name', order = 'asc') => {
+  const sortFavorites = (sortBy = "name", order = "asc") => {
     const sorted = [...favorites].sort((a, b) => {
       let aValue, bValue;
-      
+
       switch (sortBy) {
-        case 'id':
+        case "id":
           aValue = a.id;
           bValue = b.id;
           break;
-        case 'name':
+        case "name":
           aValue = a.name.toLowerCase();
           bValue = b.name.toLowerCase();
           break;
-        case 'type':
-          aValue = a.primaryType || a.types[0]?.type.name || '';
-          bValue = b.primaryType || b.types[0]?.type.name || '';
+        case "type":
+          aValue = a.primaryType || a.types[0]?.type.name || "";
+          bValue = b.primaryType || b.types[0]?.type.name || "";
           break;
         default:
           aValue = a.name.toLowerCase();
           bValue = b.name.toLowerCase();
       }
-      
-      if (order === 'desc') {
+
+      if (order === "desc") {
         return aValue < bValue ? 1 : aValue > bValue ? -1 : 0;
       }
       return aValue > bValue ? 1 : aValue < bValue ? -1 : 0;
     });
-    
+
     return sorted;
   };
 
@@ -135,14 +138,14 @@ export const useFavorites = () => {
     favoritesCount,
     isLoading,
     error,
-    
+
     // Ações
     addFavorite,
     removeFavorite,
     togglePokemonFavorite,
     clearAllFavorites,
     syncFavorites,
-    
+
     // Utilities
     isFavorite,
     filterFavorites,

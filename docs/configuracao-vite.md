@@ -9,32 +9,37 @@ O projeto utiliza **Vite** como build tool e servidor de desenvolvimento, propor
 ### 1. **vite.config.js**
 
 ```javascript
-import { defineConfig } from 'vite'
-import preact from '@preact/preset-vite'
-import { resolve } from 'path'
+import { defineConfig } from "vite";
+import preact from "@preact/preset-vite";
+import { resolve } from "path";
 
 export default defineConfig({
   plugins: [preact()],
   resolve: {
     alias: {
-      '@': resolve(__dirname, './src'),
-      '@/components': resolve(__dirname, './src/components'),
-      '@/features': resolve(__dirname, './src/features'),
-      '@/hooks': resolve(__dirname, './src/hooks'),
-      '@/services': resolve(__dirname, './src/services'),
-      '@/store': resolve(__dirname, './src/store'),
-      '@/types': resolve(__dirname, './src/types'),
-      '@/utils': resolve(__dirname, './src/utils'),
+      "@": resolve(__dirname, "./src"),
+      "@/components": resolve(__dirname, "./src/components"),
+      "@/features": resolve(__dirname, "./src/features"),
+      "@/hooks": resolve(__dirname, "./src/hooks"),
+      "@/services": resolve(__dirname, "./src/services"),
+      "@/store": resolve(__dirname, "./src/store"),
+      "@/types": resolve(__dirname, "./src/types"),
+      "@/utils": resolve(__dirname, "./src/utils"),
     },
   },
   test: {
-    environment: 'jsdom',
-    setupFiles: ['./src/test/setup.js'],
+    environment: "jsdom",
+    setupFiles: ["./src/test/setup.js"],
   },
   optimizeDeps: {
-    include: ['@mui/material', '@mui/icons-material', '@emotion/react', '@emotion/styled']
-  }
-})
+    include: [
+      "@mui/material",
+      "@mui/icons-material",
+      "@emotion/react",
+      "@emotion/styled",
+    ],
+  },
+});
 ```
 
 ## 🔧 Funcionalidades Configuradas
@@ -47,7 +52,7 @@ export default defineConfig({
 // - Hot Module Replacement (HMR)
 // - JSX transforms otimizados
 // - Alias automático preact/compat para compatibilidade React
-plugins: [preact()]
+plugins: [preact()];
 ```
 
 ### 2. **Path Aliases**
@@ -56,12 +61,12 @@ O sistema de aliases permite imports limpos e organizados:
 
 ```javascript
 // Ao invés de:
-import { Component } from '../../../components/Component.jsx';
-import { useAuth } from '../../../features/auth/hooks/useAuth.js';
+import { Component } from "../../../components/Component.jsx";
+import { useAuth } from "../../../features/auth/hooks/useAuth.js";
 
 // Use:
-import { Component } from '@/components/Component.jsx';
-import { useAuth } from '@/features/auth/hooks/useAuth.js';
+import { Component } from "@/components/Component.jsx";
+import { useAuth } from "@/features/auth/hooks/useAuth.js";
 ```
 
 #### **Aliases Configurados:**
@@ -89,11 +94,11 @@ test: {
 ```javascript
 optimizeDeps: {
   include: [
-    '@mui/material', 
-    '@mui/icons-material', 
-    '@emotion/react', 
-    '@emotion/styled'
-  ]
+    "@mui/material",
+    "@mui/icons-material",
+    "@emotion/react",
+    "@emotion/styled",
+  ];
 }
 ```
 
@@ -106,9 +111,9 @@ Força a pré-compilação dessas dependências para melhor performance de desen
 ```json
 {
   "scripts": {
-    "dev": "vite",                    // Servidor de desenvolvimento
-    "build": "vite build",            // Build de produção
-    "preview": "vite preview"         // Preview do build
+    "dev": "vite", // Servidor de desenvolvimento
+    "build": "vite build", // Build de produção
+    "preview": "vite preview" // Preview do build
   }
 }
 ```
@@ -118,13 +123,13 @@ Força a pré-compilação dessas dependências para melhor performance de desen
 ```json
 {
   "scripts": {
-    "test": "vitest",                           // Testes em watch mode
-    "test:ui": "vitest --ui",                   // Interface gráfica dos testes
+    "test": "vitest", // Testes em watch mode
+    "test:ui": "vitest --ui", // Interface gráfica dos testes
     "test:unit": "vitest run --reporter=verbose src/**/*.test.{js,jsx}",
     "test:integration": "vitest run --reporter=verbose src/__tests__/integration/**/*.test.{js,jsx}",
     "test:e2e": "vitest run --reporter=verbose src/__tests__/e2e/**/*.test.{js,jsx}",
-    "test:coverage": "vitest run --coverage",   // Testes com coverage
-    "test:watch": "vitest --watch"              // Testes em watch mode
+    "test:coverage": "vitest run --coverage", // Testes com coverage
+    "test:watch": "vitest --watch" // Testes em watch mode
   }
 }
 ```
@@ -158,20 +163,20 @@ Força a pré-compilação dessas dependências para melhor performance de desen
 // Configurações avançadas de build (opcional)
 export default defineConfig({
   build: {
-    target: 'esnext',              // Target moderno
-    minify: 'esbuild',             // Minificação rápida
-    sourcemap: true,               // Source maps para debug
+    target: "esnext", // Target moderno
+    minify: "esbuild", // Minificação rápida
+    sourcemap: true, // Source maps para debug
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['preact', 'preact-router'],
-          mui: ['@mui/material', '@mui/icons-material'],
-          utils: ['@reduxjs/toolkit', 'react-redux']
-        }
-      }
-    }
-  }
-})
+          vendor: ["preact", "preact-router"],
+          mui: ["@mui/material", "@mui/icons-material"],
+          utils: ["@reduxjs/toolkit", "react-redux"],
+        },
+      },
+    },
+  },
+});
 ```
 
 ### 2. **Configurações de Servidor**
@@ -179,18 +184,18 @@ export default defineConfig({
 ```javascript
 export default defineConfig({
   server: {
-    port: 5173,                    // Porta padrão
-    open: true,                    // Abrir navegador automaticamente
-    cors: true,                    // CORS habilitado
+    port: 5173, // Porta padrão
+    open: true, // Abrir navegador automaticamente
+    cors: true, // CORS habilitado
     proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
+      "/api": {
+        target: "http://localhost:3000",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      }
-    }
-  }
-})
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
+  },
+});
 ```
 
 ### 3. **Configurações de Preview**
@@ -200,9 +205,9 @@ export default defineConfig({
   preview: {
     port: 4173,
     open: true,
-    cors: true
-  }
-})
+    cors: true,
+  },
+});
 ```
 
 ## 🔄 Hot Module Replacement (HMR)
@@ -210,6 +215,7 @@ export default defineConfig({
 ### 1. **HMR Automático**
 
 Vite + Preact oferece HMR out-of-the-box para:
+
 - Componentes Preact/JSX
 - CSS/SCSS
 - Módulos ES6
@@ -220,7 +226,7 @@ Vite + Preact oferece HMR out-of-the-box para:
 ```javascript
 // src/main.jsx
 if (import.meta.hot) {
-  import.meta.hot.accept('./App.jsx', (newModule) => {
+  import.meta.hot.accept("./App.jsx", (newModule) => {
     // Lógica customizada de HMR se necessário
   });
 }
@@ -244,11 +250,11 @@ public/
 
 ```javascript
 // Importação de assets dinâmicos
-import logoUrl from '@/assets/logo.png';
-import './component.scss';
+import logoUrl from "@/assets/logo.png";
+import "./component.scss";
 
 // URL de asset
-const iconUrl = new URL('../assets/icon.png', import.meta.url).href;
+const iconUrl = new URL("../assets/icon.png", import.meta.url).href;
 ```
 
 ## 🌍 Variáveis de Ambiente
@@ -284,29 +290,24 @@ const mode = import.meta.env.MODE;
 // vite.config.js
 export default defineConfig({
   test: {
-    globals: true,                    // APIs globais (describe, it, expect)
-    environment: 'jsdom',             // Ambiente DOM
-    setupFiles: ['./src/test/setup.js'], // Setup global
-    css: true,                        // Processar CSS nos testes
+    globals: true, // APIs globais (describe, it, expect)
+    environment: "jsdom", // Ambiente DOM
+    setupFiles: ["./src/test/setup.js"], // Setup global
+    css: true, // Processar CSS nos testes
     coverage: {
-      reporter: ['text', 'html'],     // Relatórios de coverage
-      exclude: [
-        'node_modules/',
-        'src/test/',
-        '**/*.config.js',
-        '**/*.d.ts',
-      ],
+      reporter: ["text", "html"], // Relatórios de coverage
+      exclude: ["node_modules/", "src/test/", "**/*.config.js", "**/*.d.ts"],
     },
-  }
-})
+  },
+});
 ```
 
 ### 2. **Setup de Testes**
 
 ```javascript
 // src/test/setup.js
-import '@testing-library/jest-dom';
-import { beforeEach, vi } from 'vitest';
+import "@testing-library/jest-dom";
+import { beforeEach, vi } from "vitest";
 
 // Mock global do fetch
 global.fetch = vi.fn();
@@ -314,7 +315,7 @@ global.fetch = vi.fn();
 // Cleanup após cada teste
 beforeEach(() => {
   vi.clearAllMocks();
-  document.body.innerHTML = '';
+  document.body.innerHTML = "";
 });
 ```
 
@@ -324,10 +325,10 @@ beforeEach(() => {
 
 ```javascript
 // Expansões futuras possíveis
-import { defineConfig } from 'vite';
-import preact from '@preact/preset-vite';
-import { VitePWA } from 'vite-plugin-pwa';
-import { visualizer } from 'rollup-plugin-visualizer';
+import { defineConfig } from "vite";
+import preact from "@preact/preset-vite";
+import { VitePWA } from "vite-plugin-pwa";
+import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig({
   plugins: [
@@ -336,10 +337,10 @@ export default defineConfig({
       // Configuração PWA
     }),
     visualizer({
-      filename: 'dist/stats.html',
-      open: true
-    })
-  ]
+      filename: "dist/stats.html",
+      open: true,
+    }),
+  ],
 });
 ```
 
@@ -358,24 +359,26 @@ npm run build
 ### 1. **Problemas Comuns**
 
 #### **Import Paths**
+
 ```javascript
 // ❌ Erro comum
-import Component from './Component'; // Sem extensão
+import Component from "./Component"; // Sem extensão
 
 // ✅ Correto
-import Component from './Component.jsx'; // Com extensão
+import Component from "./Component.jsx"; // Com extensão
 ```
 
 #### **Alias não funciona**
+
 ```javascript
 // Verificar se alias está configurado em vite.config.js
 // E se o caminho está correto
 
-// ❌ 
-import { hook } from '@hooks/useAuth.js';
+// ❌
+import { hook } from "@hooks/useAuth.js";
 
 // ✅
-import { hook } from '@/features/auth/hooks/useAuth.js';
+import { hook } from "@/features/auth/hooks/useAuth.js";
 ```
 
 ### 2. **Debug de Configuração**
@@ -383,9 +386,9 @@ import { hook } from '@/features/auth/hooks/useAuth.js';
 ```javascript
 // Adicionar logs de debug
 export default defineConfig(({ command, mode }) => {
-  console.log('Command:', command); // 'build' | 'serve'
-  console.log('Mode:', mode);       // 'development' | 'production'
-  
+  console.log("Command:", command); // 'build' | 'serve'
+  console.log("Mode:", mode); // 'development' | 'production'
+
   return {
     // configuração
   };
@@ -398,21 +401,21 @@ export default defineConfig(({ command, mode }) => {
 // Configurações para projetos grandes
 export default defineConfig({
   optimizeDeps: {
-    include: ['large-dependency'],
-    exclude: ['optional-dependency']
+    include: ["large-dependency"],
+    exclude: ["optional-dependency"],
   },
   build: {
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          if (id.includes('node_modules')) {
-            return 'vendor';
+          if (id.includes("node_modules")) {
+            return "vendor";
           }
-        }
-      }
-    }
-  }
+        },
+      },
+    },
+  },
 });
 ```
 
@@ -444,21 +447,23 @@ npm run build && npx vite-bundle-analyzer dist
 ## ✅ Boas Práticas
 
 ### 1. **Organização**
+
 - Use aliases consistentemente
 - Mantenha arquivos de configuração limpos
 - Documente configurações customizadas
 
 ### 2. **Performance**
+
 - Configure `optimizeDeps` para dependências grandes
 - Use code splitting adequado
 - Monitore tamanho do bundle
 
 ### 3. **Desenvolvimento**
+
 - Use variáveis de ambiente adequadamente
 - Configure proxy para APIs locais
 - Aproveite HMR para desenvolvimento rápido
 
 ---
 
-*Esta documentação reflete a configuração atual do Vite no projeto e será atualizada conforme modificações forem feitas.*
-
+_Esta documentação reflete a configuração atual do Vite no projeto e será atualizada conforme modificações forem feitas._

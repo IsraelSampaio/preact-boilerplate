@@ -1,16 +1,23 @@
-import { Router } from 'preact-router';
-import { ThemeProvider } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material';
-import { Provider } from 'react-redux';
-import { store } from '@/store/index.js';
-import { lightTheme, darkTheme } from '@/theme/theme.js';
-import { useAppSelector } from '@/features/shared/hooks/useAppDispatch.js';
-import { PWAInstallPrompt } from '@/components/PWAInstallPrompt.jsx';
-import { HomePage, PokemonListPage, PokemonDetailsPage, FavoritesPage, ComparisonPage, SettingsPage } from '@/features/pokemon/index.js';
+import { Router } from "preact-router";
+import { ThemeProvider } from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
+import { Provider } from "react-redux";
+import { store } from "@/store/index.js";
+import { lightTheme, darkTheme } from "@/theme/theme.js";
+import { useTheme } from "@/features/shared/hooks/index.js";
+import { PWAInstallPrompt } from "@/components/PWAInstallPrompt.jsx";
+import {
+  HomePage,
+  PokemonListPage,
+  PokemonDetailsPage,
+  FavoritesPage,
+  ComparisonPage,
+  SettingsPage,
+} from "@/features/pokemon/index.js";
 
 const AppContent = () => {
-  const { theme } = useAppSelector((state) => state.ui);
-  const currentTheme = theme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
+  const currentTheme = theme === "dark" ? darkTheme : lightTheme;
 
   return (
     <ThemeProvider theme={currentTheme}>

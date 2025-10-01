@@ -1,13 +1,13 @@
-import { vi, beforeAll, afterAll, afterEach } from 'vitest';
-import '@testing-library/jest-dom/vitest';
+import { vi, beforeAll, afterAll, afterEach } from "vitest";
+import "@testing-library/jest-dom/vitest";
 
 // Mock de APIs globais
 global.fetch = vi.fn();
 
 // Mock de navegador APIs
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
-  value: vi.fn().mockImplementation(query => ({
+  value: vi.fn().mockImplementation((query) => ({
     matches: false,
     media: query,
     onchange: null,
@@ -29,21 +29,21 @@ const createStorageMock = () => ({
   key: vi.fn(),
 });
 
-Object.defineProperty(window, 'localStorage', {
+Object.defineProperty(window, "localStorage", {
   value: createStorageMock(),
 });
 
-Object.defineProperty(window, 'sessionStorage', {
+Object.defineProperty(window, "sessionStorage", {
   value: createStorageMock(),
 });
 
 // Mock de navigator
-Object.defineProperty(navigator, 'onLine', {
+Object.defineProperty(navigator, "onLine", {
   writable: true,
   value: true,
 });
 
-Object.defineProperty(navigator, 'share', {
+Object.defineProperty(navigator, "share", {
   writable: true,
   value: vi.fn().mockResolvedValue(),
 });
@@ -71,8 +71,8 @@ const originalError = console.error;
 beforeAll(() => {
   console.error = (...args) => {
     if (
-      typeof args[0] === 'string' &&
-      args[0].includes('Warning: ReactDOM.render is no longer supported')
+      typeof args[0] === "string" &&
+      args[0].includes("Warning: ReactDOM.render is no longer supported")
     ) {
       return;
     }

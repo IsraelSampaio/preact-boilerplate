@@ -1,23 +1,32 @@
 <!-- docs/_sidebar.md -->
 
-* [🏠 Início](/)
+- [🏠 Início](/)
 
-* **🏗️ Arquitetura**
-  * [Visão Geral](arquitetura-geral.md)
+- **🏗️ Arquitetura**
 
-* **🎨 Padrões e Implementação**
-  * [Componentes](padroes-componentes.md)
-  * [Estado (Redux)](gerenciamento-estado.md)
-  * [DTOs](padroes-dto.md)
-  * [Serviços](camada-servicos.md)
+  - [Visão Geral](arquitetura-geral.md)
 
-* **🔧 Configuração e Ferramentas**
-  * [Configuração Vite](configuracao-vite.md)
-  * [Internacionalização](internacionalizacao.md)
-  * [PWA e Service Workers](pwa-service-workers.md)
+- **🎨 Padrões e Implementação**
 
-* **🚀 Deploy e Produção**
-  * [Deploy e Configurações](deployment.md)
+  - [Componentes](padroes-componentes.md)
+  - [Estado (Redux)](gerenciamento-estado.md)
+  - [DTOs](padroes-dto.md)
+  - [Serviços](camada-servicos.md)
+  - [APIs e Serviços](apis-e-servicos.md)
 
-* **🧪 Qualidade**
-  * [Estratégias de Teste](estrategias-teste.md)
+- **🚀 Funcionalidades**
+
+  - [Funcionalidades Avançadas](funcionalidades-avancadas.md)
+
+- **🔧 Configuração e Ferramentas**
+
+  - [Configuração Vite](configuracao-vite.md)
+  - [Internacionalização](internacionalizacao.md)
+  - [PWA e Service Workers](pwa-service-workers.md)
+
+- **🚀 Deploy e Produção**
+
+  - [Deploy e Configurações](deployment.md)
+
+- **🧪 Qualidade**
+  - [Estratégias de Teste](estrategias-teste.md)

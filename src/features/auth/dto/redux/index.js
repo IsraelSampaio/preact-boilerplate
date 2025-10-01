@@ -27,7 +27,7 @@ export class AuthStateDTO {
    * @returns {string}
    */
   getUserName() {
-    return this.user ? this.user.name : 'Usuário';
+    return this.user ? this.user.name : "Usuário";
   }
 
   /**
@@ -39,7 +39,7 @@ export class AuthStateDTO {
       user: this.user ? this.user.toPlainObject() : null,
       isAuthenticated: this.isAuthenticated,
       isLoading: this.isLoading,
-      error: this.error
+      error: this.error,
     };
   }
 }
@@ -49,11 +49,11 @@ export class AuthStateDTO {
  */
 export class UserDTO {
   constructor(data = {}) {
-    this.id = data.id || '';
-    this.email = data.email || '';
-    this.name = data.name || '';
+    this.id = data.id || "";
+    this.email = data.email || "";
+    this.name = data.name || "";
     this.avatar = data.avatar || null;
-    this.role = data.role || 'user';
+    this.role = data.role || "user";
     this.createdAt = data.createdAt || new Date().toISOString();
     this.lastLogin = data.lastLogin || null;
   }
@@ -64,9 +64,9 @@ export class UserDTO {
    */
   getInitials() {
     return this.name
-      .split(' ')
-      .map(word => word.charAt(0))
-      .join('')
+      .split(" ")
+      .map((word) => word.charAt(0))
+      .join("")
       .toUpperCase()
       .slice(0, 2);
   }
@@ -76,7 +76,7 @@ export class UserDTO {
    * @returns {boolean}
    */
   isAdmin() {
-    return this.role === 'admin';
+    return this.role === "admin";
   }
 
   /**
@@ -91,7 +91,7 @@ export class UserDTO {
       avatar: this.avatar,
       role: this.role,
       createdAt: this.createdAt,
-      lastLogin: this.lastLogin
+      lastLogin: this.lastLogin,
     };
   }
 }

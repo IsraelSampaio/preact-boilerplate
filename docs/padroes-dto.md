@@ -36,16 +36,19 @@ src/features/
 ### 2. **Organização por Responsabilidade**
 
 #### **Pokemon Feature** (`src/features/pokemon/dto/`)
+
 - **API DTOs**: PokemonDTO, PokemonListResponseDTO, PokemonSpritesDTO
 - **Redux DTOs**: PokemonStateDTO, PokemonFiltersDTO, PaginationDTO
 - **Validation DTOs**: PokemonValidationDTO, PaginationValidationDTO
 
 #### **Auth Feature** (`src/features/auth/dto/`)
+
 - **API DTOs**: ApiErrorDTO, LoginResponseDTO, LoginRequestDTO
 - **Redux DTOs**: AuthStateDTO, UserDTO
 - **Validation DTOs**: AuthValidationDTO
 
 #### **Shared DTOs** (`src/features/shared/dto/`)
+
 - **Redux DTOs**: UIStateDTO, NotificationDTO, ModalDTO
 - **Validation DTOs**: FormValidationDTO, UIValidationDTO
 - **Factory**: DTOFactory, DTOUtils, DTO_TYPES
@@ -53,16 +56,19 @@ src/features/
 ### 2. **Tipos de DTOs**
 
 #### **API DTOs** - Contratos com APIs externas
+
 - Transformam dados vindos da PokéAPI
 - Normalizam estruturas de resposta
 - Tratam campos opcionais e defaults
 
 #### **Redux DTOs** - Contratos de estado interno
+
 - Definem estrutura do estado da aplicação
 - Validam dados antes de armazenar no store
 - Facilitam refatoração e tipagem
 
 #### **Validation DTOs** - Validação de dados
+
 - Validam entrada de usuários
 - Sanitizam dados de formulários
 - Aplicam regras de negócio
@@ -72,6 +78,7 @@ src/features/
 ### 1. **API DTOs - Contratos Externos**
 
 #### **PokemonListResponseDTO**
+
 ```javascript
 // src/dto/api/index.js
 export class PokemonListResponseDTO {
@@ -79,7 +86,9 @@ export class PokemonListResponseDTO {
     this.count = data.count || 0;
     this.next = data.next || null;
     this.previous = data.previous || null;
-    this.results = (data.results || []).map(item => new PokemonListItemDTO(item));
+    this.results = (data.results || []).map(
+      (item) => new PokemonListItemDTO(item),
+    );
   }
 
   /**
@@ -91,18 +100,19 @@ export class PokemonListResponseDTO {
       count: this.count,
       next: this.next,
       previous: this.previous,
-      results: this.results.map(item => item.toInternal())
+      results: this.results.map((item) => item.toInternal()),
     };
   }
 }
 ```
 
 #### **PokemonListItemDTO**
+
 ```javascript
 export class PokemonListItemDTO {
   constructor(data) {
-    this.name = data.name || '';
-    this.url = data.url || '';
+    this.name = data.name || "";
+    this.url = data.url || "";
   }
 
   /**
@@ -118,25 +128,28 @@ export class PokemonListItemDTO {
     return {
       name: this.name,
       url: this.url,
-      id: this.getId()
+      id: this.getId(),
     };
   }
 }
 ```
 
 #### **PokemonDTO - Completo**
+
 ```javascript
 export class PokemonDTO {
   constructor(data) {
     this.id = data.id || 0;
-    this.name = data.name || '';
+    this.name = data.name || "";
     this.height = data.height || 0;
     this.weight = data.weight || 0;
     this.base_experience = data.base_experience || 0;
     this.sprites = new PokemonSpritesDTO(data.sprites || {});
-    this.types = (data.types || []).map(type => new PokemonTypeDTO(type));
-    this.stats = (data.stats || []).map(stat => new PokemonStatDTO(stat));
-    this.abilities = (data.abilities || []).map(ability => new PokemonAbilityDTO(ability));
+    this.types = (data.types || []).map((type) => new PokemonTypeDTO(type));
+    this.stats = (data.stats || []).map((stat) => new PokemonStatDTO(stat));
+    this.abilities = (data.abilities || []).map(
+      (ability) => new PokemonAbilityDTO(ability),
+    );
   }
 
   /**
@@ -160,7 +173,7 @@ export class PokemonDTO {
    * @returns {string} Nome do tipo primário
    */
   getPrimaryType() {
-    return this.types.length > 0 ? this.types[0].type.name : 'unknown';
+    return this.types.length > 0 ? this.types[0].type.name : "unknown";
   }
 
   toInternal() {
@@ -171,25 +184,26 @@ export class PokemonDTO {
       weight: this.weight,
       base_experience: this.base_experience,
       sprites: this.sprites.toInternal(),
-      types: this.types.map(type => type.toInternal()),
-      stats: this.stats.map(stat => stat.toInternal()),
-      abilities: this.abilities.map(ability => ability.toInternal()),
+      types: this.types.map((type) => type.toInternal()),
+      stats: this.stats.map((stat) => stat.toInternal()),
+      abilities: this.abilities.map((ability) => ability.toInternal()),
       // Campos calculados
       heightInMeters: this.getHeightInMeters(),
       weightInKg: this.getWeightInKg(),
-      primaryType: this.getPrimaryType()
+      primaryType: this.getPrimaryType(),
     };
   }
 }
 ```
 
 #### **DTOs Auxiliares**
+
 ```javascript
 export class PokemonSpritesDTO {
   constructor(data) {
-    this.front_default = data.front_default || '';
-    this.front_shiny = data.front_shiny || '';
-    this.back_default = data.back_default || '';
+    this.front_default = data.front_default || "";
+    this.front_shiny = data.front_shiny || "";
+    this.back_default = data.back_default || "";
   }
 
   toInternal() {
@@ -205,28 +219,29 @@ export class PokemonTypeDTO {
   constructor(data) {
     this.slot = data.slot || 0;
     this.type = {
-      name: data.type?.name || '',
-      url: data.type?.url || ''
+      name: data.type?.name || "",
+      url: data.type?.url || "",
     };
   }
 
   toInternal() {
     return {
       slot: this.slot,
-      type: this.type
+      type: this.type,
     };
   }
 }
 ```
 
 #### **Error DTO**
+
 ```javascript
 export class ApiErrorDTO extends Error {
   constructor(data) {
-    super(data.message || 'Erro na API');
-    this.name = 'ApiErrorDTO';
+    super(data.message || "Erro na API");
+    this.name = "ApiErrorDTO";
     this.status = data.status || 0;
-    this.code = data.code || 'UNKNOWN_ERROR';
+    this.code = data.code || "UNKNOWN_ERROR";
     this.details = data.details || null;
   }
 
@@ -235,7 +250,7 @@ export class ApiErrorDTO extends Error {
       message: this.message,
       status: this.status,
       code: this.code,
-      details: this.details
+      details: this.details,
     };
   }
 }
@@ -244,6 +259,7 @@ export class ApiErrorDTO extends Error {
 ### 2. **Redux DTOs - Estado Interno**
 
 #### **AuthStateDTO**
+
 ```javascript
 // src/dto/redux/index.js
 export class AuthStateDTO {
@@ -259,16 +275,16 @@ export class AuthStateDTO {
       user: this.user?.toPlainObject() || null,
       isAuthenticated: this.isAuthenticated,
       isLoading: this.isLoading,
-      error: this.error
+      error: this.error,
     };
   }
 }
 
 export class UserDTO {
   constructor(data = {}) {
-    this.id = data.id || '';
-    this.email = data.email || '';
-    this.name = data.name || '';
+    this.id = data.id || "";
+    this.email = data.email || "";
+    this.name = data.name || "";
     this.avatar = data.avatar || null;
   }
 
@@ -277,18 +293,19 @@ export class UserDTO {
       id: this.id,
       email: this.email,
       name: this.name,
-      avatar: this.avatar
+      avatar: this.avatar,
     };
   }
 }
 ```
 
 #### **PokemonStateDTO**
+
 ```javascript
 export class PokemonStateDTO {
   constructor(data = {}) {
-    this.list = (data.list || []).map(item => 
-      item instanceof Object ? item : new PokemonListItemDTO(item)
+    this.list = (data.list || []).map((item) =>
+      item instanceof Object ? item : new PokemonListItemDTO(item),
     );
     this.selected = data.selected ? new PokemonDTO(data.selected) : null;
     this.filters = new PokemonFiltersDTO(data.filters || {});
@@ -299,25 +316,26 @@ export class PokemonStateDTO {
 
   toPlainObject() {
     return {
-      list: this.list.map(item => item.toInternal?.() || item),
+      list: this.list.map((item) => item.toInternal?.() || item),
       selected: this.selected?.toInternal() || null,
       filters: this.filters.toPlainObject(),
       isLoading: this.isLoading,
       error: this.error,
-      pagination: this.pagination.toPlainObject()
+      pagination: this.pagination.toPlainObject(),
     };
   }
 }
 ```
 
 #### **PokemonFiltersDTO**
+
 ```javascript
 export class PokemonFiltersDTO {
   constructor(data = {}) {
-    this.search = data.search || '';
-    this.type = data.type || '';
-    this.sortBy = data.sortBy || 'name';
-    this.sortOrder = data.sortOrder || 'asc';
+    this.search = data.search || "";
+    this.type = data.type || "";
+    this.sortBy = data.sortBy || "name";
+    this.sortOrder = data.sortOrder || "asc";
   }
 
   /**
@@ -325,11 +343,13 @@ export class PokemonFiltersDTO {
    * @returns {boolean} True se válidos
    */
   isValid() {
-    const validSortBy = ['name', 'id', 'height', 'weight'];
-    const validSortOrder = ['asc', 'desc'];
-    
-    return validSortBy.includes(this.sortBy) && 
-           validSortOrder.includes(this.sortOrder);
+    const validSortBy = ["name", "id", "height", "weight"];
+    const validSortOrder = ["asc", "desc"];
+
+    return (
+      validSortBy.includes(this.sortBy) &&
+      validSortOrder.includes(this.sortOrder)
+    );
   }
 
   toPlainObject() {
@@ -337,71 +357,7 @@ export class PokemonFiltersDTO {
       search: this.search,
       type: this.type,
       sortBy: this.sortBy,
-      sortOrder: this.sortOrder
-    };
-  }
-}
-```
-
-### 3. **Validation DTOs**
-
-#### **Form Validation**
-```javascript
-// src/dto/validation/index.js
-export class AuthValidationDTO {
-  constructor(data = {}) {
-    this.email = data.email || '';
-    this.password = data.password || '';
-  }
-
-  /**
-   * Valida email
-   * @returns {Object} { isValid: boolean, error?: string }
-   */
-  validateEmail() {
-    if (!this.email) {
-      return { isValid: false, error: 'Email é obrigatório' };
-    }
-    
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(this.email)) {
-      return { isValid: false, error: 'Email inválido' };
-    }
-    
-    return { isValid: true };
-  }
-
-  /**
-   * Valida senha
-   * @returns {Object} { isValid: boolean, error?: string }
-   */
-  validatePassword() {
-    if (!this.password) {
-      return { isValid: false, error: 'Senha é obrigatória' };
-    }
-    
-    if (this.password.length < 6) {
-      return { isValid: false, error: 'Senha deve ter pelo menos 6 caracteres' };
-    }
-    
-    return { isValid: true };
-  }
-
-  /**
-   * Valida todo o formulário
-   * @returns {Object} { isValid: boolean, errors: Object }
-   */
-  validate() {
-    const emailValidation = this.validateEmail();
-    const passwordValidation = this.validatePassword();
-    
-    const errors = {};
-    if (!emailValidation.isValid) errors.email = emailValidation.error;
-    if (!passwordValidation.isValid) errors.password = passwordValidation.error;
-    
-    return {
-      isValid: Object.keys(errors).length === 0,
-      errors
+      sortOrder: this.sortOrder,
     };
   }
 }
@@ -423,25 +379,25 @@ export class DTOFactory {
   static create(type, data) {
     const dtoMap = {
       // API DTOs
-      'api.pokemon': () => new PokemonDTO(data),
-      'api.pokemonList': () => new PokemonListResponseDTO(data),
-      'api.pokemonListItem': () => new PokemonListItemDTO(data),
-      'api.error': () => new ApiErrorDTO(data),
+      "api.pokemon": () => new PokemonDTO(data),
+      "api.pokemonList": () => new PokemonListResponseDTO(data),
+      "api.pokemonListItem": () => new PokemonListItemDTO(data),
+      "api.error": () => new ApiErrorDTO(data),
 
       // Redux DTOs
-      'redux.authState': () => new AuthStateDTO(data),
-      'redux.user': () => new UserDTO(data),
-      'redux.pokemonState': () => new PokemonStateDTO(data),
-      'redux.pokemonFilters': () => new PokemonFiltersDTO(data),
+      "redux.authState": () => new AuthStateDTO(data),
+      "redux.user": () => new UserDTO(data),
+      "redux.pokemonState": () => new PokemonStateDTO(data),
+      "redux.pokemonFilters": () => new PokemonFiltersDTO(data),
 
       // Validation DTOs
-      'validation.auth': () => new AuthValidationDTO(data),
+      "validation.auth": () => new AuthValidationDTO(data),
 
       // Default
-      'default': () => data
+      default: () => data,
     };
 
-    const creator = dtoMap[type] || dtoMap['default'];
+    const creator = dtoMap[type] || dtoMap["default"];
     return creator();
   }
 
@@ -456,7 +412,7 @@ export class DTOFactory {
       return [];
     }
 
-    return dataList.map(data => this.create(type, data));
+    return dataList.map((data) => this.create(type, data));
   }
 }
 ```
@@ -471,14 +427,14 @@ export class DTOUtils {
    * @returns {Object} Objeto simples
    */
   static toPlainObject(dto) {
-    if (typeof dto.toPlainObject === 'function') {
+    if (typeof dto.toPlainObject === "function") {
       return dto.toPlainObject();
     }
-    
-    if (typeof dto.toInternal === 'function') {
+
+    if (typeof dto.toInternal === "function") {
       return dto.toInternal();
     }
-    
+
     return dto;
   }
 
@@ -492,7 +448,7 @@ export class DTOUtils {
       return [];
     }
 
-    return dtoList.map(dto => this.toPlainObject(dto));
+    return dtoList.map((dto) => this.toPlainObject(dto));
   }
 
   /**
@@ -514,7 +470,7 @@ export class DTOUtils {
   static equals(dto1, dto2) {
     const obj1 = this.toPlainObject(dto1);
     const obj2 = this.toPlainObject(dto2);
-    
+
     return JSON.stringify(obj1) === JSON.stringify(obj2);
   }
 }
@@ -526,16 +482,16 @@ export class DTOUtils {
 
 ```javascript
 // ✅ Importar DTOs da feature Pokemon
-import { PokemonDTO, PokemonValidationDTO } from '../features/pokemon';
+import { PokemonDTO, PokemonValidationDTO } from "../features/pokemon";
 
 // ✅ Importar DTOs de Auth
-import { AuthStateDTO, UserDTO } from '../features/auth';
+import { AuthStateDTO, UserDTO } from "../features/auth";
 
 // ✅ Importar DTOs compartilhados
-import { UIStateDTO, DTOFactory } from '../features/shared';
+import { UIStateDTO, DTOFactory } from "../features/shared";
 
 // ✅ Usando o Factory
-import { DTOFactory, DTO_TYPES } from '../features/shared';
+import { DTOFactory, DTO_TYPES } from "../features/shared";
 
 const pokemon = DTOFactory.create(DTO_TYPES.POKEMON.API.POKEMON, apiData);
 ```
@@ -544,21 +500,23 @@ const pokemon = DTOFactory.create(DTO_TYPES.POKEMON.API.POKEMON, apiData);
 
 ```javascript
 // src/features/pokemon/services/pokemonApi.js
-import { PokemonListResponseDTO, PokemonDTO, ApiErrorDTO } from '../dto';
+import { PokemonListResponseDTO, PokemonDTO, ApiErrorDTO } from "../dto";
 
 export class PokemonApiService {
   static async getPokemonList(offset = 0, limit = 20) {
     try {
-      const response = await fetch(`${BASE_URL}/pokemon?offset=${offset}&limit=${limit}`);
-      
+      const response = await fetch(
+        `${BASE_URL}/pokemon?offset=${offset}&limit=${limit}`,
+      );
+
       if (!response.ok) {
         throw new ApiErrorDTO({
           message: `Erro ao buscar lista de Pokémon: ${response.statusText}`,
           status: response.status,
-          code: 'POKEMON_LIST_ERROR'
+          code: "POKEMON_LIST_ERROR",
         });
       }
-      
+
       const data = await response.json();
       return new PokemonListResponseDTO(data); // ✅ DTO de saída
     } catch (error) {
@@ -566,9 +524,9 @@ export class PokemonApiService {
         throw error;
       }
       throw new ApiErrorDTO({
-        message: error.message || 'Erro ao buscar Pokémon',
+        message: error.message || "Erro ao buscar Pokémon",
         status: 0,
-        code: 'NETWORK_ERROR'
+        code: "NETWORK_ERROR",
       });
     }
   }
@@ -579,46 +537,53 @@ export class PokemonApiService {
 
 ```javascript
 // src/features/pokemon/hooks/usePokemon.js
-import { PokemonApiService } from '../services/pokemonApi.js';
+import { PokemonApiService } from "../services/pokemonApi.js";
 
 export const usePokemon = () => {
-  const fetchPokemonList = useCallback(async (page = 1, limit = 20) => {
-    try {
-      const response = await PokemonApiService.getPokemonList(offset, limit);
-      
-      // ✅ Transformação com DTO
-      const internalData = response.toInternal();
-      
-      dispatch(setPokemonList(internalData.results));
-    } catch (error) {
-      let errorMessage = 'Erro ao carregar Pokémon';
-      
-      if (error instanceof ApiErrorDTO) {
-        errorMessage = error.message;
+  const fetchPokemonList = useCallback(
+    async (page = 1, limit = 20) => {
+      try {
+        const response = await PokemonApiService.getPokemonList(offset, limit);
+
+        // ✅ Transformação com DTO
+        const internalData = response.toInternal();
+
+        dispatch(setPokemonList(internalData.results));
+      } catch (error) {
+        let errorMessage = "Erro ao carregar Pokémon";
+
+        if (error instanceof ApiErrorDTO) {
+          errorMessage = error.message;
+        }
+
+        dispatch(setError(errorMessage));
       }
-      
-      dispatch(setError(errorMessage));
-    }
-  }, [dispatch]);
+    },
+    [dispatch],
+  );
 };
 ```
 
 ### 4. **Com Factory Pattern**
 
 ```javascript
-import { DTOFactory, DTO_TYPES, PokemonValidationDTO } from '../features/pokemon';
+import {
+  DTOFactory,
+  DTO_TYPES,
+  PokemonValidationDTO,
+} from "../features/pokemon";
 
 const result = DTOFactory.createWithValidation(
   DTO_TYPES.POKEMON.API.POKEMON,
   apiData,
-  PokemonValidationDTO.validatePokemon
+  PokemonValidationDTO.validatePokemon,
 );
 
 if (result.isValid) {
   const pokemon = result.dto;
   // Usar pokemon validado
 } else {
-  console.error('Erros de validação:', result.errors);
+  console.error("Erros de validação:", result.errors);
 }
 ```
 
@@ -626,28 +591,28 @@ if (result.isValid) {
 
 ```javascript
 // Uso indireto através de hooks por feature
-import { AuthValidationDTO } from '../features/auth';
+import { AuthValidationDTO } from "../features/auth";
 
 export const LoginForm = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "", // gitleaks:allow
   });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     // ✅ Validação com DTO da feature
     const validationDTO = new AuthValidationDTO(formData);
     const validation = validationDTO.validate();
-    
+
     if (!validation.isValid) {
       setErrors(validation.errors);
       return;
     }
-    
+
     // Prosseguir com login
-    const result = await login(formData.email, formData.password);
+    const result = await login(formData.email, formData.password); // gitleaks:allow
   };
 };
 ```
@@ -655,21 +620,25 @@ export const LoginForm = () => {
 ## ✅ Benefícios dos DTOs
 
 ### 1. **Contratos Claros**
+
 - Define estrutura de dados esperada
 - Facilita refatoração e manutenção
 - Torna mudanças de API mais seguras
 
 ### 2. **Transformação de Dados**
+
 - Normaliza dados entre diferentes fontes
 - Adiciona campos calculados
 - Padroniza formatos
 
 ### 3. **Validação**
+
 - Valida dados na entrada
 - Aplica regras de negócio
 - Previne dados inválidos no estado
 
 ### 4. **Testabilidade**
+
 - Fácil de mockar
 - Lógica isolada
 - Testes unitários simples
@@ -677,21 +646,26 @@ export const LoginForm = () => {
 ## 🚫 Anti-Padrões Evitados
 
 ### ❌ Não fazer:
+
 ```javascript
 // Usar dados da API diretamente no Redux
 dispatch(setPokemonList(apiResponse.results)); // ❌
 
 // Validação esparsa nos componentes
-if (!email || !password) { /* ... */ } // ❌
+if (!email || !password) {
+  // gitleaks:allow
+  /* ... */
+} // ❌
 
 // Transformações manuais repetitivas
 const pokemon = {
   ...apiPokemon,
-  heightInMeters: apiPokemon.height / 10
+  heightInMeters: apiPokemon.height / 10,
 }; // ❌
 ```
 
 ### ✅ Fazer:
+
 ```javascript
 // Usar DTOs para transformação
 const pokemonDTO = new PokemonListResponseDTO(apiResponse);
@@ -708,30 +682,32 @@ const internalData = pokemonDTO.toInternal(); // ✅
 ## 🧪 Testabilidade
 
 ### 1. **Testes de DTOs**
+
 ```javascript
-describe('PokemonDTO', () => {
-  it('should calculate height in meters correctly', () => {
+describe("PokemonDTO", () => {
+  it("should calculate height in meters correctly", () => {
     const dto = new PokemonDTO({ height: 40 });
     expect(dto.getHeightInMeters()).toBe(4);
   });
 
-  it('should handle missing data gracefully', () => {
+  it("should handle missing data gracefully", () => {
     const dto = new PokemonDTO({});
-    expect(dto.name).toBe('');
+    expect(dto.name).toBe("");
     expect(dto.height).toBe(0);
   });
 });
 ```
 
 ### 2. **Mocking DTOs**
+
 ```javascript
 const mockPokemonDTO = new PokemonDTO({
   id: 25,
-  name: 'pikachu',
+  name: "pikachu",
   height: 4,
-  types: [{ slot: 1, type: { name: 'electric' } }]
+  types: [{ slot: 1, type: { name: "electric" } }],
 });
 
 // Fácil de usar em testes
-expect(mockPokemonDTO.getPrimaryType()).toBe('electric');
+expect(mockPokemonDTO.getPrimaryType()).toBe("electric");
 ```

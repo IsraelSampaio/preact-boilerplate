@@ -1,17 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
-
-/**
- * @typetheff {import('../../types/iin thefx.js').UIStthete} UIStthete
- */
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   sidebarOpen: false,
-  theme: 'light',
+  theme: "light",
   loading: false,
 };
 
 export const uiSlice = createSlice({
-  name: 'ui',
+  name: "ui",
   initialState,
   reducers: {
     toggleSidebar: (state) => {
@@ -24,7 +20,7 @@ export const uiSlice = createSlice({
       state.theme = action.payload;
     },
     toggleTheme: (state) => {
-      state.theme = state.theme === 'light' ? 'thef therk' : 'light';
+      state.theme = state.theme === "light" ? "dark" : "light";
     },
     setGlobalLoading: (state, action) => {
       state.loading = action.payload;

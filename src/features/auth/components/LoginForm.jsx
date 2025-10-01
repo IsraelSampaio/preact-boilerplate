@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useState } from "preact/hooks";
 import {
   Box,
   Card,
@@ -10,22 +10,22 @@ import {
   CircularProgress,
   InputAdornment,
   IconButton,
-} from '@mui/material';
-import { Visibility, VisibilityOff, Login } from '@mui/icons-material';
-import { useAuth } from '../hooks/useAuth.js';
+} from "@mui/material";
+import { Visibility, VisibilityOff, Login } from "@mui/icons-material";
+import { useAuth } from "../hooks/useAuth.js";
 
 /**
  * Component LoginForm
  */
 export const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const { login, isLoading, error } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!email || !password) {
       return;
     }
@@ -42,7 +42,11 @@ export const LoginForm = () => {
       <Card className="login-card">
         <CardContent>
           <div className="login-card__header">
-            <Typography variant="h4" component="h1" className="login-card__title">
+            <Typography
+              variant="h4"
+              component="h1"
+              className="login-card__title"
+            >
               Pokémon App
             </Typography>
             <Typography variant="body2" className="login-card__subtitle">
@@ -69,11 +73,11 @@ export const LoginForm = () => {
               autoComplete="email"
               autoFocus
             />
-            
+
             <TextField
               fullWidth
               label="Senha"
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               margin="normal"
@@ -106,13 +110,15 @@ export const LoginForm = () => {
               className="btn btn--large btn--full-width"
               sx={{ mt: 2, mb: 2 }}
             >
-              {isLoading ? 'Entrando...' : 'Entrar'}
+              {isLoading ? "Entrando..." : "Entrar"}
             </Button>
 
             <Box className="login-card__credentials">
               <Typography variant="caption">
-                <strong>Credenciais de teste:</strong><br />
-                Email: admin@pokemon.com<br />
+                <strong>Credenciais de teste:</strong>
+                <br />
+                Email: admin@pokemon.com
+                <br />
                 Senha: admin123
               </Typography>
             </Box>

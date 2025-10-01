@@ -27,16 +27,16 @@ src/
 
 ```javascript
 // src/store/index.js
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from "@reduxjs/toolkit";
 
 // Importações das features
-import { authSlice } from '../features/auth/store/authSlice.js';
-import { pokemonSlice } from '../features/pokemon/store/pokemonSlice.js';
-import { favoritesSlice } from '../features/pokemon/store/favoritesSlice.js';
-import { comparisonSlice } from '../features/pokemon/store/comparisonSlice.js';
+import { authSlice } from "../features/auth/store/authSlice.js";
+import { pokemonSlice } from "../features/pokemon/store/pokemonSlice.js";
+import { favoritesSlice } from "../features/pokemon/store/favoritesSlice.js";
+import { comparisonSlice } from "../features/pokemon/store/comparisonSlice.js";
 
 // Importações compartilhadas
-import { uiSlice } from '../features/shared/store/uiSlice.js';
+import { uiSlice } from "../features/shared/store/uiSlice.js";
 
 export const store = configureStore({
   reducer: {
@@ -49,7 +49,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ['persist/PERSIST'],
+        ignoredActions: ["persist/PERSIST"],
       },
     }),
 });
@@ -61,7 +61,7 @@ export const store = configureStore({
 
 ```javascript
 // src/store/slices/authSlice.js
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: null,
@@ -71,7 +71,7 @@ const initialState = {
 };
 
 export const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     // ✅ Padrão: Actions síncronas para estados de loading
@@ -103,29 +103,24 @@ export const authSlice = createSlice({
   },
 });
 
-export const { 
-  loginStart, 
-  loginSuccess, 
-  loginFailure, 
-  logout, 
-  clearError 
-} = authSlice.actions;
+export const { loginStart, loginSuccess, loginFailure, logout, clearError } =
+  authSlice.actions;
 ```
 
 ### 2. **PokemonSlice - Estado Principal**
 
 ```javascript
 // src/store/slices/pokemonSlice.js
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   list: [],
   selected: null,
   filters: {
-    search: '',
-    type: '',
-    sortBy: 'name',
-    sortOrder: 'asc',
+    search: "",
+    type: "",
+    sortBy: "name",
+    sortOrder: "asc",
   },
   isLoading: false,
   error: null,
@@ -138,7 +133,7 @@ const initialState = {
 };
 
 export const pokemonSlice = createSlice({
-  name: 'pokemon',
+  name: "pokemon",
   initialState,
   reducers: {
     // ✅ Padrão: Ações específicas e atômicas
@@ -166,11 +161,11 @@ export const pokemonSlice = createSlice({
     },
     // ✅ Padrão: Update específico para operações complexas
     updatePokemonInList: (state, action) => {
-      const index = state.list.findIndex(p => p.name === action.payload.name);
+      const index = state.list.findIndex((p) => p.name === action.payload.name);
       if (index !== -1) {
         state.list[index] = {
           ...state.list[index],
-          ...action.payload.updates
+          ...action.payload.updates,
         };
       }
     },
@@ -193,16 +188,16 @@ export const {
 
 ```javascript
 // src/store/slices/uiSlice.js
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   sidebarOpen: false,
-  theme: 'light',
+  theme: "light",
   loading: false,
 };
 
 export const uiSlice = createSlice({
-  name: 'ui',
+  name: "ui",
   initialState,
   reducers: {
     toggleSidebar: (state) => {
@@ -215,7 +210,7 @@ export const uiSlice = createSlice({
       state.theme = action.payload;
     },
     toggleTheme: (state) => {
-      state.theme = state.theme === 'light' ? 'dark' : 'light';
+      state.theme = state.theme === "light" ? "dark" : "light";
     },
     setGlobalLoading: (state, action) => {
       state.loading = action.payload;
@@ -238,47 +233,54 @@ export const {
 
 ```javascript
 // src/features/auth/hooks/useAuth.js
-import { useCallback } from 'preact/hooks';
-import { useAppDispatch, useAppSelector } from '../../shared/hooks/useAppDispatch.js';
-import { 
-  loginStart, 
-  loginSuccess, 
-  loginFailure, 
-  logout 
-} from '../store/authSlice.js';
+import { useCallback } from "preact/hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../shared/hooks/useAppDispatch.js";
+import {
+  loginStart,
+  loginSuccess,
+  loginFailure,
+  logout,
+} from "../store/authSlice.js";
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
   const { user, isAuthenticated, isLoading, error } = useAppSelector(
-    (state) => state.auth
+    (state) => state.auth,
   );
 
   // ✅ Padrão: useCallback para funções que podem ser dependencies
-  const login = useCallback(async (email, password) => {
-    dispatch(loginStart());
-    
-    try {
-      // Simulação de API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      if (email === 'admin@pokemon.com' && password === 'admin123') {
-        const user = {
-          id: '1',
-          email,
-          name: 'Administrator',
-        };
-        dispatch(loginSuccess(user));
-        return { success: true };
-      } else {
-        dispatch(loginFailure('Credenciais inválidas'));
-        return { success: false, error: 'Credenciais inválidas' };
+  const login = useCallback(
+    async (email, password) => {
+      dispatch(loginStart());
+
+      try {
+        // Simulação de API call
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        if (email === "admin@pokemon.com" && password === "admin123") {
+          const user = {
+            id: "1",
+            email,
+            name: "Administrator",
+          };
+          dispatch(loginSuccess(user));
+          return { success: true };
+        } else {
+          dispatch(loginFailure("Credenciais inválidas"));
+          return { success: false, error: "Credenciais inválidas" };
+        }
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : "Erro no login";
+        dispatch(loginFailure(errorMessage));
+        return { success: false, error: errorMessage };
       }
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Erro no login';
-      dispatch(loginFailure(errorMessage));
-      return { success: false, error: errorMessage };
-    }
-  }, [dispatch]);
+    },
+    [dispatch],
+  );
 
   const handleLogout = useCallback(() => {
     dispatch(logout());
@@ -300,8 +302,11 @@ export const useAuth = () => {
 
 ```javascript
 // src/features/pokemon/hooks/usePokemon.js
-import { useCallback, useEffect } from 'preact/hooks';
-import { useAppDispatch, useAppSelector } from '../../shared/hooks/useAppDispatch.js';
+import { useCallback, useEffect } from "preact/hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../shared/hooks/useAppDispatch.js";
 import {
   setPokemonList,
   setSelectedPokemon,
@@ -309,59 +314,61 @@ import {
   setLoading,
   setError,
   setPagination,
-} from '../store/pokemonSlice.js';
-import { PokemonApiService } from '../services/pokemonApi.js';
+} from "../store/pokemonSlice.js";
+import { PokemonApiService } from "../services/pokemonApi.js";
 
 export const usePokemon = () => {
   const dispatch = useAppDispatch();
-  const { 
-    list, 
-    selected, 
-    filters, 
-    isLoading, 
-    error, 
-    pagination 
-  } = useAppSelector((state) => state.pokemon);
+  const { list, selected, filters, isLoading, error, pagination } =
+    useAppSelector((state) => state.pokemon);
 
   // ✅ Padrão: Funções async bem estruturadas
-  const fetchPokemonList = useCallback(async (page = 1, limit = 20) => {
-    dispatch(setLoading(true));
-    dispatch(setError(null));
+  const fetchPokemonList = useCallback(
+    async (page = 1, limit = 20) => {
+      dispatch(setLoading(true));
+      dispatch(setError(null));
 
-    try {
-      const offset = (page - 1) * limit;
-      const response = await PokemonApiService.getPokemonList(offset, limit);
-      
-      // ✅ Padrão: Transformação com DTOs
-      const internalData = response.toInternal();
-      
-      dispatch(setPokemonList(internalData.results));
-      dispatch(setPagination({
-        currentPage: page,
-        totalPages: Math.ceil(internalData.count / limit),
-        hasNext: !!internalData.next,
-        hasPrevious: !!internalData.previous,
-      }));
-    } catch (error) {
-      let errorMessage = 'Erro ao carregar Pokémon';
-      
-      if (error instanceof ApiErrorDTO) {
-        errorMessage = error.message;
-      } else if (error instanceof Error) {
-        errorMessage = error.message;
+      try {
+        const offset = (page - 1) * limit;
+        const response = await PokemonApiService.getPokemonList(offset, limit);
+
+        // ✅ Padrão: Transformação com DTOs
+        const internalData = response.toInternal();
+
+        dispatch(setPokemonList(internalData.results));
+        dispatch(
+          setPagination({
+            currentPage: page,
+            totalPages: Math.ceil(internalData.count / limit),
+            hasNext: !!internalData.next,
+            hasPrevious: !!internalData.previous,
+          }),
+        );
+      } catch (error) {
+        let errorMessage = "Erro ao carregar Pokémon";
+
+        if (error instanceof ApiErrorDTO) {
+          errorMessage = error.message;
+        } else if (error instanceof Error) {
+          errorMessage = error.message;
+        }
+
+        dispatch(setError(errorMessage));
+      } finally {
+        dispatch(setLoading(false));
       }
-      
-      dispatch(setError(errorMessage));
-    } finally {
-      dispatch(setLoading(false));
-    }
-  }, [dispatch]);
+    },
+    [dispatch],
+  );
 
-  const updateFilters = useCallback((newFilters) => {
-    dispatch(setFilters(newFilters));
-    // ✅ Padrão: Recarregar dados quando filtros mudam
-    fetchPokemonList(1); // Reset para primeira página
-  }, [dispatch, fetchPokemonList]);
+  const updateFilters = useCallback(
+    (newFilters) => {
+      dispatch(setFilters(newFilters));
+      // ✅ Padrão: Recarregar dados quando filtros mudam
+      fetchPokemonList(1); // Reset para primeira página
+    },
+    [dispatch, fetchPokemonList],
+  );
 
   // ✅ Padrão: Efeito para carregar dados iniciais
   useEffect(() => {
@@ -390,7 +397,7 @@ export const usePokemon = () => {
 
 ```javascript
 // src/features/shared/hooks/useAppDispatch.js
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 
 export const useAppDispatch = () => useDispatch();
 export const useAppSelector = useSelector;
@@ -401,13 +408,8 @@ export const useAppSelector = useSelector;
 ```jsx
 // ✅ Padrão: Hooks no topo, lógica encapsulada
 export const PokemonListPage = () => {
-  const {
-    pokemonList,
-    filters,
-    isLoading,
-    error,
-    updateFilters,
-  } = usePokemon();
+  const { pokemonList, filters, isLoading, error, updateFilters } =
+    usePokemon();
 
   const handleFiltersChange = (newFilters) => {
     updateFilters(newFilters);
@@ -418,10 +420,7 @@ export const PokemonListPage = () => {
 
   return (
     <MainLayout>
-      <PokemonFilters 
-        filters={filters}
-        onFiltersChange={handleFiltersChange}
-      />
+      <PokemonFilters filters={filters} onFiltersChange={handleFiltersChange} />
       <PokemonList pokemonList={pokemonList} />
     </MainLayout>
   );
@@ -431,18 +430,21 @@ export const PokemonListPage = () => {
 ## 📊 Estado vs Props
 
 ### ✅ Quando usar Estado Global (Redux)
+
 - Dados compartilhados entre múltiplos componentes
 - Estado que persiste entre navegação
 - Cache de dados da API
 - Configurações globais (tema, autenticação)
 
 ### ✅ Quando usar Estado Local (useState)
+
 - Estado específico do componente
 - Estados temporários (formulários, modais)
 - Dados que não são compartilhados
 - Performance crítica
 
 ### ✅ Quando usar Props
+
 - Comunicação parent-child
 - Configuração de componentes
 - Callbacks e event handlers
@@ -459,7 +461,7 @@ graph TD
     E --> F[Store Update]
     F --> G[useAppSelector]
     G --> H[Component Re-render]
-    
+
     I[API Service] --> J[DTO Transform]
     J --> D
 ```
@@ -467,21 +469,25 @@ graph TD
 ## ✅ Boas Práticas Implementadas
 
 ### 1. **Estrutura de Estado**
+
 - Estados normalizados quando possível
 - Separação clara entre loading, data e error
 - Initial states bem definidos
 
 ### 2. **Actions**
+
 - Nomes descritivos e consistentes
 - Payloads tipados e validados
 - Ações atômicas e específicas
 
 ### 3. **Selectors**
+
 - Encapsulados em custom hooks
 - Memoização quando necessário
 - Interface limpa para componentes
 
 ### 4. **Side Effects**
+
 - API calls encapsulados em services
 - Error handling consistente
 - Loading states apropriados
@@ -489,9 +495,10 @@ graph TD
 ## 🚫 Anti-Padrões Evitados
 
 ### ❌ Não fazer:
+
 ```javascript
 // Estado desnecessário no Redux
-const [localInputValue, setLocalInputValue] = useState('');
+const [localInputValue, setLocalInputValue] = useState("");
 // Deveria usar useState local
 
 // Mutação direta do estado
@@ -501,7 +508,7 @@ state.list = [...state.list, newItem]; // ✅
 // Lógica de negócio nos componentes
 const Component = () => {
   const dispatch = useDispatch();
-  
+
   // ❌ Lógica complexa no componente
   const handleSubmit = async () => {
     dispatch(setLoading(true));
@@ -517,15 +524,16 @@ const Component = () => {
 ```
 
 ### ✅ Fazer:
+
 ```javascript
 // Hook personalizado para encapsular lógica
 const useCustomLogic = () => {
   const dispatch = useAppDispatch();
-  
+
   const handleSubmit = useCallback(async () => {
     // Lógica encapsulada
   }, [dispatch]);
-  
+
   return { handleSubmit };
 };
 
@@ -539,22 +547,25 @@ const Component = () => {
 ## 🚀 Performance
 
 ### 1. **Otimizações Implementadas**
+
 - useCallback para funções que são dependencies
 - useMemo para computações custosas
 - Seletores específicos (evitar re-renders desnecessários)
 
 ### 2. **Estrutura Performática**
+
 ```javascript
 // ✅ Selector específico
-const pokemonList = useAppSelector(state => state.pokemon.list);
+const pokemonList = useAppSelector((state) => state.pokemon.list);
 
 // ❌ Selector muito amplo
-const pokemonState = useAppSelector(state => state.pokemon); // Re-render desnecessário
+const pokemonState = useAppSelector((state) => state.pokemon); // Re-render desnecessário
 ```
 
 ## 🧪 Testabilidade
 
 ### 1. **Mocking do Store**
+
 ```javascript
 // Testes com store mockado
 const mockStore = configureStore({
@@ -566,21 +577,22 @@ const mockStore = configureStore({
       list: mockPokemonList,
       isLoading: false,
       error: null,
-    }
-  }
+    },
+  },
 });
 ```
 
 ### 2. **Testes de Hooks**
+
 ```javascript
 // Teste isolado do hook
-test('usePokemon should fetch pokemon list', async () => {
+test("usePokemon should fetch pokemon list", async () => {
   const { result } = renderHook(() => usePokemon(), {
     wrapper: ({ children }) => (
       <Provider store={mockStore}>{children}</Provider>
     ),
   });
-  
+
   expect(result.current.isLoading).toBe(false);
   expect(result.current.pokemonList).toEqual(mockPokemonList);
 });

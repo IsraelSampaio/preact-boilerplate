@@ -9,31 +9,47 @@ Esta é uma aplicação moderna de Pokédex que demonstra padrões avançados de
 ## 📖 Documentação Principal
 
 ### 🏗️ **[Arquitetura Geral](arquitetura-geral.md)**
+
 Visão geral da arquitetura Feature-Based, stack tecnológica e princípios implementados.
 
 ### 🎨 **[Padrões de Componentes](padroes-componentes.md)**
+
 Container/Presentation Pattern e boas práticas para criação de componentes.
 
 ### 🔄 **[Gerenciamento de Estado](gerenciamento-estado.md)**
+
 Redux Toolkit com custom hooks organizados por features.
 
 ### 📦 **[Padrões de DTOs](padroes-dto.md)**
+
 Data Transfer Objects organizados por features com Factory Pattern.
 
 ### 🔧 **[Camada de Serviços](camada-servicos.md)**
+
 Services organizados por features para comunicação com APIs.
 
+### 🌐 **[APIs e Serviços](apis-e-servicos.md)**
+
+Integração REST e GraphQL com PokéAPI, DTOs e transformações.
+
 ### 🧪 **[Estratégias de Teste](estrategias-teste.md)**
+
 Configuração e padrões para testes unitários e de integração.
+
+### 🚀 **[Funcionalidades Avançadas](funcionalidades-avancadas.md)**
+
+Sistema de favoritos, comparação, GraphQL e PWA.
 
 ## 🚀 Quick Start
 
 ### Para Desenvolvedores
+
 1. [Arquitetura Geral](arquitetura-geral.md) - Entenda a estrutura
 2. [Padrões de Componentes](padroes-componentes.md) - Crie componentes
 3. [Gerenciamento de Estado](gerenciamento-estado.md) - Gerencie dados
 
 ### Para Novos Contribuidores
+
 1. [Stack Tecnológica](arquitetura-geral.md#stack-tecnológica)
 2. [Padrões de DTOs](padroes-dto.md)
 3. [Camada de Serviços](camada-servicos.md)
@@ -63,4 +79,4 @@ src/
 
 ---
 
-*Documentação mantida pela equipe de desenvolvimento e atualizada regularmente.*
+_Documentação mantida pela equipe de desenvolvimento e atualizada regularmente._

@@ -7,6 +7,7 @@ Esta aplicação Pokémon é construída com **Preact**, **Redux Toolkit**, **Ma
 ## 🛠️ Stack Tecnológica
 
 ### Core
+
 - **Preact**: Framework JavaScript leve e rápido
 - **Redux Toolkit**: Gerenciamento de estado global
 - **Material-UI (MUI)**: Biblioteca de componentes UI
@@ -14,13 +15,16 @@ Esta aplicação Pokémon é construída com **Preact**, **Redux Toolkit**, **Ma
 - **Preact Router**: Roteamento da aplicação
 
 ### Desenvolvimento
+
 - **Vite**: Build tool e dev server
 - **Vitest**: Framework de testes
 - **Testing Library**: Utilitários para testes de componentes
 - **ESLint**: Linter de código JavaScript
 
 ### API
-- **PokéAPI**: API oficial dos Pokémon
+
+- **PokéAPI REST**: API oficial dos Pokémon (REST)
+- **PokéAPI GraphQL**: API GraphQL para consultas avançadas
 
 ## 📁 Estrutura do Projeto (Feature-Based Architecture)
 
@@ -57,7 +61,7 @@ src/
 │   │   │   └── index.js
 │   │   ├── hooks/              # usePokemon, useFavorites, useComparison
 │   │   ├── pages/              # HomePage, PokemonListPage, PokemonDetailsPage
-│   │   ├── services/           # pokemonApi.js
+│   │   ├── services/           # pokemonApi.js, pokemonGraphQLApi.js
 │   │   ├── store/              # pokemonSlice, favoritesSlice, comparisonSlice
 │   │   ├── styles/             # pokemon-card.scss, pokemon-filters.scss
 │   │   └── index.js
@@ -92,24 +96,28 @@ src/
 ## 🎯 Princípios Arquiteturais
 
 ### 1. **Arquitetura Baseada em Features**
+
 - Código organizado por funcionalidades de negócio
 - Cada feature é autocontida com seus próprios componentes, hooks, DTOs, services e lógica
 - Barrel exports para APIs limpas entre features
 - Facilita escalabilidade e trabalho em equipe
 
 ### 2. **Container/Presentation Pattern**
+
 - **Containers**: Lógica de negócio, estado, side effects
 - **Presentations**: UI pura, altamente reutilizável
 - Separação clara entre lógica e apresentação
 - Facilita testes e reutilização
 
 ### 3. **Hook Pattern**
+
 - Hooks especializados por feature
 - Encapsulamento de lógica de estado e regras de negócio
 - Reutilização consistente entre componentes
 - Interface limpa para componentes
 
 ### 4. **Separação de Responsabilidades**
+
 - **Components**: Containers (lógica) + Presentations (UI)
 - **Hooks**: Lógica de negócio e estado por feature
 - **Services**: Comunicação com APIs por feature
@@ -131,6 +139,7 @@ src/
 ```
 
 ### 6. **Padrões de Dados**
+
 - **DTOs** para transformação entre camadas
 - **Redux Toolkit** para estado global
 - **Custom Hooks** para encapsular lógica
@@ -145,7 +154,7 @@ graph TD
     D --> E[Redux Store]
     E --> F[useAppSelector]
     F --> A
-    
+
     B --> G[API Service]
     G --> H[DTO Transformation]
     H --> C
@@ -154,11 +163,13 @@ graph TD
 ## 🎨 Padrões de UI
 
 ### Material-UI Integration
+
 - Uso consistente do sistema de design do MUI
 - Tema customizado com cores e tipografia
 - Componentes responsivos out-of-the-box
 
 ### SCSS Organization
+
 - Variáveis centralizadas para cores, spacing, breakpoints
 - Mixins para padrões reutilizáveis
 - Organização modular por funcionalidade
@@ -166,6 +177,7 @@ graph TD
 ## 🔐 Autenticação
 
 ### Padrão de Autenticação
+
 - Estado gerenciado no Redux (`authSlice`)
 - Hook `useAuth` para encapsular lógica
 - `ProtectedRoute` component para proteção de rotas
@@ -174,11 +186,15 @@ graph TD
 ## 📊 Gerenciamento de Estado
 
 ### Redux Toolkit
+
 - **authSlice**: Estado de autenticação
-- **pokemonSlice**: Lista, filtros, paginação dos Pokémon
+- **pokemonSlice**: Lista, filtros, paginação e detalhes dos Pokémon
+- **favoritesSlice**: Sistema completo de favoritos com busca e ordenação
+- **comparisonSlice**: Comparação entre Pokémon (até 4 simultâneos)
 - **uiSlice**: Estado da interface (sidebar, tema, loading)
 
 ### Custom Hooks
+
 - Abstração da complexidade do Redux
 - Lógica de negócio encapsulada
 - API simples para componentes
@@ -186,11 +202,13 @@ graph TD
 ## 🧪 Estratégia de Testes
 
 ### Tipos de Testes
+
 - **Unit Tests**: Hooks, services, utilities
 - **Component Tests**: Rendering, interaction, props
 - **Integration Tests**: Feature flows
 
 ### Ferramentas
+
 - **Vitest**: Test runner
 - **Testing Library**: Component testing
 - **MSW/Mocks**: API mocking
@@ -198,12 +216,14 @@ graph TD
 ## 🚀 Performance
 
 ### Otimizações Implementadas
+
 - Preact (menor que React)
 - Code splitting por features
 - Lazy loading de componentes
 - Memoização adequada
 
 ### Futuras Otimizações
+
 - Service Workers
 - Caching estratégico
 - Bundle analysis
@@ -212,6 +232,7 @@ graph TD
 ## 📱 Responsividade
 
 ### Abordagem Mobile-First
+
 - Breakpoints do Material-UI
 - Grid system responsivo
 - Componentes adaptativos

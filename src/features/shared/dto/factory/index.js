@@ -13,32 +13,29 @@ import {
   PokemonStatDTO,
   PokemonAbilityDTO,
   PokemonTypesResponseDTO,
-  PokemonTypeItemDTO
-} from '../../../pokemon/dto/api/index.js';
+  PokemonTypeItemDTO,
+} from "../../../pokemon/dto/api/index.js";
 
 import {
   PokemonStateDTO,
   PokemonFiltersDTO,
-  PaginationDTO
-} from '../../../pokemon/dto/redux/index.js';
+  PaginationDTO,
+} from "../../../pokemon/dto/redux/index.js";
 
 import {
   ApiErrorDTO,
   LoginResponseDTO,
-  LoginRequestDTO
-} from '../../../auth/dto/api/index.js';
+  LoginRequestDTO,
+} from "../../../auth/dto/api/index.js";
 
-import {
-  AuthStateDTO,
-  UserDTO
-} from '../../../auth/dto/redux/index.js';
+import { AuthStateDTO, UserDTO } from "../../../auth/dto/redux/index.js";
 
 import {
   UIStateDTO,
   NotificationDTO,
   ModalDTO,
-  DrawerDTO
-} from '../redux/index.js';
+  DrawerDTO,
+} from "../redux/index.js";
 
 /**
  * Factory para criar DTOs baseado no tipo
@@ -53,41 +50,41 @@ export class DTOFactory {
   static create(type, data) {
     const dtoMap = {
       // API DTOs - Pokemon
-      'pokemon.api.pokemon': () => new PokemonDTO(data),
-      'pokemon.api.pokemonList': () => new PokemonListResponseDTO(data),
-      'pokemon.api.pokemonListItem': () => new PokemonListItemDTO(data),
-      'pokemon.api.pokemonSprites': () => new PokemonSpritesDTO(data),
-      'pokemon.api.pokemonType': () => new PokemonTypeDTO(data),
-      'pokemon.api.pokemonStat': () => new PokemonStatDTO(data),
-      'pokemon.api.pokemonAbility': () => new PokemonAbilityDTO(data),
-      'pokemon.api.pokemonTypes': () => new PokemonTypesResponseDTO(data),
-      'pokemon.api.pokemonTypeItem': () => new PokemonTypeItemDTO(data),
+      "pokemon.api.pokemon": () => new PokemonDTO(data),
+      "pokemon.api.pokemonList": () => new PokemonListResponseDTO(data),
+      "pokemon.api.pokemonListItem": () => new PokemonListItemDTO(data),
+      "pokemon.api.pokemonSprites": () => new PokemonSpritesDTO(data),
+      "pokemon.api.pokemonType": () => new PokemonTypeDTO(data),
+      "pokemon.api.pokemonStat": () => new PokemonStatDTO(data),
+      "pokemon.api.pokemonAbility": () => new PokemonAbilityDTO(data),
+      "pokemon.api.pokemonTypes": () => new PokemonTypesResponseDTO(data),
+      "pokemon.api.pokemonTypeItem": () => new PokemonTypeItemDTO(data),
 
       // Redux DTOs - Pokemon
-      'pokemon.redux.pokemonState': () => new PokemonStateDTO(data),
-      'pokemon.redux.pokemonFilters': () => new PokemonFiltersDTO(data),
-      'pokemon.redux.pagination': () => new PaginationDTO(data),
+      "pokemon.redux.pokemonState": () => new PokemonStateDTO(data),
+      "pokemon.redux.pokemonFilters": () => new PokemonFiltersDTO(data),
+      "pokemon.redux.pagination": () => new PaginationDTO(data),
 
       // API DTOs - Auth
-      'auth.api.error': () => new ApiErrorDTO(data),
-      'auth.api.loginResponse': () => new LoginResponseDTO(data),
-      'auth.api.loginRequest': () => new LoginRequestDTO(data),
+      "auth.api.error": () => new ApiErrorDTO(data),
+      "auth.api.loginResponse": () => new LoginResponseDTO(data),
+      "auth.api.loginRequest": () => new LoginRequestDTO(data),
 
       // Redux DTOs - Auth
-      'auth.redux.authState': () => new AuthStateDTO(data),
-      'auth.redux.user': () => new UserDTO(data),
+      "auth.redux.authState": () => new AuthStateDTO(data),
+      "auth.redux.user": () => new UserDTO(data),
 
       // Redux DTOs - Shared/UI
-      'shared.redux.uiState': () => new UIStateDTO(data),
-      'shared.redux.notification': () => new NotificationDTO(data),
-      'shared.redux.modal': () => new ModalDTO(data),
-      'shared.redux.drawer': () => new DrawerDTO(data),
+      "shared.redux.uiState": () => new UIStateDTO(data),
+      "shared.redux.notification": () => new NotificationDTO(data),
+      "shared.redux.modal": () => new ModalDTO(data),
+      "shared.redux.drawer": () => new DrawerDTO(data),
 
       // Default
-      'default': () => data
+      default: () => data,
     };
 
-    const creator = dtoMap[type] || dtoMap['default'];
+    const creator = dtoMap[type] || dtoMap["default"];
     return creator();
   }
 
@@ -102,7 +99,7 @@ export class DTOFactory {
       return [];
     }
 
-    return dataList.map(data => this.create(type, data));
+    return dataList.map((data) => this.create(type, data));
   }
 
   /**
@@ -118,7 +115,7 @@ export class DTOFactory {
       if (!validation.isValid) {
         return {
           isValid: false,
-          errors: validation.errors
+          errors: validation.errors,
         };
       }
     }
@@ -127,12 +124,12 @@ export class DTOFactory {
       const dto = this.create(type, data);
       return {
         isValid: true,
-        dto
+        dto,
       };
     } catch (error) {
       return {
         isValid: false,
-        errors: { general: error.message }
+        errors: { general: error.message },
       };
     }
   }
@@ -148,14 +145,14 @@ export class DTOUtils {
    * @returns {Object} Objeto simples
    */
   static toPlainObject(dto) {
-    if (typeof dto.toPlainObject === 'function') {
+    if (typeof dto.toPlainObject === "function") {
       return dto.toPlainObject();
     }
-    
-    if (typeof dto.toInternal === 'function') {
+
+    if (typeof dto.toInternal === "function") {
       return dto.toInternal();
     }
-    
+
     return dto;
   }
 
@@ -169,7 +166,7 @@ export class DTOUtils {
       return [];
     }
 
-    return dtoList.map(dto => this.toPlainObject(dto));
+    return dtoList.map((dto) => this.toPlainObject(dto));
   }
 
   /**
@@ -191,7 +188,7 @@ export class DTOUtils {
   static equals(dto1, dto2) {
     const obj1 = this.toPlainObject(dto1);
     const obj2 = this.toPlainObject(dto2);
-    
+
     return JSON.stringify(obj1) === JSON.stringify(obj2);
   }
 
@@ -204,7 +201,7 @@ export class DTOUtils {
   static merge(baseDto, updateDto) {
     const baseObj = this.toPlainObject(baseDto);
     const updateObj = this.toPlainObject(updateDto);
-    
+
     return { ...baseObj, ...updateObj };
   }
 
@@ -239,43 +236,43 @@ export const DTO_TYPES = {
   // Pokemon
   POKEMON: {
     API: {
-      POKEMON: 'pokemon.api.pokemon',
-      POKEMON_LIST: 'pokemon.api.pokemonList',
-      POKEMON_LIST_ITEM: 'pokemon.api.pokemonListItem',
-      POKEMON_SPRITES: 'pokemon.api.pokemonSprites',
-      POKEMON_TYPE: 'pokemon.api.pokemonType',
-      POKEMON_STAT: 'pokemon.api.pokemonStat',
-      POKEMON_ABILITY: 'pokemon.api.pokemonAbility',
-      POKEMON_TYPES: 'pokemon.api.pokemonTypes',
-      POKEMON_TYPE_ITEM: 'pokemon.api.pokemonTypeItem'
+      POKEMON: "pokemon.api.pokemon",
+      POKEMON_LIST: "pokemon.api.pokemonList",
+      POKEMON_LIST_ITEM: "pokemon.api.pokemonListItem",
+      POKEMON_SPRITES: "pokemon.api.pokemonSprites",
+      POKEMON_TYPE: "pokemon.api.pokemonType",
+      POKEMON_STAT: "pokemon.api.pokemonStat",
+      POKEMON_ABILITY: "pokemon.api.pokemonAbility",
+      POKEMON_TYPES: "pokemon.api.pokemonTypes",
+      POKEMON_TYPE_ITEM: "pokemon.api.pokemonTypeItem",
     },
     REDUX: {
-      POKEMON_STATE: 'pokemon.redux.pokemonState',
-      POKEMON_FILTERS: 'pokemon.redux.pokemonFilters',
-      PAGINATION: 'pokemon.redux.pagination'
-    }
+      POKEMON_STATE: "pokemon.redux.pokemonState",
+      POKEMON_FILTERS: "pokemon.redux.pokemonFilters",
+      PAGINATION: "pokemon.redux.pagination",
+    },
   },
 
   // Auth
   AUTH: {
     API: {
-      ERROR: 'auth.api.error',
-      LOGIN_RESPONSE: 'auth.api.loginResponse',
-      LOGIN_REQUEST: 'auth.api.loginRequest'
+      ERROR: "auth.api.error",
+      LOGIN_RESPONSE: "auth.api.loginResponse",
+      LOGIN_REQUEST: "auth.api.loginRequest",
     },
     REDUX: {
-      AUTH_STATE: 'auth.redux.authState',
-      USER: 'auth.redux.user'
-    }
+      AUTH_STATE: "auth.redux.authState",
+      USER: "auth.redux.user",
+    },
   },
 
   // Shared
   SHARED: {
     REDUX: {
-      UI_STATE: 'shared.redux.uiState',
-      NOTIFICATION: 'shared.redux.notification',
-      MODAL: 'shared.redux.modal',
-      DRAWER: 'shared.redux.drawer'
-    }
-  }
+      UI_STATE: "shared.redux.uiState",
+      NOTIFICATION: "shared.redux.notification",
+      MODAL: "shared.redux.modal",
+      DRAWER: "shared.redux.drawer",
+    },
+  },
 };

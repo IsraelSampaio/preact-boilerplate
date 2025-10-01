@@ -1,19 +1,19 @@
-import { useState } from 'preact/hooks';
-import { useAuth } from '../../hooks/useAuth.js';
-import { LoginFormPresentation } from '../presentations/LoginFormPresentation.jsx';
+import { useState } from "preact/hooks";
+import { useAuth } from "../../hooks/useAuth.js";
+import { LoginFormPresentation } from "../presentations/LoginFormPresentation.jsx";
 
 /**
  * Componente container do formulário de login (lógica de negócio)
  */
 export const LoginFormContainer = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const { login, isLoading, error } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!email || !password) {
       return;
     }

@@ -11,7 +11,9 @@ export class PokemonListResponseDTO {
     this.count = data.count || 0;
     this.next = data.next || null;
     this.previous = data.previous || null;
-    this.results = (data.results || []).map(item => new PokemonListItemDTO(item));
+    this.results = (data.results || []).map(
+      (item) => new PokemonListItemDTO(item),
+    );
   }
 
   /**
@@ -23,7 +25,7 @@ export class PokemonListResponseDTO {
       count: this.count,
       next: this.next,
       previous: this.previous,
-      results: this.results.map(item => item.toInternal())
+      results: this.results.map((item) => item.toInternal()),
     };
   }
 }
@@ -33,46 +35,41 @@ export class PokemonListResponseDTO {
  */
 export class PokemonListItemDTO {
   constructor(data) {
-    this.name = data.name || '';
-    this.url = data.url || '';
+    this.name = data.name || "";
+    this.url = data.url || "";
+    this.imageUrl = data.imageUrl || "";
+    this.id = data.id || null;
+    this.height = data.height || 0;
+    this.weight = data.weight || 0;
+    this.types = (data.types || []).map((type) => new PokemonTypeDTO(type));
   }
 
   /**
-   * Extrai o ID do Pokémon da URL
+   * Extrai o ID do Pokémon da URL ou usa o ID direto
    * @returns {number|null} ID do Pokémon
    */
   getId() {
+    if (this.id) {
+      return this.id;
+    }
     const match = this.url.match(/\/(\d+)\/$/);
     return match ? parseInt(match[1], 10) : null;
   }
 
   /**
-   * Converte para formato interno da aplicação
-   * @returns {Object} Objeto no formato usado pelo Redux
+   * Obtém a URL da imagem do Pokémon
+   * @returns {string} URL da imagem ou string vazia se não disponível
    */
-  toInternal() {
-    return {
-      name: this.name,
-      url: this.url,
-      id: this.getId()
-    };
+  getImageUrl() {
+    return this.imageUrl;
   }
-}
 
-/**
- * DTO para Pokémon completo da API
- */
-export class PokemonDTO {
-  constructor(data) {
-    this.id = data.id || 0;
-    this.name = data.name || '';
-    this.height = data.height || 0;
-    this.weight = data.weight || 0;
-    this.base_experience = data.base_experience || 0;
-    this.sprites = new PokemonSpritesDTO(data.sprites || {});
-    this.types = (data.types || []).map(type => new PokemonTypeDTO(type));
-    this.stats = (data.stats || []).map(stat => new PokemonStatDTO(stat));
-    this.abilities = (data.abilities || []).map(ability => new PokemonAbilityDTO(ability));
+  /**
+   * Verifica se o Pokémon tem imagem disponível
+   * @returns {boolean} True se tem imagem
+   */
+  hasImage() {
+    return !!this.imageUrl;
   }
 
   /**
@@ -96,7 +93,70 @@ export class PokemonDTO {
    * @returns {string} Nome do tipo primário
    */
   getPrimaryType() {
-    return this.types.length > 0 ? this.types[0].type.name : 'unknown';
+    return this.types.length > 0 ? this.types[0].type.name : "unknown";
+  }
+
+  /**
+   * Converte para formato interno da aplicação
+   * @returns {Object} Objeto no formato usado pelo Redux
+   */
+  toInternal() {
+    return {
+      name: this.name,
+      url: this.url,
+      id: this.getId(),
+      imageUrl: this.imageUrl,
+      height: this.height,
+      weight: this.weight,
+      types: this.types.map((type) => type.toInternal()),
+      // Campos calculados
+      heightInMeters: this.getHeightInMeters(),
+      weightInKg: this.getWeightInKg(),
+      primaryType: this.getPrimaryType(),
+    };
+  }
+}
+
+/**
+ * DTO para Pokémon completo da API
+ */
+export class PokemonDTO {
+  constructor(data) {
+    this.id = data.id || 0;
+    this.name = data.name || "";
+    this.height = data.height || 0;
+    this.weight = data.weight || 0;
+    this.base_experience = data.base_experience || 0;
+    this.sprites = new PokemonSpritesDTO(data.sprites || {});
+    this.types = (data.types || []).map((type) => new PokemonTypeDTO(type));
+    this.stats = (data.stats || []).map((stat) => new PokemonStatDTO(stat));
+    this.abilities = (data.abilities || []).map(
+      (ability) => new PokemonAbilityDTO(ability),
+    );
+  }
+
+  /**
+   * Converte altura para metros
+   * @returns {number} Altura em metros
+   */
+  getHeightInMeters() {
+    return this.height / 10;
+  }
+
+  /**
+   * Converte peso para quilogramas
+   * @returns {number} Peso em quilogramas
+   */
+  getWeightInKg() {
+    return this.weight / 10;
+  }
+
+  /**
+   * Obtém o tipo primário do Pokémon
+   * @returns {string} Nome do tipo primário
+   */
+  getPrimaryType() {
+    return this.types.length > 0 ? this.types[0].type.name : "unknown";
   }
 
   /**
@@ -111,13 +171,13 @@ export class PokemonDTO {
       weight: this.weight,
       base_experience: this.base_experience,
       sprites: this.sprites.toInternal(),
-      types: this.types.map(type => type.toInternal()),
-      stats: this.stats.map(stat => stat.toInternal()),
-      abilities: this.abilities.map(ability => ability.toInternal()),
+      types: this.types.map((type) => type.toInternal()),
+      stats: this.stats.map((stat) => stat.toInternal()),
+      abilities: this.abilities.map((ability) => ability.toInternal()),
       // Campos calculados
       heightInMeters: this.getHeightInMeters(),
       weightInKg: this.getWeightInKg(),
-      primaryType: this.getPrimaryType()
+      primaryType: this.getPrimaryType(),
     };
   }
 }
@@ -127,10 +187,10 @@ export class PokemonDTO {
  */
 export class PokemonSpritesDTO {
   constructor(data) {
-    this.front_default = data.front_default || '';
-    this.front_shiny = data.front_shiny || '';
-    this.back_default = data.back_default || '';
-    this.back_shiny = data.back_shiny || '';
+    this.front_default = data.front_default || "";
+    this.front_shiny = data.front_shiny || "";
+    this.back_default = data.back_default || "";
+    this.back_shiny = data.back_shiny || "";
   }
 
   toInternal() {
@@ -138,7 +198,7 @@ export class PokemonSpritesDTO {
       front_default: this.front_default,
       front_shiny: this.front_shiny,
       back_default: this.back_default,
-      back_shiny: this.back_shiny
+      back_shiny: this.back_shiny,
     };
   }
 }
@@ -150,15 +210,15 @@ export class PokemonTypeDTO {
   constructor(data) {
     this.slot = data.slot || 0;
     this.type = {
-      name: data.type?.name || '',
-      url: data.type?.url || ''
+      name: data.type?.name || "",
+      url: data.type?.url || "",
     };
   }
 
   toInternal() {
     return {
       slot: this.slot,
-      type: this.type
+      type: this.type,
     };
   }
 }
@@ -171,8 +231,8 @@ export class PokemonStatDTO {
     this.base_stat = data.base_stat || 0;
     this.effort = data.effort || 0;
     this.stat = {
-      name: data.stat?.name || '',
-      url: data.stat?.url || ''
+      name: data.stat?.name || "",
+      url: data.stat?.url || "",
     };
   }
 
@@ -180,7 +240,7 @@ export class PokemonStatDTO {
     return {
       base_stat: this.base_stat,
       effort: this.effort,
-      stat: this.stat
+      stat: this.stat,
     };
   }
 }
@@ -191,8 +251,8 @@ export class PokemonStatDTO {
 export class PokemonAbilityDTO {
   constructor(data) {
     this.ability = {
-      name: data.ability?.name || '',
-      url: data.ability?.url || ''
+      name: data.ability?.name || "",
+      url: data.ability?.url || "",
     };
     this.is_hidden = data.is_hidden || false;
     this.slot = data.slot || 0;
@@ -202,7 +262,7 @@ export class PokemonAbilityDTO {
     return {
       ability: this.ability,
       is_hidden: this.is_hidden,
-      slot: this.slot
+      slot: this.slot,
     };
   }
 }
@@ -213,13 +273,15 @@ export class PokemonAbilityDTO {
 export class PokemonTypesResponseDTO {
   constructor(data) {
     this.count = data.count || 0;
-    this.results = (data.results || []).map(item => new PokemonTypeItemDTO(item));
+    this.results = (data.results || []).map(
+      (item) => new PokemonTypeItemDTO(item),
+    );
   }
 
   toInternal() {
     return {
       count: this.count,
-      results: this.results.map(item => item.toInternal())
+      results: this.results.map((item) => item.toInternal()),
     };
   }
 }
@@ -229,8 +291,8 @@ export class PokemonTypesResponseDTO {
  */
 export class PokemonTypeItemDTO {
   constructor(data) {
-    this.name = data.name || '';
-    this.url = data.url || '';
+    this.name = data.name || "";
+    this.url = data.url || "";
   }
 
   getId() {
@@ -242,7 +304,7 @@ export class PokemonTypeItemDTO {
     return {
       name: this.name,
       url: this.url,
-      id: this.getId()
+      id: this.getId(),
     };
   }
 }

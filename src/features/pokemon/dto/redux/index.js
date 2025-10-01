@@ -4,20 +4,20 @@
  */
 
 // Re-exporta DTOs de API necessários
-import { PokemonDTO, PokemonListItemDTO } from '../api/index.js';
+import { PokemonDTO, PokemonListItemDTO } from "../api/index.js";
 
 /**
  * DTO para estado do Pokemon no Redux
  */
 export class PokemonStateDTO {
   constructor(data = {}) {
-    this.list = (data.list || []).map(item => new PokemonListItemDTO(item));
+    this.list = (data.list || []).map((item) => new PokemonListItemDTO(item));
     this.selected = data.selected ? new PokemonDTO(data.selected) : null;
     this.filters = new PokemonFiltersDTO(data.filters || {});
     this.isLoading = data.isLoading || false;
     this.error = data.error || null;
     this.pagination = new PaginationDTO(data.pagination || {});
-    this.favorites = (data.favorites || []).map(item => new PokemonDTO(item));
+    this.favorites = (data.favorites || []).map((item) => new PokemonDTO(item));
     this.searchHistory = data.searchHistory || [];
   }
 
@@ -31,28 +31,28 @@ export class PokemonStateDTO {
     // Aplicar filtro de busca
     if (this.filters.search) {
       const searchTerm = this.filters.search.toLowerCase();
-      filtered = filtered.filter(pokemon => 
-        pokemon.name.toLowerCase().includes(searchTerm)
+      filtered = filtered.filter((pokemon) =>
+        pokemon.name.toLowerCase().includes(searchTerm),
       );
     }
 
     // Aplicar filtro de tipo
     if (this.filters.type) {
-      filtered = filtered.filter(pokemon => 
-        pokemon.primaryType === this.filters.type
+      filtered = filtered.filter(
+        (pokemon) => pokemon.primaryType === this.filters.type,
       );
     }
 
     // Aplicar ordenação
     filtered.sort((a, b) => {
-      const order = this.filters.sortOrder === 'desc' ? -1 : 1;
-      const aValue = a[this.filters.sortBy] || '';
-      const bValue = b[this.filters.sortBy] || '';
-      
-      if (typeof aValue === 'string' && typeof bValue === 'string') {
+      const order = this.filters.sortOrder === "desc" ? -1 : 1;
+      const aValue = a[this.filters.sortBy] || "";
+      const bValue = b[this.filters.sortBy] || "";
+
+      if (typeof aValue === "string" && typeof bValue === "string") {
         return aValue.localeCompare(bValue) * order;
       }
-      
+
       return (aValue - bValue) * order;
     });
 
@@ -61,11 +61,11 @@ export class PokemonStateDTO {
 
   /**
    * Verifica se o Pokémon está nos favoritos
-   * @param {number} pokemonId 
+   * @param {number} pokemonId
    * @returns {boolean}
    */
   isFavorite(pokemonId) {
-    return this.favorites.some(fav => fav.id === pokemonId);
+    return this.favorites.some((fav) => fav.id === pokemonId);
   }
 
   /**
@@ -74,14 +74,14 @@ export class PokemonStateDTO {
    */
   toPlainObject() {
     return {
-      list: this.list.map(item => item.toPlainObject()),
+      list: this.list.map((item) => item.toPlainObject()),
       selected: this.selected ? this.selected.toPlainObject() : null,
       filters: this.filters.toPlainObject(),
       isLoading: this.isLoading,
       error: this.error,
       pagination: this.pagination.toPlainObject(),
-      favorites: this.favorites.map(item => item.toPlainObject()),
-      searchHistory: this.searchHistory
+      favorites: this.favorites.map((item) => item.toPlainObject()),
+      searchHistory: this.searchHistory,
     };
   }
 }
@@ -91,12 +91,12 @@ export class PokemonStateDTO {
  */
 export class PokemonFiltersDTO {
   constructor(data = {}) {
-    this.search = data.search || '';
-    this.type = data.type || '';
-    this.sortBy = data.sortBy || 'name';
-    this.sortOrder = data.sortOrder || 'asc';
-    this.generation = data.generation || '';
-    this.rarity = data.rarity || '';
+    this.search = data.search || "";
+    this.type = data.type || "";
+    this.sortBy = data.sortBy || "name";
+    this.sortOrder = data.sortOrder || "asc";
+    this.generation = data.generation || "";
+    this.rarity = data.rarity || "";
     this.minHeight = data.minHeight || null;
     this.maxHeight = data.maxHeight || null;
     this.minWeight = data.minWeight || null;
@@ -124,16 +124,16 @@ export class PokemonFiltersDTO {
    * Limpa todos os filtros
    */
   clear() {
-    this.search = '';
-    this.type = '';
-    this.generation = '';
-    this.rarity = '';
+    this.search = "";
+    this.type = "";
+    this.generation = "";
+    this.rarity = "";
     this.minHeight = null;
     this.maxHeight = null;
     this.minWeight = null;
     this.maxWeight = null;
-    this.sortBy = 'name';
-    this.sortOrder = 'asc';
+    this.sortBy = "name";
+    this.sortOrder = "asc";
   }
 
   /**
@@ -151,7 +151,7 @@ export class PokemonFiltersDTO {
       minHeight: this.minHeight,
       maxHeight: this.maxHeight,
       minWeight: this.minWeight,
-      maxWeight: this.maxWeight
+      maxWeight: this.maxWeight,
     };
   }
 }
@@ -199,14 +199,17 @@ export class PaginationDTO {
    */
   getPageInfo() {
     const startItem = this.getOffset() + 1;
-    const endItem = Math.min(startItem + this.itemsPerPage - 1, this.totalItems);
-    
+    const endItem = Math.min(
+      startItem + this.itemsPerPage - 1,
+      this.totalItems,
+    );
+
     return {
       startItem,
       endItem,
       totalItems: this.totalItems,
       currentPage: this.currentPage,
-      totalPages: this.totalPages
+      totalPages: this.totalPages,
     };
   }
 
@@ -221,7 +224,7 @@ export class PaginationDTO {
       hasNext: this.hasNext,
       hasPrevious: this.hasPrevious,
       itemsPerPage: this.itemsPerPage,
-      totalItems: this.totalItems
+      totalItems: this.totalItems,
     };
   }
 }

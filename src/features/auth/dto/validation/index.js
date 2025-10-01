@@ -9,17 +9,17 @@
 export class AuthValidationDTO {
   /**
    * Valida email
-   * @param {string} email 
+   * @param {string} email
    * @returns {Object} { isValid: boolean, error?: string }
    */
   static validateEmail(email) {
     if (!email) {
-      return { isValid: false, error: 'Email é obrigatório' };
+      return { isValid: false, error: "Email é obrigatório" };
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return { isValid: false, error: 'Email inválido' };
+      return { isValid: false, error: "Email inválido" };
     }
 
     return { isValid: true };
@@ -27,16 +27,19 @@ export class AuthValidationDTO {
 
   /**
    * Valida senha
-   * @param {string} password 
+   * @param {string} password
    * @returns {Object} { isValid: boolean, error?: string }
    */
   static validatePassword(password) {
     if (!password) {
-      return { isValid: false, error: 'Senha é obrigatória' };
+      return { isValid: false, error: "Senha é obrigatória" };
     }
 
     if (password.length < 6) {
-      return { isValid: false, error: 'Senha deve ter pelo menos 6 caracteres' };
+      return {
+        isValid: false,
+        error: "Senha deve ter pelo menos 6 caracteres",
+      };
     }
 
     return { isValid: true };
@@ -44,7 +47,7 @@ export class AuthValidationDTO {
 
   /**
    * Valida dados de login
-   * @param {Object} loginData 
+   * @param {Object} loginData
    * @returns {Object} { isValid: boolean, errors: Object }
    */
   static validateLogin(loginData) {
@@ -68,7 +71,7 @@ export class AuthValidationDTO {
 
   /**
    * Valida dados de usuário
-   * @param {Object} userData 
+   * @param {Object} userData
    * @returns {Object} { isValid: boolean, errors: Object }
    */
   static validateUser(userData) {
@@ -84,20 +87,20 @@ export class AuthValidationDTO {
 
     // Validar nome
     if (!userData.name) {
-      errors.name = 'Nome é obrigatório';
+      errors.name = "Nome é obrigatório";
       isValid = false;
     } else if (userData.name.length < 2) {
-      errors.name = 'Nome deve ter pelo menos 2 caracteres';
+      errors.name = "Nome deve ter pelo menos 2 caracteres";
       isValid = false;
     } else if (userData.name.length > 100) {
-      errors.name = 'Nome deve ter no máximo 100 caracteres';
+      errors.name = "Nome deve ter no máximo 100 caracteres";
       isValid = false;
     }
 
     // Validar role
-    const validRoles = ['user', 'admin', 'moderator'];
+    const validRoles = ["user", "admin", "moderator"];
     if (userData.role && !validRoles.includes(userData.role)) {
-      errors.role = `Role deve ser um dos seguintes: ${validRoles.join(', ')}`;
+      errors.role = `Role deve ser um dos seguintes: ${validRoles.join(", ")}`;
       isValid = false;
     }
 

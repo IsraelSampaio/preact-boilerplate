@@ -1,31 +1,16 @@
-import {
-  Grid,
-  Box,
-  CircularProgress,
-  Alert,
-  Typography,
-  Pagination,
-  Skeleton,
-} from '@mui/material';
-import { PokemonCard } from './PokemonCard.jsx';
-import { PokemonListItemDTO, PokemonDTO } from '../dto/api/index.js';
-import { useState } from 'preact/hooks';
+import { Grid, Box, Alert, Typography, Pagination } from "@mui/material";
+import { PokemonCard } from "./PokemonCard.jsx";
+import { useState } from "preact/hooks";
+import { useTranslation } from "@features/i18n/hooks/useTranslation.js";
 
-/**
- * Component PokemonList
- */
-export const PokemonList = ({
-  pokemonList,
-  isLoading,
-  error,
-  onPokemonSelect,
-}) => {
+export const PokemonList = ({ pokemonList, isLoading, error }) => {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
 
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (error) {
@@ -47,17 +32,12 @@ export const PokemonList = ({
   if (pokemonList.length === 0 && !isLoading) {
     return (
       <div className="pokemon-list__empty">
-        <Typography variant="h6">
-          Nenhum Pokémon encontrado
-        </Typography>
-        <Typography variant="body2">
-          Tente ajustar os filtros de busca
-        </Typography>
+        <Typography variant="h6">{t("list.notFound")}</Typography>
+        <Typography variant="body2">{t("list.notFoundDescription")}</Typography>
       </div>
     );
   }
 
-  // Paginação
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const paginatedPokemon = pokemonList.slice(startIndex, endIndex);
@@ -67,15 +47,13 @@ export const PokemonList = ({
     <div className="pokemon-list">
       <Box className="flex-between mb-3">
         <Typography variant="h6" style={{ marginBottom: 24 }}>
-          {pokemonList.length} Pokémon encontrados
+          {t("list.found", { count: pokemonList.length })}
         </Typography>
-        
+
         {isLoading && (
           <Box className="flex-center gap-2">
             <div className="spinner"></div>
-            <Typography variant="body2">
-              Carregando...
-            </Typography>
+            <Typography variant="body2">{t("list.loading")}</Typography>
           </Box>
         )}
       </Box>

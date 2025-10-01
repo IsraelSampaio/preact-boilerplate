@@ -1,16 +1,26 @@
 // Importações dos estilos compartilhados
-@use '../features/shared/styles/index.scss' as shared;
+@use "../features/shared/styles/index.scss" as shared;
 
 // Importações dos estilos das features
-@use '../features/auth/styles/index.scss' as auth;
-@use '../features/pokemon/styles/index.scss' as pokemon;
+@use "../features/auth/styles/index.scss" as auth;
+@use "../features/pokemon/styles/index.scss" as pokemon;
 
 // Estilos globais adicionais
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

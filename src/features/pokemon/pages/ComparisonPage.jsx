@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useState } from "preact/hooks";
 import {
   Container,
   Typography,
@@ -24,7 +24,7 @@ import {
   DialogActions,
   Card,
   CardContent,
-} from '@mui/material';
+} from "@mui/material";
 import {
   Delete,
   Clear,
@@ -33,16 +33,18 @@ import {
   TrendingUp,
   TrendingDown,
   BarChart,
-} from '@mui/icons-material';
-import { route } from 'preact-router';
-import { MainLayout } from '@/components/layout/index.js';
-import { useComparison } from '../hooks/useComparison.js';
+} from "@mui/icons-material";
+import { route } from "preact-router";
+import { MainLayout } from "@/components/layout/index.js";
+import { useComparison } from "../hooks/useComparison.js";
+import { useTranslation } from "@features/i18n/hooks/useTranslation.js";
 
 /**
  * Componente ComparisonPage
  * Página para comparar múltiplos Pokémon lado a lado
  */
 export const ComparisonPage = () => {
+  const { t } = useTranslation();
   const {
     comparisonList,
     comparisonCount,
@@ -52,12 +54,12 @@ export const ComparisonPage = () => {
   } = useComparison();
 
   const [clearDialogOpen, setClearDialogOpen] = useState(false);
-  const [selectedTab, setSelectedTab] = useState('stats');
+  const [selectedTab, setSelectedTab] = useState("stats");
 
   const stats = getComparisonStats();
 
   const handleBack = () => {
-    route('/pokemon');
+    route("/pokemon");
   };
 
   const handleRemovePokemon = (pokemonId) => {
@@ -71,53 +73,53 @@ export const ComparisonPage = () => {
 
   const getTypeColor = (type) => {
     const colors = {
-      normal: '#A8A878',
-      fire: '#F08030',
-      water: '#6890F0',
-      electric: '#F8D030',
-      grass: '#78C850',
-      ice: '#98D8D8',
-      fighting: '#C03028',
-      poison: '#A040A0',
-      ground: '#E0C068',
-      flying: '#A890F0',
-      psychic: '#F85888',
-      bug: '#A8B820',
-      rock: '#B8A038',
-      ghost: '#705898',
-      dragon: '#7038F8',
-      dark: '#705848',
-      steel: '#B8B8D0',
-      fairy: '#EE99AC',
+      normal: "#A8A878",
+      fire: "#F08030",
+      water: "#6890F0",
+      electric: "#F8D030",
+      grass: "#78C850",
+      ice: "#98D8D8",
+      fighting: "#C03028",
+      poison: "#A040A0",
+      ground: "#E0C068",
+      flying: "#A890F0",
+      psychic: "#F85888",
+      bug: "#A8B820",
+      rock: "#B8A038",
+      ghost: "#705898",
+      dragon: "#7038F8",
+      dark: "#705848",
+      steel: "#B8B8D0",
+      fairy: "#EE99AC",
     };
-    return colors[type] || '#A8A878';
+    return colors[type] || "#A8A878";
   };
 
   const getStatDisplayName = (statName) => {
     const names = {
-      hp: 'HP',
-      attack: 'Ataque',
-      defense: 'Defesa',
-      'special-attack': 'Ataque Especial',
-      'special-defense': 'Defesa Especial',
-      speed: 'Velocidade',
+      hp: t("pokemon.stats.hp"),
+      attack: t("pokemon.stats.attack"),
+      defense: t("pokemon.stats.defense"),
+      "special-attack": t("pokemon.stats.special-attack"),
+      "special-defense": t("pokemon.stats.special-defense"),
+      speed: t("pokemon.stats.speed"),
     };
     return names[statName] || statName;
   };
 
   if (comparisonCount === 0) {
     return (
-      <MainLayout title="Comparação">
+      <MainLayout title={t("comparison.title")}>
         <Container maxWidth="lg">
-          <Box sx={{ textAlign: 'center', mt: 8 }}>
+          <Box sx={{ textAlign: "center", mt: 8 }}>
             <Typography variant="h4" gutterBottom>
-              🔍 Nenhum Pokémon para comparar
+              {t("comparison.empty.title")}
             </Typography>
             <Typography variant="body1" color="text.secondary" paragraph>
-              Adicione Pokémon à comparação clicando no ícone de comparação nas páginas de detalhes.
+              {t("comparison.empty.description")}
             </Typography>
             <Button variant="contained" onClick={handleBack}>
-              Explorar Pokémon
+              {t("comparison.empty.button")}
             </Button>
           </Box>
         </Container>
@@ -126,15 +128,17 @@ export const ComparisonPage = () => {
   }
 
   return (
-    <MainLayout title="Comparação de Pokémon">
+    <MainLayout
+      title={t("comparison.header.title", { count: comparisonCount })}
+    >
       <Container maxWidth="xl">
         {/* Header */}
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3, mt: 2 }}>
+        <Box sx={{ display: "flex", alignItems: "center", mb: 3, mt: 2 }}>
           <IconButton onClick={handleBack} sx={{ mr: 2 }}>
             <ArrowBack />
           </IconButton>
           <Typography variant="h4" component="h1" sx={{ flexGrow: 1 }}>
-            Comparação de Pokémon ({comparisonCount})
+            {t("comparison.header.title", { count: comparisonCount })}
           </Typography>
           <Button
             variant="outlined"
@@ -142,7 +146,7 @@ export const ComparisonPage = () => {
             startIcon={<Clear />}
             onClick={() => setClearDialogOpen(true)}
           >
-            Limpar Todos
+            {t("comparison.header.clearAll")}
           </Button>
         </Box>
 
@@ -151,28 +155,48 @@ export const ComparisonPage = () => {
           {comparisonList.map((pokemon) => (
             <Grid item xs={12} sm={6} md={3} key={pokemon.id}>
               <Card>
-                <Box sx={{ position: 'relative' }}>
+                <Box sx={{ position: "relative" }}>
                   <Avatar
-                    src={pokemon.sprites?.front_default || '/placeholder-pokemon.png'}
+                    src={
+                      pokemon.sprites?.front_default ||
+                      "/placeholder-pokemon.png"
+                    }
                     alt={pokemon.name}
-                    sx={{ width: 100, height: 100, margin: '16px auto', display: 'block' }}
+                    sx={{
+                      width: 100,
+                      height: 100,
+                      margin: "16px auto",
+                      display: "block",
+                    }}
                   />
                   <IconButton
                     size="small"
-                    sx={{ position: 'absolute', top: 8, right: 8 }}
+                    sx={{ position: "absolute", top: 8, right: 8 }}
                     onClick={() => handleRemovePokemon(pokemon.id)}
                   >
                     <Delete />
                   </IconButton>
                 </Box>
-                <CardContent sx={{ textAlign: 'center', pt: 0 }}>
+                <CardContent sx={{ textAlign: "center", pt: 0 }}>
                   <Typography variant="h6" gutterBottom>
-                    {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+                    {pokemon.name.charAt(0).toUpperCase() +
+                      pokemon.name.slice(1)}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" gutterBottom>
-                    #{pokemon.id.toString().padStart(3, '0')}
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    gutterBottom
+                  >
+                    #{pokemon.id.toString().padStart(3, "0")}
                   </Typography>
-                  <Box sx={{ display: 'flex', justifyContent: 'center', gap: 0.5, mb: 1 }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      gap: 0.5,
+                      mb: 1,
+                    }}
+                  >
                     {pokemon.types.map((type) => (
                       <Chip
                         key={type.slot}
@@ -180,8 +204,8 @@ export const ComparisonPage = () => {
                         size="small"
                         sx={{
                           backgroundColor: getTypeColor(type.type.name),
-                          color: 'white',
-                          fontSize: '0.7rem',
+                          color: "white",
+                          fontSize: "0.7rem",
                         }}
                       />
                     ))}
@@ -196,37 +220,39 @@ export const ComparisonPage = () => {
         {stats && (
           <Paper sx={{ p: 3, mb: 4 }}>
             <Typography variant="h6" gutterBottom>
-              📊 Resumo da Comparação
+              {t("comparison.summary.title")}
             </Typography>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6} md={3}>
                 <Typography variant="body2" color="text.secondary">
-                  Altura Média
+                  {t("comparison.summary.averageHeight")}
                 </Typography>
                 <Typography variant="h6">{stats.averageHeight}m</Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <Typography variant="body2" color="text.secondary">
-                  Peso Médio
+                  {t("comparison.summary.averageWeight")}
                 </Typography>
                 <Typography variant="h6">{stats.averageWeight}kg</Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <Typography variant="body2" color="text.secondary">
-                  Exp. Base Média
+                  {t("comparison.summary.averageBaseExp")}
                 </Typography>
-                <Typography variant="h6">{stats.averageBaseExperience}</Typography>
+                <Typography variant="h6">
+                  {stats.averageBaseExperience}
+                </Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <Typography variant="body2" color="text.secondary">
-                  Tipo Mais Comum
+                  {t("comparison.summary.mostCommonType")}
                 </Typography>
                 <Chip
                   label={stats.mostCommonType}
                   size="small"
                   sx={{
                     backgroundColor: getTypeColor(stats.mostCommonType),
-                    color: 'white',
+                    color: "white",
                   }}
                 />
               </Grid>
@@ -236,18 +262,22 @@ export const ComparisonPage = () => {
 
             <Grid container spacing={3}>
               <Grid item xs={12} md={6}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                   <TrendingUp color="success" />
                   <Typography variant="body2">
-                    <strong>Maior Stat:</strong> {getStatDisplayName(stats.highestStat.name)} ({stats.highestStat.value}) - {stats.highestStat.pokemon}
+                    <strong>{t("comparison.summary.highestStat")}:</strong>{" "}
+                    {getStatDisplayName(stats.highestStat.name)} (
+                    {stats.highestStat.value}) - {stats.highestStat.pokemon}
                   </Typography>
                 </Box>
               </Grid>
               <Grid item xs={12} md={6}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                   <TrendingDown color="error" />
                   <Typography variant="body2">
-                    <strong>Menor Stat:</strong> {getStatDisplayName(stats.lowestStat.name)} ({stats.lowestStat.value}) - {stats.lowestStat.pokemon}
+                    <strong>{t("comparison.summary.lowestStat")}:</strong>{" "}
+                    {getStatDisplayName(stats.lowestStat.name)} (
+                    {stats.lowestStat.value}) - {stats.lowestStat.pokemon}
                   </Typography>
                 </Box>
               </Grid>
@@ -258,19 +288,30 @@ export const ComparisonPage = () => {
         {/* Tabela de Comparação Detalhada */}
         <Paper>
           <Typography variant="h6" sx={{ p: 3, pb: 1 }}>
-            📋 Comparação Detalhada
+            {t("comparison.table.title")}
           </Typography>
-          
+
           <TableContainer>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell><strong>Atributo</strong></TableCell>
+                  <TableCell>
+                    <strong>{t("comparison.table.attribute")}</strong>
+                  </TableCell>
                   {comparisonList.map((pokemon) => (
                     <TableCell key={pokemon.id} align="center">
-                      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                        }}
+                      >
                         <Avatar
-                          src={pokemon.sprites?.front_default || '/placeholder-pokemon.png'}
+                          src={
+                            pokemon.sprites?.front_default ||
+                            "/placeholder-pokemon.png"
+                          }
                           alt={pokemon.name}
                           sx={{ width: 40, height: 40, mb: 1 }}
                         />
@@ -285,7 +326,9 @@ export const ComparisonPage = () => {
               <TableBody>
                 {/* Informações Básicas */}
                 <TableRow>
-                  <TableCell><strong>Altura</strong></TableCell>
+                  <TableCell>
+                    <strong>{t("comparison.table.height")}</strong>
+                  </TableCell>
                   {comparisonList.map((pokemon) => (
                     <TableCell key={pokemon.id} align="center">
                       {(pokemon.height / 10).toFixed(1)}m
@@ -293,7 +336,9 @@ export const ComparisonPage = () => {
                   ))}
                 </TableRow>
                 <TableRow>
-                  <TableCell><strong>Peso</strong></TableCell>
+                  <TableCell>
+                    <strong>{t("comparison.table.weight")}</strong>
+                  </TableCell>
                   {comparisonList.map((pokemon) => (
                     <TableCell key={pokemon.id} align="center">
                       {(pokemon.weight / 10).toFixed(1)}kg
@@ -301,7 +346,9 @@ export const ComparisonPage = () => {
                   ))}
                 </TableRow>
                 <TableRow>
-                  <TableCell><strong>Experiência Base</strong></TableCell>
+                  <TableCell>
+                    <strong>{t("comparison.table.baseExperience")}</strong>
+                  </TableCell>
                   {comparisonList.map((pokemon) => (
                     <TableCell key={pokemon.id} align="center">
                       {pokemon.base_experience}
@@ -310,25 +357,46 @@ export const ComparisonPage = () => {
                 </TableRow>
 
                 {/* Estatísticas */}
-                {['hp', 'attack', 'defense', 'special-attack', 'special-defense', 'speed'].map((statName) => (
+                {[
+                  "hp",
+                  "attack",
+                  "defense",
+                  "special-attack",
+                  "special-defense",
+                  "speed",
+                ].map((statName) => (
                   <TableRow key={statName}>
-                    <TableCell><strong>{getStatDisplayName(statName)}</strong></TableCell>
+                    <TableCell>
+                      <strong>{getStatDisplayName(statName)}</strong>
+                    </TableCell>
                     {comparisonList.map((pokemon) => {
-                      const stat = pokemon.stats?.find(s => s.stat.name === statName);
+                      const stat = pokemon.stats?.find(
+                        (s) => s.stat.name === statName,
+                      );
                       const value = stat?.base_stat || 0;
-                      const maxValue = Math.max(...comparisonList.map(p => 
-                        p.stats?.find(s => s.stat.name === statName)?.base_stat || 0
-                      ));
+                      const maxValue = Math.max(
+                        ...comparisonList.map(
+                          (p) =>
+                            p.stats?.find((s) => s.stat.name === statName)
+                              ?.base_stat || 0,
+                        ),
+                      );
                       const isHighest = value === maxValue && value > 0;
-                      
+
                       return (
                         <TableCell key={pokemon.id} align="center">
-                          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                            <Typography 
-                              variant="body2" 
-                              sx={{ 
-                                fontWeight: isHighest ? 'bold' : 'normal',
-                                color: isHighest ? 'success.main' : 'inherit'
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                            }}
+                          >
+                            <Typography
+                              variant="body2"
+                              sx={{
+                                fontWeight: isHighest ? "bold" : "normal",
+                                color: isHighest ? "success.main" : "inherit",
                               }}
                             >
                               {value}
@@ -336,12 +404,14 @@ export const ComparisonPage = () => {
                             <LinearProgress
                               variant="determinate"
                               value={(value / 150) * 100}
-                              sx={{ 
-                                width: 60, 
+                              sx={{
+                                width: 60,
                                 mt: 0.5,
-                                '& .MuiLinearProgress-bar': {
-                                  backgroundColor: isHighest ? 'success.main' : 'primary.main'
-                                }
+                                "& .MuiLinearProgress-bar": {
+                                  backgroundColor: isHighest
+                                    ? "success.main"
+                                    : "primary.main",
+                                },
                               }}
                             />
                           </Box>
@@ -360,17 +430,18 @@ export const ComparisonPage = () => {
           open={clearDialogOpen}
           onClose={() => setClearDialogOpen(false)}
         >
-          <DialogTitle>Limpar toda a comparação?</DialogTitle>
+          <DialogTitle>{t("comparison.dialog.title")}</DialogTitle>
           <DialogContent>
             <Typography>
-              Esta ação removerá todos os {comparisonCount} Pokémon da comparação.
-              Esta ação não pode ser desfeita.
+              {t("comparison.dialog.description", { count: comparisonCount })}
             </Typography>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setClearDialogOpen(false)}>Cancelar</Button>
+            <Button onClick={() => setClearDialogOpen(false)}>
+              {t("comparison.dialog.cancel")}
+            </Button>
             <Button onClick={handleClearAll} color="error" variant="contained">
-              Sim, limpar todos
+              {t("comparison.dialog.confirm")}
             </Button>
           </DialogActions>
         </Dialog>

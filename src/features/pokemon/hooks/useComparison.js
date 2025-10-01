@@ -1,4 +1,7 @@
-import { useAppDispatch, useAppSelector } from '../../shared/hooks/useAppDispatch.js';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../shared/hooks/useAppDispatch.js";
 import {
   addToComparison,
   removeFromComparison,
@@ -13,7 +16,7 @@ import {
   selectComparisonError,
   selectCanAddToComparison,
   selectMaxComparisonItems,
-} from '../store/comparisonSlice.js';
+} from "../store/comparisonSlice.js";
 
 /**
  * Hook personalizado para gerenciar comparação de Pokémon
@@ -21,7 +24,7 @@ import {
  */
 export const useComparison = () => {
   const dispatch = useAppDispatch();
-  
+
   const comparisonList = useAppSelector(selectComparisonList);
   const comparisonCount = useAppSelector(selectComparisonCount);
   const isComparing = useAppSelector(selectIsComparing);
@@ -85,7 +88,7 @@ export const useComparison = () => {
    * @returns {boolean} True se estiver na lista
    */
   const isInComparison = (pokemonId) => {
-    return comparisonList.some(p => p.id === pokemonId);
+    return comparisonList.some((p) => p.id === pokemonId);
   };
 
   /**
@@ -96,13 +99,13 @@ export const useComparison = () => {
   const togglePokemonComparison = (pokemon) => {
     if (isInComparison(pokemon.id)) {
       removePokemonFromComparison(pokemon.id);
-      return 'removed';
+      return "removed";
     } else {
       if (canAddToComparison) {
         addPokemonToComparison(pokemon);
-        return 'added';
+        return "added";
       } else {
-        return 'error';
+        return "error";
       }
     }
   };
@@ -125,36 +128,47 @@ export const useComparison = () => {
       averageHeight: 0,
       averageWeight: 0,
       averageBaseExperience: 0,
-      mostCommonType: '',
-      highestStat: { name: '', value: 0, pokemon: '' },
-      lowestStat: { name: '', value: Infinity, pokemon: '' },
+      mostCommonType: "",
+      highestStat: { name: "", value: 0, pokemon: "" },
+      lowestStat: { name: "", value: Infinity, pokemon: "" },
     };
 
     // Calcula médias
-    const totalHeight = comparisonList.reduce((sum, p) => sum + (p.height || 0), 0);
-    const totalWeight = comparisonList.reduce((sum, p) => sum + (p.weight || 0), 0);
-    const totalBaseExp = comparisonList.reduce((sum, p) => sum + (p.base_experience || 0), 0);
+    const totalHeight = comparisonList.reduce(
+      (sum, p) => sum + (p.height || 0),
+      0,
+    );
+    const totalWeight = comparisonList.reduce(
+      (sum, p) => sum + (p.weight || 0),
+      0,
+    );
+    const totalBaseExp = comparisonList.reduce(
+      (sum, p) => sum + (p.base_experience || 0),
+      0,
+    );
 
     stats.averageHeight = (totalHeight / comparisonList.length / 10).toFixed(1); // em metros
     stats.averageWeight = (totalWeight / comparisonList.length / 10).toFixed(1); // em kg
-    stats.averageBaseExperience = Math.round(totalBaseExp / comparisonList.length);
+    stats.averageBaseExperience = Math.round(
+      totalBaseExp / comparisonList.length,
+    );
 
     // Tipo mais comum
     const typeCount = {};
-    comparisonList.forEach(pokemon => {
-      pokemon.types?.forEach(type => {
+    comparisonList.forEach((pokemon) => {
+      pokemon.types?.forEach((type) => {
         const typeName = type.type.name;
         typeCount[typeName] = (typeCount[typeName] || 0) + 1;
       });
     });
-    
-    stats.mostCommonType = Object.keys(typeCount).reduce((a, b) => 
-      typeCount[a] > typeCount[b] ? a : b
+
+    stats.mostCommonType = Object.keys(typeCount).reduce((a, b) =>
+      typeCount[a] > typeCount[b] ? a : b,
     );
 
     // Maior e menor estatística
-    comparisonList.forEach(pokemon => {
-      pokemon.stats?.forEach(stat => {
+    comparisonList.forEach((pokemon) => {
+      pokemon.stats?.forEach((stat) => {
         if (stat.base_stat > stats.highestStat.value) {
           stats.highestStat = {
             name: stat.stat.name,
@@ -183,7 +197,7 @@ export const useComparison = () => {
     error,
     canAddToComparison,
     maxItems,
-    
+
     // Ações
     addPokemonToComparison,
     removePokemonFromComparison,
@@ -192,7 +206,7 @@ export const useComparison = () => {
     setError,
     reorderComparisonList,
     syncComparison,
-    
+
     // Utilities
     isInComparison,
     togglePokemonComparison,

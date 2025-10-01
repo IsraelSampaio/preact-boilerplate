@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useState } from "preact/hooks";
 import {
   Container,
   Typography,
@@ -17,22 +17,19 @@ import {
   DialogContent,
   DialogActions,
   Alert,
-} from '@mui/material';
-import {
-  Search,
-  Clear,
-  Delete,
-  Sort,
-} from '@mui/icons-material';
-import { MainLayout } from '@/components/layout/index.js';
-import { PokemonCard } from '../components/PokemonCard.jsx';
-import { useFavorites } from '../hooks/useFavorites.js';
+} from "@mui/material";
+import { Search, Clear, Delete, Sort } from "@mui/icons-material";
+import { MainLayout } from "@/components/layout/index.js";
+import { PokemonCard } from "../components/PokemonCard.jsx";
+import { useFavorites } from "../hooks/useFavorites.js";
+import { useTranslation } from "@features/i18n/hooks/useTranslation.js";
 
 /**
  * Componente FavoritesPage
  * Página que exibe todos os Pokémon favoritos do usuário
  */
 export const FavoritesPage = () => {
+  const { t } = useTranslation();
   const {
     favorites,
     favoritesCount,
@@ -41,15 +38,14 @@ export const FavoritesPage = () => {
     sortFavorites,
   } = useFavorites();
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState('name');
-  const [sortOrder, setSortOrder] = useState('asc');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState("name");
+  const [sortOrder, setSortOrder] = useState("asc");
   const [clearDialogOpen, setClearDialogOpen] = useState(false);
 
-  // Aplica filtros e ordenação
   const filteredFavorites = searchFavorites(searchQuery);
-  const sortedFavorites = sortFavorites(sortBy, sortOrder).filter(pokemon =>
-    pokemon.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const sortedFavorites = sortFavorites(sortBy, sortOrder).filter((pokemon) =>
+    pokemon.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const handleSearchChange = (e) => {
@@ -57,15 +53,15 @@ export const FavoritesPage = () => {
   };
 
   const handleClearSearch = () => {
-    setSearchQuery('');
+    setSearchQuery("");
   };
 
   const handleSortChange = (field) => {
     if (sortBy === field) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
     } else {
       setSortBy(field);
-      setSortOrder('asc');
+      setSortOrder("asc");
     }
   };
 
@@ -83,17 +79,16 @@ export const FavoritesPage = () => {
   };
 
   return (
-    <MainLayout title="Favoritos">
+    <MainLayout title={t("favorites.title")}>
       <Container maxWidth="xl">
         <Box sx={{ mb: 4 }}>
           <Typography variant="h4" component="h1" gutterBottom>
-            Meus Pokémon Favoritos
+            {t("favorites.pageTitle")}
           </Typography>
           <Typography variant="body1" color="text.secondary">
             {favoritesCount === 0
-              ? 'Você ainda não tem nenhum Pokémon favorito.'
-              : `Você tem ${favoritesCount} Pokémon ${favoritesCount === 1 ? 'favorito' : 'favoritos'}.`
-            }
+              ? t("favorites.empty.message")
+              : t("favorites.empty.count", { count: favoritesCount })}
           </Typography>
         </Box>
 
@@ -107,25 +102,28 @@ export const FavoritesPage = () => {
                   <Paper
                     component="form"
                     sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      p: '2px 4px',
-                      border: '1px solid',
-                      borderColor: 'divider',
+                      display: "flex",
+                      alignItems: "center",
+                      p: "2px 4px",
+                      border: "1px solid",
+                      borderColor: "divider",
                     }}
                     onSubmit={(e) => e.preventDefault()}
                   >
-                    <IconButton sx={{ p: '10px' }} aria-label="search">
+                    <IconButton sx={{ p: "10px" }} aria-label="search">
                       <Search />
                     </IconButton>
                     <InputBase
                       sx={{ ml: 1, flex: 1 }}
-                      placeholder="Buscar nos favoritos..."
+                      placeholder={t("favorites.search.placeholder")}
                       value={searchQuery}
                       onChange={handleSearchChange}
                     />
                     {searchQuery && (
-                      <IconButton sx={{ p: '10px' }} onClick={handleClearSearch}>
+                      <IconButton
+                        sx={{ p: "10px" }}
+                        onClick={handleClearSearch}
+                      >
                         <Clear />
                       </IconButton>
                     )}
@@ -135,15 +133,19 @@ export const FavoritesPage = () => {
                 {/* Ordenação */}
                 <Grid item xs={12} md={3}>
                   <FormControl fullWidth size="small">
-                    <InputLabel>Ordenar por</InputLabel>
+                    <InputLabel>{t("favorites.sort.label")}</InputLabel>
                     <Select
                       value={sortBy}
-                      label="Ordenar por"
+                      label={t("favorites.sort.label")}
                       onChange={(e) => setSortBy(e.target.value)}
                     >
-                      <MenuItem value="name">Nome</MenuItem>
-                      <MenuItem value="id">Número</MenuItem>
-                      <MenuItem value="type">Tipo</MenuItem>
+                      <MenuItem value="name">
+                        {t("favorites.sort.name")}
+                      </MenuItem>
+                      <MenuItem value="id">{t("favorites.sort.id")}</MenuItem>
+                      <MenuItem value="type">
+                        {t("favorites.sort.type")}
+                      </MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
@@ -155,7 +157,9 @@ export const FavoritesPage = () => {
                     onClick={() => handleSortChange(sortBy)}
                     fullWidth
                   >
-                    {sortOrder === 'asc' ? 'A-Z' : 'Z-A'}
+                    {sortOrder === "asc"
+                      ? t("favorites.sort.asc")
+                      : t("favorites.sort.desc")}
                   </Button>
                 </Grid>
 
@@ -168,7 +172,7 @@ export const FavoritesPage = () => {
                     onClick={handleOpenClearDialog}
                     fullWidth
                   >
-                    Limpar
+                    {t("favorites.actions.clear")}
                   </Button>
                 </Grid>
               </Grid>
@@ -177,7 +181,7 @@ export const FavoritesPage = () => {
             {/* Lista de favoritos */}
             {sortedFavorites.length === 0 ? (
               <Alert severity="info" sx={{ mt: 2 }}>
-                Nenhum favorito encontrado com os filtros aplicados.
+                {t("favorites.search.noResults")}
               </Alert>
             ) : (
               <Grid container spacing={3}>
@@ -192,15 +196,15 @@ export const FavoritesPage = () => {
         )}
 
         {favoritesCount === 0 && (
-          <Box sx={{ textAlign: 'center', mt: 8 }}>
+          <Box sx={{ textAlign: "center", mt: 8 }}>
             <Typography variant="h6" gutterBottom>
-              🤔 Nenhum favorito ainda
+              {t("favorites.empty.title")}
             </Typography>
             <Typography variant="body1" color="text.secondary" paragraph>
-              Explore a Pokédex e adicione seus Pokémon favoritos clicando no ícone de coração!
+              {t("favorites.empty.description")}
             </Typography>
             <Button variant="contained" href="/pokemon">
-              Explorar Pokémon
+              {t("favorites.empty.button")}
             </Button>
           </Box>
         )}
@@ -212,23 +216,24 @@ export const FavoritesPage = () => {
           aria-labelledby="clear-favorites-dialog-title"
         >
           <DialogTitle id="clear-favorites-dialog-title">
-            Limpar todos os favoritos?
+            {t("favorites.dialog.title")}
           </DialogTitle>
           <DialogContent>
             <Typography>
-              Esta ação removerá todos os {favoritesCount} Pokémon dos seus favoritos.
-              Esta ação não pode ser desfeita.
+              {t("favorites.dialog.description", { count: favoritesCount })}
             </Typography>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseClearDialog}>Cancelar</Button>
+            <Button onClick={handleCloseClearDialog}>
+              {t("favorites.dialog.cancel")}
+            </Button>
             <Button
               onClick={handleClearAllFavorites}
               color="error"
               variant="contained"
               autoFocus
             >
-              Sim, limpar todos
+              {t("favorites.dialog.confirm")}
             </Button>
           </DialogActions>
         </Dialog>
